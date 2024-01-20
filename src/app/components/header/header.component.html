@@ -1,0 +1,110 @@
+<!-- Start Navbar Area -->
+<div class="navbar-area style-one" id="navbar">
+    <div class="header-top md-none">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <ul class="contact-info list-style">
+                        <li>
+                            <p><i class="flaticon-mail"></i>{{headerData?.email}}</p>
+                        </li>
+                        <li><i class="flaticon-pin"></i>{{headerData?.address}}</li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <ul class="contact-info text-lg-end list-style">
+                        <li><i class="flaticon-clock"></i>{{headerData?.schedule}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg">
+            <a class="navbar-brand" routerLink="home">
+                <img class="logo-light" src="assets/img/logo.webp" alt="logo">
+                <!-- <img class="logo-dark" src="assets/img/logo-white.webp" alt="logo"> -->
+            </a>
+            <div class="other-option d-flex align-items-center justify-content-end d-lg-none">
+                <!-- <button type="button" class="search-btn d-lg-none" data-bs-toggle="modal"
+                    data-bs-target="#searchModal">
+                    <i class="flaticon-search"></i>
+                </button> -->
+                <div class="option-item">
+                    <a href="book-appointment.html" class="book-appointment">
+                        <span class=" blink">Appointment</span>
+                    </a>
+                </div>
+                <a class="navbar-toggler" data-bs-toggle="offcanvas" href="#navbarOffcanvas" role="button"
+                    aria-controls="navbarOffcanvas">
+                    <span class="burger-menu">
+                        <span class="top-bar"></span>
+                        <span class="middle-bar"></span>
+                        <span class="bottom-bar"></span>
+                    </span>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a routerLink="about-us" class="dropdown-toggle nav-link">
+                            About Us
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="dropdown-toggle nav-link">
+                            Dentists
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a href="dentists.html" class="nav-link">
+                                    All Dentists
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="dentist-details.html" class="nav-link">
+                                    Dentist Details
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="services" class="dropdown-toggle nav-link">
+                            Services
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a routerLink="blog" class="dropdown-toggle nav-link">
+                            Blog
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="shop" class="nav-link">
+                            Shop
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="contact-us" class="nav-link">
+                            Contact Us
+                        </a>
+                    </li>
+                </ul>
+                <div class="others-option d-flex align-items-center">
+                    <div class="option-item">
+                        <a href="book-appointment.html" class="book-appointment">
+                            <span class=" blink">Book Appointment</span>
+                        </a>
+                    </div>
+                    <div class="option-item">
+                        <a class="sidebar-toggler" data-bs-toggle="offcanvas" href="#navbarOffcanvas" role="button"
+                            aria-controls="navbarOffcanvas">
+                            <i class="flaticon-list"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+<!-- End Navbar Area -->
