@@ -1,5 +1,5 @@
-  <!-- Hero Section Start -->
-  <div class="hero-wrap style-one">
+<!-- Hero Section Start -->
+<div class="hero-wrap style-one">
     <img src="assets/img/hero/hero-shape-1.webp" alt="Image" class="hero-shape-one">
     <img src="assets/img/hero/hero-shape-2.webp" alt="Image" class="hero-shape-two">
     <img src="assets/img/hero/hero-shape-3.webp" alt="Image" class="hero-shape-three moveHorizontal md-none">
@@ -9,9 +9,9 @@
         <div class="row align-items-center gx-5">
             <div class="col-xl-7 col-lg-6">
                 <div class="hero-content">
-                    <span><img src="assets/img/section-shape.svg" alt="Image">Dental Care For Everyone</span>
-                    <h1>An Attractive Smile Makes A Lasting <span>Impression!</span><img
-                            src="assets/img/section-shape-2.webp" alt="Image"></h1>
+                    <span><img src="assets/img/section-shape.svg" alt="Image">{{heroSectionData?.title}}</span>
+                    <h1>{{heroSectionData?.subtitle | removeLastWord}} <span>{{heroSectionData?.subtitle |
+                            lastWord}}</span><img src="assets/img/section-shape-2.webp" alt="Image"></h1>
                 </div>
             </div>
             <div class="col-xl-5 col-lg-6">
@@ -19,13 +19,13 @@
                     <div class="hero-promo-box">
                         <span><img src="assets/img/hero/promo-img.webp" alt="Image"></span>
                         <div class="hero-promo-text">
-                            <h5>Professional Clinic</h5>
+                            <h5>{{heroSectionData?.rating_text}}</h5>
                             <div class="ratings">
                                 <i class="ri-star-fill"></i><span>4.9</span>( 7.8k Review)
                             </div>
                         </div>
                     </div>
-                    <img src="assets/img/hero/hero-img-1.webp" alt="Image" class="hero-img">
+                    <img [src]="imageUrl+heroSectionData?.image" alt="Image" class="hero-img">
                 </div>
             </div>
         </div>
@@ -37,20 +37,17 @@
             <div class="contact-item">
                 <i class="flaticon-mail"></i>
                 <h6>Contact Us</h6>
-                <p>+880172-6187603</p>
-                <p>reyadasraf07&#64;gmail.com</p>
+                <div [innerHTML]="heroFormTextData?.contact_us"></div>
             </div>
             <div class="contact-item">
                 <i class="flaticon-pin"></i>
                 <h6>Location</h6>
-                <p>Insaf Baraka kidney And General Hospital, Moghbazar, Dhaka</p>
-
+                <div [innerHTML]="heroFormTextData?.location"></div>
             </div>
             <div class="contact-item">
                 <i class="flaticon-clock"></i>
                 <h6>Opening Hours</h6>
-                <p>sat - thus: 10:00am to 10:00pm</p>
-                <p>Friday: 9:00 am to 12:pm</p>
+                <div [innerHTML]="heroFormTextData?.opening_hours"></div>
             </div>
         </div>
         <form action="#" class="hero-form">
@@ -74,3 +71,177 @@
     </div>
 </div>
 <!-- Hero Section End -->
+
+<!-- Feature Section Start -->
+
+<div class="container pt-100 pb-70">
+    <div class="row justify-content-center feature-card-wrap">
+        @for (feature of homeFeatures; track $index) {
+        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6">
+            <div class="feature-card">
+                <span><i [class]="feature?.icon_name"></i></span>
+                <h3>{{feature?.title}}</h3>
+                <p>{{feature?.description}}</p>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+<!-- Feature Section End -->
+
+<!-- About Section Start -->
+<app-who-we-are></app-who-we-are>
+<!-- About Section End -->
+
+<!-- Service Section Start -->
+<div class="service-wrap style-three bg_optional ptb-100">
+    <div class="container">
+        <img src="assets/img/services/service-shape-1.webp" alt="Image" class="service-shape moveHorizontal sm-none">
+        <div class="row">
+            <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+                <div class="content-title style-two text-center mb-40">
+                    <span>{{serviceSectionData?.title}}</span>
+                    <h2>{{serviceSectionData?.subtitle}}</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="service-card-wrapper style-three">
+            <div class="service-card-slider swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="service-card style-three">
+                            <span class="service-img">
+                                <img src="assets/img/services/service-1.webp" alt="Image">
+                            </span>
+                            <div class="service-info">
+                                <img src="assets/img/services/service-card-shape.webp" alt="Image"
+                                    class="service-card-shape">
+                                <span class="service-icon">
+                                    <i class="flaticon-tool"></i>
+                                </span>
+                                <h3><a href="./service-details.html">Teeth Cleaning</a></h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipi scing elit, sed do eiusmod tempor
+                                </p>
+                                <a href="./service-details.html" class="btn-three">Read More<i
+                                        class="flaticon-right-arrow"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="service-card style-three">
+                            <span class="service-img">
+                                <img src="assets/img/services/service-2.webp" alt="Image">
+                            </span>
+                            <div class="service-info">
+                                <img src="assets/img/services/service-card-shape.webp" alt="Image"
+                                    class="service-card-shape">
+                                <span class="service-icon">
+                                    <i class="flaticon-tool"></i>
+                                </span>
+                                <h3><a href="./service-details.html">Teeth Cleaning</a></h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipi scing elit, sed do eiusmod tempor
+                                </p>
+                                <a href="./service-details.html" class="btn-three">Read More<i
+                                        class="flaticon-right-arrow"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="service-card style-three">
+                            <span class="service-img">
+                                <img src="assets/img/services/service-3.webp" alt="Image">
+                            </span>
+                            <div class="service-info">
+                                <img src="assets/img/services/service-card-shape.webp" alt="Image"
+                                    class="service-card-shape">
+                                <span class="service-icon">
+                                    <i class="flaticon-tool"></i>
+                                </span>
+                                <h3><a href="./service-details.html">Teeth Cleaning</a></h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipi scing elit, sed do eiusmod tempor
+                                </p>
+                                <a href="./service-details.html" class="btn-three">Read More<i
+                                        class="flaticon-right-arrow"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="service-card style-three">
+                            <span class="service-img">
+                                <img src="assets/img/services/service-3.webp" alt="Image">
+                            </span>
+                            <div class="service-info">
+                                <img src="assets/img/services/service-card-shape.webp" alt="Image"
+                                    class="service-card-shape">
+                                <span class="service-icon">
+                                    <i class="flaticon-tool"></i>
+                                </span>
+                                <h3><a href="./service-details.html">Teeth Cleaning</a></h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipi scing elit, sed do eiusmod tempor
+                                </p>
+                                <a href="./service-details.html" class="btn-three">Read More<i
+                                        class="flaticon-right-arrow"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="service-card style-three">
+                            <span class="service-img">
+                                <img src="assets/img/services/service-3.webp" alt="Image">
+                            </span>
+                            <div class="service-info">
+                                <img src="assets/img/services/service-card-shape.webp" alt="Image"
+                                    class="service-card-shape">
+                                <span class="service-icon">
+                                    <i class="flaticon-tool"></i>
+                                </span>
+                                <h3><a href="./service-details.html">Teeth Cleaning</a></h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipi scing elit, sed do eiusmod tempor
+                                </p>
+                                <a href="./service-details.html" class="btn-three">Read More<i
+                                        class="flaticon-right-arrow"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="service-card style-three">
+                            <span class="service-img">
+                                <img src="assets/img/services/service-3.webp" alt="Image">
+                            </span>
+                            <div class="service-info">
+                                <img src="assets/img/services/service-card-shape.webp" alt="Image"
+                                    class="service-card-shape">
+                                <span class="service-icon">
+                                    <i class="flaticon-tool"></i>
+                                </span>
+                                <h3><a href="./service-details.html">Teeth Cleaning</a></h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipi scing elit, sed do eiusmod tempor
+                                </p>
+                                <a href="./service-details.html" class="btn-three">Read More<i
+                                        class="flaticon-right-arrow"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-pagination"></div>
+            </div>
+            <div class="testimonial-slider-btn slider-btn">
+                <div class="service-card-prev prev-btn"><img src="assets/img/left-arrow.svg" alt="Image"></div>
+                <div class="service-card-next next-btn"><img src="assets/img/right-arrow.svg" alt="Image"></div>
+            </div>
+        </div> -->
+        <p class="section-subtitle mt-20 d-block w-100 text-center">{{serviceSectionData?.front_link_text}} <a
+                routerLink="/services" class="link-one">{{serviceSectionData?.link_text}}</a></p>
+
+    </div>
+</div>
+<!-- Service Section End -->
+
+<!-- Why Choose Us Section Start -->
+<app-why-choose-us></app-why-choose-us>
+<!-- Why Choose Us Section End -->
+
+<!-- Appointment Section Start -->
+<app-appointment-section></app-appointment-section>
+<!-- Appointment Section End -->

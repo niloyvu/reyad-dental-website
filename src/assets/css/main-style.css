@@ -1,4 +1,4 @@
-/*-----------------------------------------------------------
+/* -----------------------------------------------------------
     Theme Name: Dolt
     Theme URI: 
     Description: Dolt - Medical Health & Dental Care HTML Template
@@ -21,49 +21,27 @@
 ----------------------------------*/
 @import url("https://fonts.googleapis.com/css2?family=Archivo:wght@200;300;400;500;600;700;800;900&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap");
 
-$fontArchivio: "Archivo", sans-serif;
-$fontManrope: "Manrope", sans-serif;
-$primaryColor: #3267FF;
-$secondaryColor: #FE5912;
-$optionalColor: #F1F8FF;
-$titleColor: #000A2D;
-$paraColor: #555555;
-$bgColor: #F7F7F7;
-$bgColorTwo: #F6F1EC;
-$grayColor: #FAF7F7;
-$ashColor: #FAF7F7;
-$darkColor: #060815;
-$whiteColor: #ffffff;
-$offwhiteColor: #CCCCCC;
-$footerColor: #000A2D;
-$yellowColor: #FFCB36;
-$fontSize: 16px;
-$transition: all ease .5s;
-$transitionTwo: all ease .9s;
-
 :root {
-  --bodyFont: #{$fontArchivio};
-  --secondaryFont: #{$fontManrope};
-  --primaryColor: #{$primaryColor};
-  --secondaryColor: #{$secondaryColor};
-  --optionalColor: #{$optionalColor};
-  --titleColor: #{$titleColor};
-  --paraColor: #{$paraColor};
-  --bgColor: #{$bgColor};
-  --bgColorTwo: #{$bgColorTwo};
-  --grayColor: #{$grayColor};
-  --ashColor: #{$ashColor};
-  --darkColor: #{$darkColor};
-  --whiteColor: #{$whiteColor};
-  --offwhiteColor: #{$offwhiteColor};
-  --footerColor: #{$footerColor};
-  --yellowColor: #{$yellowColor};
-  --fontSize: #{$fontSize};
-  --transition: #{$transition};
-  --transitionTwo: #{$transitionTwo};
+  --bodyFont: "Archivo", sans-serif;
+  --secondaryFont: "Manrope", sans-serif;
+  --primaryColor: #3267FF;
+  --secondaryColor: #FE5912;
+  --optionalColor: #F1F8FF;
+  --titleColor: #000A2D;
+  --paraColor: #555555;
+  --bgColor: #F7F7F7;
+  --bgColorTwo: #F6F1EC;
+  --grayColor: #FAF7F7;
+  --ashColor: #FAF7F7;
+  --darkColor: #060815;
+  --whiteColor: #ffffff;
+  --offwhiteColor: #CCCCCC;
+  --footerColor: #000A2D;
+  --yellowColor: #FFCB36;
+  --fontSize: 16px;
+  --transition: all ease .5s;
+  --transitionTwo: all ease .9s;
 }
-
-
 
 /*---------------------------------
             General Styles 

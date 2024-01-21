@@ -1,7 +1,7 @@
 import { RouterLink } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { DataService } from '../../services/data.service';
 import { Component, OnInit, inject } from '@angular/core';
+
 
 @Component({
   selector: 'app-header',
@@ -14,20 +14,20 @@ import { Component, OnInit, inject } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  httpClient = inject(HttpClient);
   dataService = inject(DataService);
   headerData: any = [];
 
   ngOnInit() {
-    this.fetchData();
+    this.getHeaderSectionData();
   }
 
-  fetchData() {
-    this.dataService.getHeaderSectionData()
+  getHeaderSectionData() {
+    this.dataService.headerSection()
       .subscribe(({ data }) => {
         this.headerData = data;
-        console.log("🚀 ~ HeaderComponent ~ .subscribe ~ this.data:", this.headerData)
       })
   }
+
+
 }
 

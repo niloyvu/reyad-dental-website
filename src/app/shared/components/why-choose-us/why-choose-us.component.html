@@ -1,0 +1,61 @@
+<div class="wh-wrap style-two ptb-100">
+    <img src="assets/img/about/wh-shape-5.webp" alt="Image" class="wh-shape-one">
+    <div class="container">
+        <img src="assets/img/about/wh-shape-3.webp" alt="Image" class="wh-shape-two bounce">
+        <div class="row gx-5 align-items-center">
+            <div class="col-lg-6">
+                <div class="wh-content">
+                    <div class="content-title style-two">
+                        <span>{{whyChooseUsData?.title}}</span>
+                        <h2>{{whyChooseUsData?.subtitle}}</h2>
+                        <p>{{whyChooseUsData?.description}}</p>
+                    </div>
+                    <div class="progressbar-wrap">
+                        <div class="progressbar-wrap">
+                            @for (progressBar of whyChooseUsData?.progress_bars; track $index) {
+                            <div class="progress-item">
+                                <div class="progress-title">
+                                    <p>{{progressBar?.title}}</p>
+                                    <span class="percent">{{progressBar?.percentage}}%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar"
+                                        [attr.aria-valuenow]="progressBar?.percentage" aria-valuemin="0"
+                                        aria-valuemax="100" [style.max-width.%]="progressBar?.percentage">
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="wh-img-wrap">
+                    <img src="assets/img/about/wh-img-2.webp" alt="Image" class="wh-img">
+                    <div class="circle-wrap">
+                        <i class="flaticon-tooth-2"></i>
+                        <div class="circle-text">
+                            <svg class="rotate" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%"
+                                viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
+                                <defs>
+                                    <path id="circlePath_one"
+                                        d=" M 150, 150 m -60, 0 a 60,60 0 0,1 120,0 a 60,60 0 0,1 -120,0 " />
+                                </defs>
+                                <circle cx="150" cy="150" r="75" fill="none" />
+                                <g>
+                                    <use xlink:href="#circlePath_one" fill="none" />
+                                    <text fill="#000A2D">
+                                        <textPath xlink:href="#circlePath_one"> {{whyChooseUsData?.circle_text}}
+                                        </textPath>
+                                    </text>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
