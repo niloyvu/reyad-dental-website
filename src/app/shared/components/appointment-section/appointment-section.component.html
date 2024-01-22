@@ -6,8 +6,10 @@
             <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
                 <div class="section-title style-one text-center">
                     <span><img src="assets/img/section-shape.svg" alt="Image">{{appointmentSectionData?.title}}</span>
-                    <h2 class="text-white">{{appointmentSectionData?.subtitle | removeLastWord}} <span>{{appointmentSectionData?.subtitle | lastWord}}</span><img
-                            src="assets/img/section-shape-2.webp" alt="Image"></h2>
+                    <h2 class="text-white">{{appointmentSectionData?.subtitle | removeLastWord}}
+                        <span>{{appointmentSectionData?.subtitle | lastWord}}</span><img
+                            src="assets/img/section-shape-2.webp" alt="Image">
+                    </h2>
                 </div>
                 <a class="play-now" href="#quickview-modal" data-bs-toggle="modal"><i class="ri-play-fill"></i>
                     <span class="ripple"></span>
@@ -19,7 +21,9 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="appointment-form">
-                        <h3>{{appointmentSectionData?.form_heading | removeLastWord}} <span>{{appointmentSectionData?.button_text | lastWord}}.</span><img src="assets/img/section-shape-2.webp" alt="Image">
+                        <h3>{{appointmentSectionData?.form_heading | removeLastWord}}
+                            <span>{{appointmentSectionData?.button_text | lastWord}}.</span><img
+                                src="assets/img/section-shape-2.webp" alt="Image">
                         </h3>
                         <form action="#">
                             <div class="row">
@@ -83,7 +87,8 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button class="btn-two border-0" type="submit">{{appointmentSectionData?.button_text}}</button>
+                                    <button class="btn-two border-0"
+                                        type="submit">{{appointmentSectionData?.button_text}}</button>
                                 </div>
                             </div>
                         </form>
@@ -102,3 +107,26 @@
         </div>
     </div>
 </div>
+
+
+<!-- Counter Section start -->
+<div class="counter-wrap style-one pt-100 pb-75">
+    <img src="assets/img/counter-shape.webp" alt="Image" class="counter-shape">
+    <div class="container">
+        <div class="counter-card-wrap">
+            @for (counter of counterSectionData; track $index) {
+            <div class="counter-card">
+                <span class="counter-icon">
+                    <i [class]="counter?.icon_name"></i>
+                </span>
+                <div class="counter-text">
+                    <span class="counter">{{counter?.value}}</span>
+                    <p>{{counter?.text}}</p>
+                </div>
+            </div>
+            }
+
+        </div>
+    </div>
+</div>
+<!-- Counter Section End -->

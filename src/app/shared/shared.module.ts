@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { LastWordPipe } from './pipes/last-word.pipe';
+import { TruncatePipe } from './pipes/truncate.pipe';
+import { CommonModule, DatePipe } from '@angular/common';
 import { RemoveLastWordPipe } from './pipes/remove-last-word.pipe';
 import { WhoWeAreComponent } from './components/who-we-are/who-we-are.component';
+import { NewsletterComponent } from './components/newsletter/newsletter.component';
+import { TestimonialComponent } from './components/testimonial/testimonial.component';
 import { WhyChooseUsComponent } from './components/why-choose-us/why-choose-us.component';
 import { AppointmentSectionComponent } from './components/appointment-section/appointment-section.component';
 
@@ -11,20 +14,28 @@ import { AppointmentSectionComponent } from './components/appointment-section/ap
   declarations: [
     WhoWeAreComponent,
     WhyChooseUsComponent,
-    AppointmentSectionComponent
+    TestimonialComponent,
+    NewsletterComponent,
+    AppointmentSectionComponent,
   ],
   imports: [
+    DatePipe,
     RouterLink,
     CommonModule,
     LastWordPipe,
+    TruncatePipe,
     RemoveLastWordPipe,
   ],
   exports: [
+    DatePipe,
     RouterLink,
+    TruncatePipe,
     LastWordPipe,
-    RemoveLastWordPipe,
     WhoWeAreComponent,
+    RemoveLastWordPipe,
     WhyChooseUsComponent,
+    NewsletterComponent,
+    TestimonialComponent,
     AppointmentSectionComponent
   ]
 })

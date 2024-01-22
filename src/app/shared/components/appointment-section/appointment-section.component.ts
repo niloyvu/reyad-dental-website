@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { environment } from '../../../../environments/environment';
 import { DataService } from '../../../services/data.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-appointment-section',
@@ -10,20 +10,32 @@ import { DataService } from '../../../services/data.service';
 export class AppointmentSectionComponent implements OnInit {
 
   appointmentSectionData: any;
+  counterSectionData: any;
   imageUrl = environment.IMAGE_URL;
 
   dataService = inject(DataService);
 
   ngOnInit(): void {
+    this.getCounterSection();
     this.getAppointmentSectionData();
   }
 
   getAppointmentSectionData() {
-    this.dataService.appointmentSection()
+    this.dataService.getData('appointment-section')
       .subscribe({
         next: ({ data }) => {
           this.appointmentSectionData = data;
-          console.log("🚀 ~ WhoWeAreComponent ~ getWhoAreData ~ this.appointmentSectionData:", this.appointmentSectionData)
+        },
+        error: error => {
+          console.error(error);
+        }
+      })
+  }
+  getCounterSection() {
+    this.dataService.getData('counter-section')
+      .subscribe({
+        next: ({ data }) => {
+          this.counterSectionData = data;
         },
         error: error => {
           console.error(error);

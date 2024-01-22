@@ -1,7 +1,7 @@
-import { SharedModule } from './../../shared/shared.module';
 import { Component, OnInit, inject } from '@angular/core';
-import { environment } from '../../../environments/environment';
 import { DataService } from '../../services/data.service';
+import { SharedModule } from './../../shared/shared.module';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -12,23 +12,30 @@ import { DataService } from '../../services/data.service';
 })
 export class HomeComponent implements OnInit {
 
-  imageUrl = environment.IMAGE_URL;
+  featureBlogs: any;
   heroSectionData: any;
-  serviceSectionData: any;
+  teamSectionData: any;
+  blogSectionData: any;
   heroFormTextData: any;
+  serviceSectionData: any;
+
   homeFeatures: any[] = []
+  imageUrl = environment.IMAGE_URL;
 
   dataService = inject(DataService);
 
   ngOnInit() {
-    this.getHeroSectionData();
+    this.getFeatureBlogs();
     this.getHeroFormData();
     this.getFeaturesData();
+    this.getBlogSectionData();
+    this.getHeroSectionData();
+    this.getTeamSectionData();
     this.getServiceSectionData();
   }
 
   getHeroSectionData() {
-    this.dataService.heroSection()
+    this.dataService.getData('hero-section')
       .subscribe({
         next: ({ data }) => {
           this.heroSectionData = data;
@@ -40,7 +47,7 @@ export class HomeComponent implements OnInit {
   }
 
   getHeroFormData() {
-    this.dataService.heroFormText()
+    this.dataService.getData('hero-form-text')
       .subscribe({
         next: ({ data }) => {
           this.heroFormTextData = data;
@@ -53,7 +60,7 @@ export class HomeComponent implements OnInit {
   }
 
   getFeaturesData() {
-    this.dataService.homeFeatures()
+    this.dataService.getData('feature-cards')
       .subscribe({
         next: ({ data }) => {
           this.homeFeatures = data;
@@ -65,11 +72,32 @@ export class HomeComponent implements OnInit {
   }
 
   getServiceSectionData() {
-    this.dataService.dentalServices()
+    this.dataService.getData('service-section')
       .subscribe({
         next: ({ data }) => {
           this.serviceSectionData = data;
-          console.log("🚀 ~ HomeComponent ~ getFeaturesData ~ this.homeFeatures:", this.serviceSectionData)
+        },
+        error: error => {
+          console.error(error);
+        }
+      })
+  }
+  getTeamSectionData() {
+    this.dataService.getData('team-section')
+      .subscribe({
+        next: ({ data }) => {
+          this.teamSectionData = data;
+        },
+        error: error => {
+          console.error(error);
+        }
+      })
+  }
+  getBlogSectionData() {
+    this.dataService.getData('blog-section')
+      .subscribe({
+        next: ({ data }) => {
+          this.blogSectionData = data;
         },
         error: error => {
           console.error(error);
@@ -77,4 +105,15 @@ export class HomeComponent implements OnInit {
       })
   }
 
+  getFeatureBlogs() {
+    this.dataService.getData('feature-blogs')
+      .subscribe({
+        next: ({ data }) => {
+          this.featureBlogs = data;
+        },
+        error: error => {
+          console.error(error);
+        }
+      })
+  }
 }

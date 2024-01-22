@@ -1,0 +1,26 @@
+<!-- Newsletter Start -->
+<div class="newsletter-wrap style-one">
+    <div class="container">
+        <div class="newsletter-box ptb-100">
+            <img src="assets/img/newsletter-shape-1.webp" alt="Image" class="newsletter-shape">
+            <div class="row">
+                <div class="col-xl-7 offset-xl-5 col-lg-8 offset-lg-4">
+                    <div class="newsletter-content">
+                        <div class="content-title style-one">
+                            <span><img src="assets/img/section-shape.svg"
+                                    alt="Image">{{newsletterSectionData?.title}}</span>
+                            <h2 class="text-white">{{newsletterSectionData?.subtitle}}<img
+                                    src="assets/img/section-shape-3.webp" alt="Image"></h2>
+                        </div>
+                        <form action="#">
+                            <input type="email" [placeholder]="newsletterSectionData?.placeholder">
+                            <button type="submit">{{newsletterSectionData?.button_text}}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <img class="newsletter-img" [src]="imageUrl+newsletterSectionData?.image" alt="Image">
+        </div>
+    </div>
+</div>
+<!-- Newsletter End -->

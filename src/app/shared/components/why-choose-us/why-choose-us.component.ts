@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { environment } from '../../../../environments/environment';
 import { DataService } from '../../../services/data.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-why-choose-us',
@@ -18,13 +18,12 @@ export class WhyChooseUsComponent implements OnInit {
   ngOnInit(): void {
     this.getWhyChooseUsData();
   }
-  
+
   getWhyChooseUsData() {
-    this.dataService.whyChooseUsSection()
+    this.dataService.getData('why-choose-us')
       .subscribe({
         next: ({ data }) => {
           this.whyChooseUsData = data;
-          console.log("🚀 ~ WhoWeAreComponent ~ getWhoAreData ~ this.whyChooseUsData:", this.whyChooseUsData)
         },
         error: error => {
           console.error(error);

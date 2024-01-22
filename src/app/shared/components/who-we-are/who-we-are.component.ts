@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { environment } from '../../../../environments/environment';
 import { DataService } from '../../../services/data.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-who-we-are',
@@ -20,11 +20,10 @@ export class WhoWeAreComponent implements OnInit {
   }
   
   getWhoAreData() {
-    this.dataService.whoWeAre()
+    this.dataService.getData('who-we-are')
       .subscribe({
         next: ({ data }) => {
           this.whoWeAreData = data;
-          console.log("🚀 ~ WhoWeAreComponent ~ getWhoAreData ~ this.whoWeAreData:", this.whoWeAreData)
         },
         error: error => {
           console.error(error);

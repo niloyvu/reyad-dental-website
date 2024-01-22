@@ -1,6 +1,7 @@
 import { RouterLink } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { Component, OnInit, inject } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -15,6 +16,8 @@ import { Component, OnInit, inject } from '@angular/core';
 export class HeaderComponent implements OnInit {
 
   dataService = inject(DataService);
+  imageUrl = environment.IMAGE_URL;
+
   headerData: any = [];
 
   ngOnInit() {
@@ -22,9 +25,14 @@ export class HeaderComponent implements OnInit {
   }
 
   getHeaderSectionData() {
-    this.dataService.headerSection()
-      .subscribe(({ data }) => {
-        this.headerData = data;
+    this.dataService.getData('navbar-section')
+      .subscribe({
+        next: ({ data }) => {
+          this.headerData = data;
+        },
+        error: error => {
+          console.error(error);
+        }
       })
   }
 
