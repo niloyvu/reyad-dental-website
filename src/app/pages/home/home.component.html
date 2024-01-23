@@ -72,6 +72,7 @@
 </div>
 <!-- Hero Section End -->
 
+
 <!-- Feature Section Start -->
 
 <div class="container pt-100 pb-70">
@@ -106,136 +107,54 @@
             </div>
         </div>
 
-        <!-- <div class="service-card-wrapper style-three">
-            <div class="service-card-slider swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="service-card style-three">
-                            <span class="service-img">
-                                <img src="assets/img/services/service-1.webp" alt="Image">
-                            </span>
-                            <div class="service-info">
-                                <img src="assets/img/services/service-card-shape.webp" alt="Image"
-                                    class="service-card-shape">
-                                <span class="service-icon">
-                                    <i class="flaticon-tool"></i>
-                                </span>
-                                <h3><a href="./service-details.html">Teeth Cleaning</a></h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipi scing elit, sed do eiusmod tempor
-                                </p>
-                                <a href="./service-details.html" class="btn-three">Read More<i
-                                        class="flaticon-right-arrow"></i></a>
+        <div class="service-card-wrapper style-three">
+
+            <div class="service-card-slider">
+                <div class="">
+
+                    <swiper-container appSwiper #swiper [config]="swiperConfig" thumbs-swiper=".swiper"
+                        (slidechange)="slideChange($event)">
+                        @for (item of contents; track $index) {
+                        <swiper-slide>
+                            <div class="swiper-slide">
+                                <div class="service-card style-three">
+                                    <span class="service-img">
+                                        <img src="assets/img/services/service-3.webp" alt="Image">
+                                    </span>
+                                    <div class="service-info">
+                                        <img src="assets/img/services/service-card-shape.webp" alt="Image"
+                                            class="service-card-shape">
+                                        <span class="service-icon">
+                                            <i class="flaticon-tool"></i>
+                                        </span>
+                                        <h3><a href="./service-details.html">Teeth Cleaning</a></h3>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipi scing elit, sed do eiusmod
+                                            tempor
+                                        </p>
+                                        <a href="./service-details.html" class="btn-three">Read More<i
+                                                class="flaticon-right-arrow"></i></a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="service-card style-three">
-                            <span class="service-img">
-                                <img src="assets/img/services/service-2.webp" alt="Image">
-                            </span>
-                            <div class="service-info">
-                                <img src="assets/img/services/service-card-shape.webp" alt="Image"
-                                    class="service-card-shape">
-                                <span class="service-icon">
-                                    <i class="flaticon-tool"></i>
-                                </span>
-                                <h3><a href="./service-details.html">Teeth Cleaning</a></h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipi scing elit, sed do eiusmod tempor
-                                </p>
-                                <a href="./service-details.html" class="btn-three">Read More<i
-                                        class="flaticon-right-arrow"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="service-card style-three">
-                            <span class="service-img">
-                                <img src="assets/img/services/service-3.webp" alt="Image">
-                            </span>
-                            <div class="service-info">
-                                <img src="assets/img/services/service-card-shape.webp" alt="Image"
-                                    class="service-card-shape">
-                                <span class="service-icon">
-                                    <i class="flaticon-tool"></i>
-                                </span>
-                                <h3><a href="./service-details.html">Teeth Cleaning</a></h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipi scing elit, sed do eiusmod tempor
-                                </p>
-                                <a href="./service-details.html" class="btn-three">Read More<i
-                                        class="flaticon-right-arrow"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="service-card style-three">
-                            <span class="service-img">
-                                <img src="assets/img/services/service-3.webp" alt="Image">
-                            </span>
-                            <div class="service-info">
-                                <img src="assets/img/services/service-card-shape.webp" alt="Image"
-                                    class="service-card-shape">
-                                <span class="service-icon">
-                                    <i class="flaticon-tool"></i>
-                                </span>
-                                <h3><a href="./service-details.html">Teeth Cleaning</a></h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipi scing elit, sed do eiusmod tempor
-                                </p>
-                                <a href="./service-details.html" class="btn-three">Read More<i
-                                        class="flaticon-right-arrow"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="service-card style-three">
-                            <span class="service-img">
-                                <img src="assets/img/services/service-3.webp" alt="Image">
-                            </span>
-                            <div class="service-info">
-                                <img src="assets/img/services/service-card-shape.webp" alt="Image"
-                                    class="service-card-shape">
-                                <span class="service-icon">
-                                    <i class="flaticon-tool"></i>
-                                </span>
-                                <h3><a href="./service-details.html">Teeth Cleaning</a></h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipi scing elit, sed do eiusmod tempor
-                                </p>
-                                <a href="./service-details.html" class="btn-three">Read More<i
-                                        class="flaticon-right-arrow"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="service-card style-three">
-                            <span class="service-img">
-                                <img src="assets/img/services/service-3.webp" alt="Image">
-                            </span>
-                            <div class="service-info">
-                                <img src="assets/img/services/service-card-shape.webp" alt="Image"
-                                    class="service-card-shape">
-                                <span class="service-icon">
-                                    <i class="flaticon-tool"></i>
-                                </span>
-                                <h3><a href="./service-details.html">Teeth Cleaning</a></h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipi scing elit, sed do eiusmod tempor
-                                </p>
-                                <a href="./service-details.html" class="btn-three">Read More<i
-                                        class="flaticon-right-arrow"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                        </swiper-slide>
+                        }
+
+                    </swiper-container>
                 </div>
                 <div class="testimonial-pagination"></div>
             </div>
+
             <div class="testimonial-slider-btn slider-btn">
                 <div class="service-card-prev prev-btn"><img src="assets/img/left-arrow.svg" alt="Image"></div>
                 <div class="service-card-next next-btn"><img src="assets/img/right-arrow.svg" alt="Image"></div>
             </div>
-        </div> -->
+        </div>
         <p class="section-subtitle mt-20 d-block w-100 text-center">{{serviceSectionData?.front_link_text}} <a
                 routerLink="/services" class="link-one">{{serviceSectionData?.link_text}}</a></p>
 
     </div>
 </div>
+
 <!-- Service Section End -->
 
 <!-- Why Choose Us Section Start -->
