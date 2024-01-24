@@ -11,7 +11,7 @@
                             src="assets/img/section-shape-2.webp" alt="Image">
                     </h2>
                 </div>
-                <a class="play-now" href="#quickview-modal" data-bs-toggle="modal"><i class="ri-play-fill"></i>
+                <a class="play-now" (click)="onClickOpenVideoModal()"><i class="ri-play-fill"></i>
                     <span class="ripple"></span>
                 </a>
             </div>
@@ -97,10 +97,11 @@
                 <div class="col-lg-6">
                     <div class="before-after-container">
                         <figure>
-                            <div id="before_after"></div>
+                            <div id="before_after" [style.width.%]="sliderValue"></div>
                         </figure>
-                        <input oninput="callBeforeAfter()" onchange="callBeforeAfter()" type="range" min="0" max="100"
-                            value="50" id="before_after_slider">
+                        <input type="range" min="0" max="100" value="50" id="before_after_slider"
+                            (input)="callBeforeAfter($event)" (change)="callBeforeAfter($event)">
+
                     </div>
                 </div>
             </div>

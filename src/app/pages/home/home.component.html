@@ -72,7 +72,6 @@
 </div>
 <!-- Hero Section End -->
 
-
 <!-- Feature Section Start -->
 
 <div class="container pt-100 pb-70">
@@ -110,37 +109,34 @@
         <div class="service-card-wrapper style-three">
 
             <div class="service-card-slider">
-                <div class="">
 
-                    <swiper-container appSwiper #swiper [config]="swiperConfig" thumbs-swiper=".swiper"
-                        (slidechange)="slideChange($event)">
-                        @for (item of contents; track $index) {
-                        <swiper-slide>
-                            <div class="swiper-slide">
-                                <div class="service-card style-three">
-                                    <span class="service-img">
-                                        <img src="assets/img/services/service-3.webp" alt="Image">
+                <swiper-container appSwiper #swiper [config]="swiperConfig" thumbs-swiper=".swiper"
+                    (slidechange)="slideChange($event)">
+                    @for (service of featureServices; track $index) {
+                    <swiper-slide>
+                        <div class="swiper-slide">
+                            <div class="service-card style-three">
+                                <span class="service-img">
+                                    <img [src]="imageUrl+service?.image" alt="Image">
+                                </span>
+                                <div class="service-info">
+                                    <img src="assets/img/services/service-card-shape.webp" alt="Image"
+                                        class="service-card-shape">
+                                    <span class="service-icon">
+                                        <i [class]="service?.icon"></i>
                                     </span>
-                                    <div class="service-info">
-                                        <img src="assets/img/services/service-card-shape.webp" alt="Image"
-                                            class="service-card-shape">
-                                        <span class="service-icon">
-                                            <i class="flaticon-tool"></i>
-                                        </span>
-                                        <h3><a href="./service-details.html">Teeth Cleaning</a></h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipi scing elit, sed do eiusmod
-                                            tempor
-                                        </p>
-                                        <a href="./service-details.html" class="btn-three">Read More<i
-                                                class="flaticon-right-arrow"></i></a>
-                                    </div>
+                                    <h3><a href="./service-details.html">{{service?.title}}</a></h3>
+                                    <p>{{service?.description}}
+                                    </p>
+                                    <a href="./service-details.html" class="btn-three">Read More<i
+                                            class="flaticon-right-arrow"></i></a>
                                 </div>
                             </div>
-                        </swiper-slide>
-                        }
-1
-                    </swiper-container>
-                </div>
+                        </div>
+                    </swiper-slide>
+                    }
+                </swiper-container>
+
                 <div class="testimonial-pagination"></div>
             </div>
 
@@ -156,6 +152,7 @@
 </div>
 
 <!-- Service Section End -->
+
 
 <!-- Why Choose Us Section Start -->
 <app-why-choose-us></app-why-choose-us>

@@ -23,8 +23,9 @@ import { ContactUsComponent } from './pages/contact-us/contact-us.component';
     HttpClientModule,
     AboutUsComponent,
     ServicesComponent,
-    ContactUsComponent
+    ContactUsComponent,
   ],
+  
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

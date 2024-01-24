@@ -4,7 +4,7 @@ import { SwiperOptions } from 'swiper/types';
 
 @Directive({
   selector: '[appSwiper]',
-  standalone: true,
+  standalone: false,
 })
 export class SwiperDirective implements AfterViewInit {
 
@@ -16,7 +16,7 @@ export class SwiperDirective implements AfterViewInit {
   ngAfterViewInit(): void {
     Object.assign(this.el.nativeElement, this.config);
 
-    this.el?.nativeElement?.initialize();
+    this.el?.nativeElement?.initialize;
   }
 
 }
