@@ -2,7 +2,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, inject } from '@angular/core';
 import { DataService } from '../../../services/data.service';
 import { environment } from '../../../../environments/environment';
-import { VideoDialogComponent } from './video-dialog/video-dialog.component';
+import { VideoDialogComponent } from '../video-dialog/video-dialog.component';
 
 @Component({
   selector: 'app-appointment-section',
@@ -52,7 +52,7 @@ export class AppointmentSectionComponent implements OnInit {
   onClickOpenVideoModal() {
     if (!this.dialogOpen) {
       const dialogRef = this.dialog.open(VideoDialogComponent, {
-        data: this.appointmentSectionData.video_link,
+        data: this.appointmentSectionData?.video_link,
         disableClose: true
       });
       dialogRef.afterClosed().subscribe(result => {

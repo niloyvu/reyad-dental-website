@@ -1,5 +1,5 @@
-   <!-- Testimonial Section Start -->
-   <div class="testimonial-wrap style-three ptb-100">
+<!-- Testimonial Section Start -->
+<div class="testimonial-wrap style-three ptb-100">
     <div class="container">
         <img src="assets/img/clients/shape-2.webp" alt="Image" class="testimonial-shape-one bounce sm-none">
         <div class="row">
@@ -12,177 +12,49 @@
         </div>
         <div class="testimonial-slider-wrap style-three">
             <div class="testimonial-slider-three swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="testimonial-card style-three">
-                            <div class="client-info-wrap">
-                                <div class="client-img">
-                                    <img src="assets/img/clients/client-1.webp" alt="Image">
-                                </div>
-                                <div class="client-info">
-                                    <h5>Lincoln Thomas</h5>
-                                    <span>Web Developer</span>
-                                </div>
-                            </div>
-                            <div class="client-quote">
-                                <span class="quote-icon">
-                                    <i class="flaticon-quote"></i>
-                                </span>
-                                <p>Lorem ipsum dolor sit amet consec tetur iusmod tempor incididunt uto labore etd
-                                    lorem ipsum dolor ading.</p>
-                                <ul class="rating list-style">
-                                    <li><i class="ri-star-fill"></i></li>
-                                    <li><i class="ri-star-fill"></i></li>
-                                    <li><i class="ri-star-fill"></i></li>
-                                    <li><i class="ri-star-fill"></i></li>
-                                    <li><i class="ri-star-fill"></i></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="testimonial-card style-three">
-                            <div class="client-info-wrap">
-                                <div class="client-img">
-                                    <img src="assets/img/clients/client-2.webp" alt="Image">
-                                </div>
-                                <div class="client-info">
-                                    <h5>Autumn Leilani</h5>
-                                    <span>Enterprenaur</span>
+                <!-- <div class="swiper-wrapper"> -->
+
+                    <swiper-container appSwiper #testimonialSwiper [config]="testimonialSwiperConfig"
+                        (slidechange)="slideChange($event)">
+                        @for (testimonial of featureTestimonials; track $index) {
+                        <swiper-slide>
+                            <div class="swiper-slide">
+                                <div class="testimonial-card style-three">
+                                    <div class="client-info-wrap">
+                                        <div class="client-img">
+                                            <img [src]="imageUrl+testimonial?.image" alt="Image">
+                                        </div>
+                                        <div class="client-info">
+                                            <h5>{{testimonial?.name}}</h5>
+                                            <span>{{testimonial?.designation}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="client-quote">
+                                        <span class="quote-icon">
+                                            <i class="flaticon-quote"></i>
+                                        </span>
+                                        <p>{{testimonial?.review}}</p>
+                                        <ul class="rating list-style">
+                                            <li><i class="ri-star-fill"></i></li>
+                                            <li><i class="ri-star-fill"></i></li>
+                                            <li><i class="ri-star-fill"></i></li>
+                                            <li><i class="ri-star-fill"></i></li>
+                                            <li><i class="ri-star-fill"></i></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="client-quote">
-                                <span class="quote-icon">
-                                    <i class="flaticon-quote"></i>
-                                </span>
-                                <p>Lorem ipsum dolor sit amet consec tetur iusmod tempor incididunt uto labore etd
-                                    lorem ipsum dolor ading.</p>
-                                <ul class="rating list-style">
-                                    <li><i class="ri-star-fill"></i></li>
-                                    <li><i class="ri-star-fill"></i></li>
-                                    <li><i class="ri-star-fill"></i></li>
-                                    <li><i class="ri-star-fill"></i></li>
-                                    <li><i class="ri-star-fill"></i></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="testimonial-card style-three">
-                            <div class="client-info-wrap">
-                                <div class="client-img">
-                                    <img src="assets/img/clients/client-3.webp" alt="Image">
-                                </div>
-                                <div class="client-info">
-                                    <h5>Joshua Nathan</h5>
-                                    <span>Designer</span>
-                                </div>
-                            </div>
-                            <div class="client-quote">
-                                <span class="quote-icon">
-                                    <i class="flaticon-quote"></i>
-                                </span>
-                                <p>Lorem ipsum dolor sit amet consec tetur iusmod tempor incididunt uto labore etd
-                                    lorem ipsum dolor ading.</p>
-                                <ul class="rating list-style">
-                                    <li><i class="ri-star-fill"></i></li>
-                                    <li><i class="ri-star-fill"></i></li>
-                                    <li><i class="ri-star-fill"></i></li>
-                                    <li><i class="ri-star-fill"></i></li>
-                                    <li><i class="ri-star-fill"></i></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="testimonial-card style-three">
-                            <div class="client-info-wrap">
-                                <div class="client-img">
-                                    <img src="assets/img/clients/client-4.webp" alt="Image">
-                                </div>
-                                <div class="client-info">
-                                    <h5>Emily Gianna</h5>
-                                    <span>Enterprenaur</span>
-                                </div>
-                            </div>
-                            <div class="client-quote">
-                                <span class="quote-icon">
-                                    <i class="flaticon-quote"></i>
-                                </span>
-                                <p>Lorem ipsum dolor sit amet consec tetur iusmod tempor incididunt uto labore etd
-                                    lorem ipsum dolor ading.</p>
-                                <ul class="rating list-style">
-                                    <li><i class="ri-star-fill"></i></li>
-                                    <li><i class="ri-star-fill"></i></li>
-                                    <li><i class="ri-star-fill"></i></li>
-                                    <li><i class="ri-star-fill"></i></li>
-                                    <li><i class="ri-star-fill"></i></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="testimonial-card style-three">
-                            <div class="client-info-wrap">
-                                <div class="client-img">
-                                    <img src="assets/img/clients/client-5.webp" alt="Image">
-                                </div>
-                                <div class="client-info">
-                                    <h5>Elijah James</h5>
-                                    <span>Businessman</span>
-                                </div>
-                            </div>
-                            <div class="client-quote">
-                                <span class="quote-icon">
-                                    <i class="flaticon-quote"></i>
-                                </span>
-                                <p>Lorem ipsum dolor sit amet consec tetur iusmod tempor incididunt uto labore etd
-                                    lorem ipsum dolor ading.</p>
-                                <ul class="rating list-style">
-                                    <li><i class="ri-star-fill"></i></li>
-                                    <li><i class="ri-star-fill"></i></li>
-                                    <li><i class="ri-star-fill"></i></li>
-                                    <li><i class="ri-star-fill"></i></li>
-                                    <li><i class="ri-star-fill"></i></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="testimonial-card style-three">
-                            <div class="client-info-wrap">
-                                <div class="client-img">
-                                    <img src="assets/img/clients/client-6.webp" alt="Image">
-                                </div>
-                                <div class="client-info">
-                                    <h5>Elizabeth Ella</h5>
-                                    <span>Web Developer</span>
-                                </div>
-                            </div>
-                            <div class="client-quote">
-                                <span class="quote-icon">
-                                    <i class="flaticon-quote"></i>
-                                </span>
-                                <p>Lorem ipsum dolor sit amet consec tetur iusmod tempor incididunt uto labore etd
-                                    lorem ipsum dolor ading.</p>
-                                <ul class="rating list-style">
-                                    <li><i class="ri-star-fill"></i></li>
-                                    <li><i class="ri-star-fill"></i></li>
-                                    <li><i class="ri-star-fill"></i></li>
-                                    <li><i class="ri-star-fill"></i></li>
-                                    <li><i class="ri-star-fill"></i></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                        </swiper-slide>
+                        }
+                    </swiper-container>
                 </div>
                 <div class="testimonial-pagination"></div>
             </div>
-            <div class="testimonial-slider-btn slider-btn">
+            <!-- <div class="testimonial-slider-btn slider-btn">
                 <div class="testimonial-prev prev-btn"><img src="assets/img/left-arrow.svg" alt="Image"></div>
                 <div class="testimonial-next next-btn"><img src="assets/img/right-arrow.svg" alt="Image"></div>
-            </div>
+            </div> -->
         </div>
     </div>
-</div>
+<!-- </div> -->
 <!-- Testimonial Section End -->

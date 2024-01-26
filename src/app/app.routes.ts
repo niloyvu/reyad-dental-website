@@ -5,6 +5,7 @@ import { ShopComponent } from './pages/shop/shop.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { ServicesComponent } from './pages/services/services.component';
 import { ContactUsComponent } from './pages/contact-us/contact-us.component';
+import { ServiceDetailsComponent } from './pages/services/service-details/service-details.component';
 
 export const routes: Routes = [
 
@@ -25,6 +26,10 @@ export const routes: Routes = [
     {
         path: 'services',
         component: ServicesComponent,
+    },
+    {
+        path: 'service/:name/:id',
+        component: ServiceDetailsComponent,
     },
     {
         path: 'blog',

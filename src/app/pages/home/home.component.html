@@ -110,8 +110,7 @@
 
             <div class="service-card-slider">
 
-                <swiper-container appSwiper #swiper [config]="swiperConfig" thumbs-swiper=".swiper"
-                    (slidechange)="slideChange($event)">
+                <swiper-container appSwiper #serviceSwiper [config]="serviceSwiperConfig" (slidechange)="slideChange($event)">
                     @for (service of featureServices; track $index) {
                     <swiper-slide>
                         <div class="swiper-slide">
@@ -140,10 +139,10 @@
                 <div class="testimonial-pagination"></div>
             </div>
 
-            <div class="testimonial-slider-btn slider-btn">
+            <!-- <div class="testimonial-slider-btn slider-btn">
                 <div class="service-card-prev prev-btn"><img src="assets/img/left-arrow.svg" alt="Image"></div>
                 <div class="service-card-next next-btn"><img src="assets/img/right-arrow.svg" alt="Image"></div>
-            </div>
+            </div> -->
         </div>
         <p class="section-subtitle mt-20 d-block w-100 text-center">{{serviceSectionData?.front_link_text}} <a
                 routerLink="/services" class="link-one">{{serviceSectionData?.link_text}}</a></p>
@@ -173,103 +172,48 @@
                         <h2>{{teamSectionData?.subtitle}}</h2>
                     </div>
                 </div>
-                <div class="team-slider-btn slider-btn">
+                <!-- <div class="team-slider-btn slider-btn">
                     <div class="team-prev prev-btn"><img src="assets/img/left-arrow.svg" alt="Image"></div>
                     <div class="team-next next-btn"><img src="assets/img/right-arrow.svg" alt="Image"></div>
-                </div>
+                </div> -->
             </div>
             <div class="team-card-wrap">
                 <img src="assets/img/services/service-shape-3.webp" alt="Image" class="team-shape bounce">
                 <div class="team-slider swiper">
-                    <!-- <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="team-card style-two">
-                                <div class="team-img">
-                                    <img src="assets/img/team/team-10.webp" alt="Image">
-                                    <ul class="social-profile list-style">
-                                        <li><a href="https://www.fb.com/" target="_blank"><i
-                                                    class="ri-facebook-fill"></i></a></li>
-                                        <li><a href="https://www.twitter.com/" target="_blank"><i
-                                                    class="ri-twitter-fill"></i></a></li>
-                                        <li><a href="https://www.instagram.com/" target="_blank"><i
-                                                    class="ri-instagram-line"></i></a></li>
-                                        <li><a href="https://www.linkedin.com/" target="_blank"><i
-                                                    class="ri-linkedin-fill"></i></a></li>
-                                    </ul>
+                    <!-- <div class="swiper-wrapper"> -->
+                        <swiper-container appSwiper #teamSwiper [config]="teamSwiperConfig" (slidechange)="slideChange($event)">
+                            @for (dentist of featureDentists; track $index) {
+
+                            <swiper-slide>
+                                <div class="swiper-slide">
+                                    <div class="team-card style-two">
+                                        <div class="team-img">
+                                            <img [src]="imageUrl + dentist?.image" alt="Image">
+                                            <ul class="social-profile list-style">
+                                                <li><a href="https://www.fb.com/" target="_blank"><i
+                                                            class="ri-facebook-fill"></i></a></li>
+                                                <li><a href="https://www.twitter.com/" target="_blank"><i
+                                                            class="ri-twitter-fill"></i></a></li>
+                                                <li><a href="https://www.instagram.com/" target="_blank"><i
+                                                            class="ri-instagram-line"></i></a></li>
+                                                <li><a href="https://www.linkedin.com/" target="_blank"><i
+                                                            class="ri-linkedin-fill"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="team-info">
+                                            <h3><a href="dentist-details.html">{{dentist?.name}}</a></h3>
+                                            <span>{{dentist?.designation}}</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="team-info">
-                                    <h3><a href="dentist-details.html">Daniel Michael</a></h3>
-                                    <span>Expert Dentist</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="team-card style-two">
-                                <div class="team-img">
-                                    <img src="assets/img/team/team-11.webp" alt="Image">
-                                    <ul class="social-profile list-style">
-                                        <li><a href="https://www.fb.com/" target="_blank"><i
-                                                    class="ri-facebook-fill"></i></a></li>
-                                        <li><a href="https://www.twitter.com/" target="_blank"><i
-                                                    class="ri-twitter-fill"></i></a></li>
-                                        <li><a href="https://www.instagram.com/" target="_blank"><i
-                                                    class="ri-instagram-line"></i></a></li>
-                                        <li><a href="https://www.linkedin.com/" target="_blank"><i
-                                                    class="ri-linkedin-fill"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="team-info">
-                                    <h3><a href="dentist-details.html">Camila Gianna</a></h3>
-                                    <span>Dental Assistant</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="team-card style-two">
-                                <div class="team-img">
-                                    <img src="assets/img/team/team-12.webp" alt="Image">
-                                    <ul class="social-profile list-style">
-                                        <li><a href="https://www.fb.com/" target="_blank"><i
-                                                    class="ri-facebook-fill"></i></a></li>
-                                        <li><a href="https://www.twitter.com/" target="_blank"><i
-                                                    class="ri-twitter-fill"></i></a></li>
-                                        <li><a href="https://www.instagram.com/" target="_blank"><i
-                                                    class="ri-instagram-line"></i></a></li>
-                                        <li><a href="https://www.linkedin.com/" target="_blank"><i
-                                                    class="ri-linkedin-fill"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="team-info">
-                                    <h3><a href="dentist-details.html">Sebastian Ethan</a></h3>
-                                    <span>Dental Hygenist</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="team-card style-two">
-                                <div class="team-img">
-                                    <img src="assets/img/team/team-13.webp" alt="Image">
-                                    <ul class="social-profile list-style">
-                                        <li><a href="https://www.fb.com/" target="_blank"><i
-                                                    class="ri-facebook-fill"></i></a></li>
-                                        <li><a href="https://www.twitter.com/" target="_blank"><i
-                                                    class="ri-twitter-fill"></i></a></li>
-                                        <li><a href="https://www.instagram.com/" target="_blank"><i
-                                                    class="ri-instagram-line"></i></a></li>
-                                        <li><a href="https://www.linkedin.com/" target="_blank"><i
-                                                    class="ri-linkedin-fill"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="team-info">
-                                    <h3><a href="dentist-details.html">Natalie Kinsley</a></h3>
-                                    <span>Expert Dentist</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
+                            </swiper-slide>
+                            }
+                        </swiper-container>
+
+                    <!-- </div> -->
                 </div>
                 <p class="section-subtitle mt-30 d-block w-100 text-center">{{teamSectionData?.front_link_text}}<a
-                        routerLink="/dentists" class="link-one">{{teamSectionData?.link_text}}</a></p>
+                        routerLink="dentists" class="link-one">{{teamSectionData?.link_text}}</a></p>
             </div>
         </div>
     </div>
@@ -312,7 +256,7 @@
                         </a>
                         <ul class="blog-metainfo list-style">
                             <li><a href="posts-by-category.html">{{blog?.category}}</a></li>
-                            <li>1 Comment</li>
+                            <!-- <li>1 Comment</li> -->
                         </ul>
                         <h3>
                             <a href="blog-details-left-sidebar.html">{{blog?.title}}</a>

@@ -1,0 +1,20 @@
+.video-section {
+    padding: 0 15px 10px 15px;
+}
+
+.close {
+    padding-right: 10px;
+}
+
+.modal-video {
+    width: 885px;
+    height: 498px;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .modal-video {
+        width: auto;
+        height: auto;
+    }
+}

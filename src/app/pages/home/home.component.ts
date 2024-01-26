@@ -1,18 +1,19 @@
-import { SwiperContainer } from 'swiper/element';
 import { SwiperOptions } from 'swiper/types';
+import { SwiperContainer } from 'swiper/element';
 import { DataService } from '../../services/data.service';
 import { SharedModule } from './../../shared/shared.module';
-import { environment } from '../../../environments/environment';
-import { AfterViewInit, OnInit, Component, ElementRef, ViewChild, inject, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { VideoDialogComponent } from '../../shared/components/appointment-section/video-dialog/video-dialog.component';
-
-export interface Card {
-  title: string;
-  description: string;
-  url: string;
-}
+import { environment } from '../../../environments/environment';
+import {
+  OnInit,
+  inject,
+  Component,
+  ElementRef,
+  ViewChild,
+  AfterViewInit, 
+  CUSTOM_ELEMENTS_SCHEMA
+} from '@angular/core';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home',
@@ -26,26 +27,54 @@ export interface Card {
 })
 export class HomeComponent implements OnInit, AfterViewInit {
 
+  index = 0;
   featureBlogs: any;
   featureServices: any;
   heroSectionData: any;
+  featureDentists: any;
   teamSectionData: any;
   blogSectionData: any;
   heroFormTextData: any;
   serviceSectionData: any;
 
-  @ViewChild('swiper') swiper!: ElementRef<SwiperContainer>;
-
   homeFeatures: any[] = []
   imageUrl = environment.IMAGE_URL;
 
-  constructor(public dialog: MatDialog) {}
-
   dataService = inject(DataService);
 
-  index = 0;
+  @ViewChild('teamSwiper') teamSwiper!: ElementRef<SwiperContainer>;
+  @ViewChild('serviceSwiper') serviceSwiper!: ElementRef<SwiperContainer>;
 
-  swiperConfig: SwiperOptions = {
+  constructor(public dialog: MatDialog) { }
+  ngOnInit() {
+    this.getHomePageContents();
+  }
+
+  serviceSwiperConfig: SwiperOptions = {
+    spaceBetween: 10,
+    grabCursor: true,
+    loop: false,
+    speed: 1200,
+    navigation: {
+      nextEl: ".service-card-next",
+      prevEl: ".service-card-prev"
+    },
+    breakpoints: {
+      0: {
+        slidesPerView: 1
+      },
+      768: {
+        slidesPerView: 2
+      },
+      992: {
+        slidesPerView: 2
+      },
+      1200: {
+        slidesPerView: 3
+      }
+    }
+  }
+  teamSwiperConfig: SwiperOptions = {
     spaceBetween: 10,
     grabCursor: true,
     loop: false,
@@ -70,28 +99,21 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit() {
-    this.swiper.nativeElement.swiper.activeIndex = this.index;
-  }
-
   slideChange(swiper: any) {
     this.index = swiper?.detail[0]?.activeIndex;
   }
 
-  ngOnInit() {
-    this.getHomePageContents();
-  }
 
   getHomePageContents() {
     this.dataService.getData('home-page-contents')
       .subscribe({
         next: ({ data }) => {
-          console.log("🚀 ~ HomeComponent ~ getHomePageContents ~ data:", data)
           this.featureBlogs = data.featureBlogs;
           this.heroSectionData = data.heroSection;
           this.teamSectionData = data.teamSection;
           this.blogSectionData = data.blogSection;
           this.featureServices = data.featureServices;
+          this.featureDentists = data.featureDentists;
           this.heroFormTextData = data.heroFormSection;
           this.serviceSectionData = data.serviceSection;
         },
@@ -99,6 +121,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
           console.error(error);
         }
       })
+  }
+
+  ngAfterViewInit() {
+    this.teamSwiper.nativeElement.swiper.activeIndex = this.index;
+    this.serviceSwiper.nativeElement.swiper.activeIndex = this.index;
   }
 
 }
