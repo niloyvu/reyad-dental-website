@@ -1,0 +1,91 @@
+<!-- Newsletter Start -->
+<div class="newsletter-wrap style-one">
+    <div class="container">
+        <div class="newsletter-box ptb-100">
+            <img src="assets/img/newsletter-shape-1.webp" alt="Image" class="newsletter-shape">
+            <div class="row">
+                <div class="col-xl-7 offset-xl-5 col-lg-8 offset-lg-4">
+                    <div class="newsletter-content">
+                        <div class="content-title style-one">
+                            <span><img src="assets/img/section-shape.svg"
+                                    alt="Image">{{newsletterSectionData?.title}}</span>
+                            <h2 class="text-white">{{newsletterSectionData?.subtitle}}<img
+                                    src="assets/img/section-shape-3.webp" alt="Image"></h2>
+                        </div>
+                        <form action="#">
+                            <input type="email" [placeholder]="newsletterSectionData?.placeholder">
+                            <button type="submit">{{newsletterSectionData?.button_text}}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <img class="newsletter-img" [src]="imageUrl+newsletterSectionData?.image" alt="Image">
+        </div>
+    </div>
+</div>
+<!-- Newsletter End -->
+<!-- Footer  Start -->
+<footer class="footer-wrap style-one">
+    <div class="footer-top pb-70">
+        <img src="assets/img/footer-shape.webp" alt="Image" class="footer-shape">
+        <div class="container">
+            <div class="row">
+                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-6">
+                    <div class="footer-widget">
+                        <a href="index-2.html" class="footer-logo">
+                            <img class="logo-light" [src]="imageUrl+footerData?.logo" alt="Image">
+                            <!-- <img class="logo-dark" src="assets/img/logo-white.webp" alt="Image"> -->
+                        </a>
+                        <p class="comp-desc">{{footerData?.description}}</p>
+                        <div class="contact-info">
+                            <h6><i class="flaticon-pin"></i>{{footerData?.address_title}}</h6>
+                            <p>{{footerData?.address}}</p>
+                        </div>
+                        <ul class="social-profile list-style">
+                            <li><a href="https://www.fb.com/" target="_blank"><i class="ri-facebook-fill"></i></a>
+                            </li>
+                            <li><a href="https://www.twitter.com/" target="_blank"><i class="ri-twitter-fill"></i></a>
+                            </li>
+                            <li><a href="https://www.instagram.com/" target="_blank"><i
+                                        class="ri-instagram-line"></i></a></li>
+                            <li><a href="https://www.linkedin.com/" target="_blank"><i class="ri-linkedin-fill"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-5 col-lg-6 col-md-12 col-sm-6 pe-xxl-6">
+                    <div class="footer-widget">
+                        <h3 class="footer-widget-title">{{footerData?.quick_link_heading}}</h3>
+                        <ul class="footer-menu list-style">
+                            @for (item of footerData?.quick_links; track $index) {
+                            <li><a [routerLink]="item.link">
+                                    <i class="ri-arrow-right-double-line"></i>
+                                    {{item?.link_title}}
+                                </a>
+                            </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-12 col-sm-6 px-xxl-0">
+                    <div class="footer-widget">
+                        <h3 class="footer-widget-title">{{footerData?.hour_heading}}</h3>
+                        <ul class="opening-time list-style">
+                            @for (hour of footerData?.hours; track $index) {
+                            <li><span>{{hour?.day}}</span> <span>{{hour?.time}}</span></li>
+                            }
+
+                        </ul>
+                        <div class="contact-info">
+                            <h6><i class="flaticon-phone-call"></i>{{footerData?.call_heading}}</h6>
+                            <a [href]="'tel:'+footerData?.phone">{{footerData?.phone}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="copyright-text"><i class="ri-copyright-line"></i><span>{{footerData?.organization}}</span>
+        {{footerData?.powered_by}} <a href="https://Rashed.com/">{{footerData?.creator}}</a></p>
+</footer>
+<!-- Footer End -->

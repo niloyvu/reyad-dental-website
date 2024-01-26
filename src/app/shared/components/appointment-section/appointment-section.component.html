@@ -1,0 +1,133 @@
+<div class="appointment-wrap style-one pt-100">
+    <div class="appointment-bg bg-f"></div>
+    <div class="container">
+        <img src="assets/img/shape-4.webp" alt="Iamge" class="appintment-shape bounce sm-none">
+        <div class="row">
+            <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+                <div class="section-title style-one text-center">
+                    <span><img src="assets/img/section-shape.svg" alt="Image">{{appointmentSectionData?.title}}</span>
+                    <h2 class="text-white">{{appointmentSectionData?.subtitle | removeLastWord}}
+                        <span>{{appointmentSectionData?.subtitle | lastWord}}</span><img
+                            src="assets/img/section-shape-2.webp" alt="Image">
+                    </h2>
+                </div>
+                <a class="play-now" (click)="onClickOpenVideoModal()"><i class="ri-play-fill"></i>
+                    <span class="ripple"></span>
+                </a>
+            </div>
+        </div>
+        <div class="appointment-box">
+            <img src="assets/img/shape-3.webp" alt="Image" class="box-shape">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="appointment-form">
+                        <h3>{{appointmentSectionData?.form_heading | removeLastWord}}
+                            <span>{{appointmentSectionData?.button_text | lastWord}}.</span><img
+                                src="assets/img/section-shape-2.webp" alt="Image">
+                        </h3>
+                        <form action="#">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="name">Name*</label>
+                                        <input type="text" id="name" placeholder="Name">
+                                        <i class="flaticon-user"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="app_email">Email*</label>
+                                        <input type="email" id="app_email" placeholder="Email">
+                                        <i class="flaticon-mail"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="app_phone">Phone</label>
+                                        <input type="number" id="app_phone" placeholder="Name">
+                                        <i class="flaticon-phone-call"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="doc_name">Doctors*</label>
+                                        <select name="doc_name" id="doc_name">
+                                            <option>Doctors</option>
+                                            <option value="1">Ass. Pro. Dr. Asraf Ali Bissash</option>
+                                            <option value="2">Mahito Hiasho</option>
+                                            <option value="3">Jack Sparrow</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="dep_name">Departments*</label>
+                                        <select name="dep_name" id="dep_name">
+                                            <option value="0">Department</option>
+                                            <option value="1">Dental Department</option>
+                                            <option value="2">Surgery Department</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="app_date">Select Date*</label>
+                                        <input type="date" id="app_date">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="app_time">Select Time*</label>
+                                        <select name="app_time" id="app_time">
+                                            <option value="0">Select Time</option>
+                                            <option value="1">9:00 Am - 10:00 Am</option>
+                                            <option value="2">10:00 Am - 11:00 Am</option>
+                                            <option value="3">11:00 Am - 12:00 Pm</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn-two border-0"
+                                        type="submit">{{appointmentSectionData?.button_text}}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="before-after-container">
+                        <figure>
+                            <div id="before_after" [style.width.%]="sliderValue"></div>
+                        </figure>
+                        <input type="range" min="0" max="100" value="50" id="before_after_slider"
+                            (input)="callBeforeAfter($event)" (change)="callBeforeAfter($event)">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Counter Section start -->
+<div class="counter-wrap style-one pt-100 pb-75">
+    <img src="assets/img/counter-shape.webp" alt="Image" class="counter-shape">
+    <div class="container">
+        <div class="counter-card-wrap">
+            @for (counter of counters; track $index) {
+            <div class="counter-card">
+                <span class="counter-icon">
+                    <i [class]="counter?.icon_name"></i>
+                </span>
+                <div class="counter-text">
+                    <span class="counter">{{counter?.value}}</span>
+                    <p>{{counter?.text}}</p>
+                </div>
+            </div>
+            }
+
+        </div>
+    </div>
+</div>
+<!-- Counter Section End -->

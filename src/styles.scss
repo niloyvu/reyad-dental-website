@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+@import "assets/css/main-style.css";
+@import "assets/css/aos.css";
+@import "assets/css/dark-theme.css";
+@import "assets/css/remixicon.css";
+@import "assets/css/flaticon.css";
+@import "assets/css/swiper.bundle.min.css";
+@import "assets/css/bootstrap.min.css";
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

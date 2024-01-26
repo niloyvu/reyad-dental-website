@@ -1,0 +1,56 @@
+<!-- Breadcrumb Start -->
+<div class="breadcrumb-wrap bg-f br-2"
+    [style.background-image]="'url(' + imageUrl+serviceHeaderData?.image + ')'">
+    <img src="assets/img/breadcrumb/br-shape-1.webp" alt="Image" class="br-shape-one bounce sm-none">
+    <img src="assets/img/breadcrumb/br-shape-2.webp" alt="Image" class="br-shape-two moveHorizontal sm-none">
+    <img src="assets/img/breadcrumb/br-shape-3.webp" alt="Image" class="br-shape-three">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <h2>{{serviceHeaderData?.title}}</h2>
+            <ul class="breadcrumb-menu list-style">
+                <li><a href="index-2.html">Home</a></li>
+                <li>{{serviceHeaderData?.title}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+
+<!-- Service Section Start -->
+<div class="service-wrap ptb-100 bg_optional">
+    <div class="container">
+        <div class="row justify-content-center">
+
+            @for (service of services; track $index) {
+            <div class="col-xl-4 col-lg-6 col-md-6">
+                <div class="service-card style-three">
+                    <span class="service-img">
+                        <img [src]="imageUrl + service?.image" alt="Image">
+                    </span>
+                    <div class="service-info">
+                        <img src="assets/img/services/service-card-shape.webp" alt="Image" class="service-card-shape">
+                        <span class="service-icon">
+                            <i [class]="service?.icon"></i>
+                        </span>
+                        <h3><a [routerLink]="['/service',service?.title | slugGenerator, service?.id]">{{service?.title}}</a></h3>
+                        <p>{{service?.description}}</p>
+                        <a [routerLink]="['/service',service?.title | slugGenerator, service?.id]"
+                            class="btn-three">Read More
+                            <i class="flaticon-right-arrow"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            }
+
+            <!-- <ul class="page-nav list-style text-left mt-40">
+                <li><a href="#"><img src="assets/img/left-arrow-2.svg" alt="Image"></a></li>
+                <li><a class="active" href="#">01</a></li>
+                <li><a href="#">02</a></li>
+                <li><a href="#">03</a></li>
+                <li><a href="#"><img src="assets/img/right-arrow-2.svg" alt="Image"></a></li>
+            </ul> -->
+        </div>
+    </div>
+    <!-- Service Section End -->

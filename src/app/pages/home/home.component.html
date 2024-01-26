@@ -1,0 +1,274 @@
+<!-- Hero Section Start -->
+<div class="hero-wrap style-one">
+    <img src="assets/img/hero/hero-shape-1.webp" alt="Image" class="hero-shape-one">
+    <img src="assets/img/hero/hero-shape-2.webp" alt="Image" class="hero-shape-two">
+    <img src="assets/img/hero/hero-shape-3.webp" alt="Image" class="hero-shape-three moveHorizontal md-none">
+    <img src="assets/img/hero/hero-shape-4.webp" alt="Image" class="hero-shape-four bounce md-none">
+    <img src="assets/img/hero/hero-shape-5.webp" alt="Image" class="hero-shape-five">
+    <div class="container">
+        <div class="row align-items-center gx-5">
+            <div class="col-xl-7 col-lg-6">
+                <div class="hero-content">
+                    <span><img src="assets/img/section-shape.svg" alt="Image">{{heroSectionData?.title}}</span>
+                    <h1>{{heroSectionData?.subtitle | removeLastWord}} <span>{{heroSectionData?.subtitle |
+                            lastWord}}</span><img src="assets/img/section-shape-2.webp" alt="Image"></h1>
+                </div>
+            </div>
+            <div class="col-xl-5 col-lg-6">
+                <div class="hero-img-wrap">
+                    <div class="hero-promo-box">
+                        <span><img src="assets/img/hero/promo-img.webp" alt="Image"></span>
+                        <div class="hero-promo-text">
+                            <h5>{{heroSectionData?.rating_text}}</h5>
+                            <div class="ratings">
+                                <i class="ri-star-fill"></i><span>4.9</span>( 7.8k Review)
+                            </div>
+                        </div>
+                    </div>
+                    <img [src]="imageUrl+heroSectionData?.image" alt="Image" class="hero-img">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="hero-form-wrap">
+        <div class="contact-item-wrap">
+            <div class="contact-item">
+                <i class="flaticon-mail"></i>
+                <h6>Contact Us</h6>
+                <div [innerHTML]="heroFormTextData?.contact_us"></div>
+            </div>
+            <div class="contact-item">
+                <i class="flaticon-pin"></i>
+                <h6>Location</h6>
+                <div [innerHTML]="heroFormTextData?.location"></div>
+            </div>
+            <div class="contact-item">
+                <i class="flaticon-clock"></i>
+                <h6>Opening Hours</h6>
+                <div [innerHTML]="heroFormTextData?.opening_hours"></div>
+            </div>
+        </div>
+        <form action="#" class="hero-form">
+            <img src="assets/img/hero/hero-form-shape.webp" alt="Image" class="hero-form-shape">
+            <div class="form-group">
+                <label for="email"><i class="flaticon-user"></i>Your Name</label>
+                <input type="text" id="text" placeholder="Enter Your Name">
+            </div>
+            <div class="form-group">
+                <label for="phone"><i class="flaticon-phone-call"></i>Phone Number</label>
+                <input type="number" id="phone" placeholder="Your Phone">
+            </div>
+            <div class="form-group">
+                <label for="date"><i class="flaticon-clock"></i>Date</label>
+                <input type="date" id="date">
+            </div>
+            <div class="form-group">
+                <button class="btn-two border-0">Book Now</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Hero Section End -->
+
+<!-- Feature Section Start -->
+
+<div class="container pt-100 pb-70">
+    <div class="row justify-content-center feature-card-wrap">
+        @for (feature of homeFeatures; track $index) {
+        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6">
+            <div class="feature-card">
+                <span><i [class]="feature?.icon_name"></i></span>
+                <h3>{{feature?.title}}</h3>
+                <p>{{feature?.description}}</p>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+<!-- Feature Section End -->
+
+<!-- About Section Start -->
+<app-who-we-are></app-who-we-are>
+<!-- About Section End -->
+
+<!-- Service Section Start -->
+<div class="service-wrap style-three bg_optional ptb-100">
+    <div class="container">
+        <img src="assets/img/services/service-shape-1.webp" alt="Image" class="service-shape moveHorizontal sm-none">
+        <div class="row">
+            <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+                <div class="content-title style-two text-center mb-40">
+                    <span>{{serviceSectionData?.title}}</span>
+                    <h2>{{serviceSectionData?.subtitle}}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-card-wrapper style-three">
+
+            <div class="service-card-slider">
+
+                <swiper-container appSwiper #serviceSwiper [config]="serviceSwiperConfig" (slidechange)="slideChange($event)">
+                    @for (service of featureServices; track $index) {
+                    <swiper-slide>
+                        <div class="swiper-slide">
+                            <div class="service-card style-three">
+                                <span class="service-img">
+                                    <img [src]="imageUrl+service?.image" alt="Image">
+                                </span>
+                                <div class="service-info">
+                                    <img src="assets/img/services/service-card-shape.webp" alt="Image"
+                                        class="service-card-shape">
+                                    <span class="service-icon">
+                                        <i [class]="service?.icon"></i>
+                                    </span>
+                                    <h3><a href="./service-details.html">{{service?.title}}</a></h3>
+                                    <p>{{service?.description}}
+                                    </p>
+                                    <a href="./service-details.html" class="btn-three">Read More<i
+                                            class="flaticon-right-arrow"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </swiper-slide>
+                    }
+                </swiper-container>
+
+                <div class="testimonial-pagination"></div>
+            </div>
+
+            <!-- <div class="testimonial-slider-btn slider-btn">
+                <div class="service-card-prev prev-btn"><img src="assets/img/left-arrow.svg" alt="Image"></div>
+                <div class="service-card-next next-btn"><img src="assets/img/right-arrow.svg" alt="Image"></div>
+            </div> -->
+        </div>
+        <p class="section-subtitle mt-20 d-block w-100 text-center">{{serviceSectionData?.front_link_text}} <a
+                routerLink="/services" class="link-one">{{serviceSectionData?.link_text}}</a></p>
+
+    </div>
+</div>
+
+<!-- Service Section End -->
+
+
+<!-- Why Choose Us Section Start -->
+<app-why-choose-us></app-why-choose-us>
+<!-- Why Choose Us Section End -->
+
+<!-- Appointment Section Start -->
+<app-appointment-section></app-appointment-section>
+<!-- Appointment Section End -->
+
+<!-- Team Section Start -->
+<div class="cta-team-wrap">
+    <div class="team-wrap">
+        <div class="container">
+            <div class="row mb-40">
+                <div class="col-xxl-6 col-xl-8 col-lg-7 col-md-8">
+                    <div class="section-title style-two">
+                        <span>{{teamSectionData?.title}}</span>
+                        <h2>{{teamSectionData?.subtitle}}</h2>
+                    </div>
+                </div>
+                <!-- <div class="team-slider-btn slider-btn">
+                    <div class="team-prev prev-btn"><img src="assets/img/left-arrow.svg" alt="Image"></div>
+                    <div class="team-next next-btn"><img src="assets/img/right-arrow.svg" alt="Image"></div>
+                </div> -->
+            </div>
+            <div class="team-card-wrap">
+                <img src="assets/img/services/service-shape-3.webp" alt="Image" class="team-shape bounce">
+                <div class="team-slider swiper">
+                    <!-- <div class="swiper-wrapper"> -->
+                        <swiper-container appSwiper #teamSwiper [config]="teamSwiperConfig" (slidechange)="slideChange($event)">
+                            @for (dentist of featureDentists; track $index) {
+
+                            <swiper-slide>
+                                <div class="swiper-slide">
+                                    <div class="team-card style-two">
+                                        <div class="team-img">
+                                            <img [src]="imageUrl + dentist?.image" alt="Image">
+                                            <ul class="social-profile list-style">
+                                                <li><a href="https://www.fb.com/" target="_blank"><i
+                                                            class="ri-facebook-fill"></i></a></li>
+                                                <li><a href="https://www.twitter.com/" target="_blank"><i
+                                                            class="ri-twitter-fill"></i></a></li>
+                                                <li><a href="https://www.instagram.com/" target="_blank"><i
+                                                            class="ri-instagram-line"></i></a></li>
+                                                <li><a href="https://www.linkedin.com/" target="_blank"><i
+                                                            class="ri-linkedin-fill"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="team-info">
+                                            <h3><a href="dentist-details.html">{{dentist?.name}}</a></h3>
+                                            <span>{{dentist?.designation}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </swiper-slide>
+                            }
+                        </swiper-container>
+
+                    <!-- </div> -->
+                </div>
+                <p class="section-subtitle mt-30 d-block w-100 text-center">{{teamSectionData?.front_link_text}}<a
+                        routerLink="dentists" class="link-one">{{teamSectionData?.link_text}}</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="cta-wrap style-one">
+        <img src="assets/img/cta-shape.webp" alt="Image" class="cta-shape">
+        <div class="container text-center">
+            <h4>{{teamSectionData?.call_to_action}}</h4>
+            <p class="cta-contact">{{teamSectionData?.phone}}<img src="assets/img/section-shape-2.webp" alt="Image"></p>
+
+            <a href="contact.html" class="btn-two">{{teamSectionData?.button_text}}</a>
+        </div>
+    </div>
+</div>
+<!-- Team Section End -->
+
+<app-testimonial></app-testimonial>
+
+<!-- Blog Section Start -->
+<div class="blog-wrap style-one pt-100 pb-75 bg_optional">
+    <div class="container">
+        <img src="assets/img/blog/blog-shape-1.webp" alt="Image" class="blog-shape bounce sm-none">
+        <div class="row">
+            <div class="col-xxl-8 offset-xxl-2 col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+                <div class="section-title style-two text-center mb-40">
+                    <span>{{blogSectionData?.title}}</span>
+                    <h2>{{blogSectionData?.subtitle}}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            @for (blog of featureBlogs; track $index) {
+            <div class="col-xl-4 col-lg-6 col-md-6">
+                <div class="blog-card style-three">
+                    <div class="blog-card-img">
+                        <img [src]="imageUrl+blog?.image" alt="Image">
+                    </div>
+                    <div class="blog-card-info">
+                        <a href="posts-by-date.html" class="blog-date"><i class="flaticon-calendar"></i>
+                            {{blog?.created_at | date}}
+                        </a>
+                        <ul class="blog-metainfo list-style">
+                            <li><a href="posts-by-category.html">{{blog?.category}}</a></li>
+                            <!-- <li>1 Comment</li> -->
+                        </ul>
+                        <h3>
+                            <a href="blog-details-left-sidebar.html">{{blog?.title}}</a>
+                        </h3>
+                        <div [innerHTML]="blog?.details | truncate: 100"></div>
+                        <a href="blog-details-left-sidebar.html" class="link-one">Read More<i
+                                class="flaticon-right-arrow"></i></a>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- Blog Section End -->
