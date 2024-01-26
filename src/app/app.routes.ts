@@ -6,6 +6,8 @@ import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { ServicesComponent } from './pages/services/services.component';
 import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 import { ServiceDetailsComponent } from './pages/services/service-details/service-details.component';
+import { DentistsComponent } from './pages/dentists/dentists.component';
+import { DentistDetailsComponent } from './pages/dentists/dentist-details/dentist-details.component';
 
 export const routes: Routes = [
 
@@ -22,6 +24,14 @@ export const routes: Routes = [
     {
         path: 'about-us',
         component: AboutUsComponent,
+    },
+    {
+        path: 'dentists',
+        component: DentistsComponent,
+    },
+    {
+        path: 'dentist/:name/:id',
+        component: DentistDetailsComponent,
     },
     {
         path: 'services',

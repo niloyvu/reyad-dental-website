@@ -11,7 +11,7 @@ import { VideoDialogComponent } from '../video-dialog/video-dialog.component';
 })
 export class AppointmentSectionComponent implements OnInit {
 
-  counterSectionData: any;
+  counters: any[] = [];
   appointmentSectionData: any;
   dialogOpen: boolean = false;
 
@@ -38,10 +38,10 @@ export class AppointmentSectionComponent implements OnInit {
       })
   }
   getCounterSection() {
-    this.dataService.getData('counter-section')
+    this.dataService.getData('counters')
       .subscribe({
         next: ({ data }) => {
-          this.counterSectionData = data;
+          this.counters = data;
         },
         error: error => {
           console.error(error);

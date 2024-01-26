@@ -115,7 +115,7 @@
     <img src="assets/img/counter-shape.webp" alt="Image" class="counter-shape">
     <div class="container">
         <div class="counter-card-wrap">
-            @for (counter of counterSectionData; track $index) {
+            @for (counter of counters; track $index) {
             <div class="counter-card">
                 <span class="counter-icon">
                     <i [class]="counter?.icon_name"></i>
