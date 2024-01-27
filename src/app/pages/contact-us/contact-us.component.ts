@@ -24,7 +24,6 @@ export class ContactUsComponent {
     this.dataService.getData('contact-us')
       .subscribe({
         next: ({ data }) => {
-          console.log("🚀 ~ ContactUsComponent ~ getContactUsPageContents ~ data:", data)
           this.contactUsPageData = data;
         },
         error: error => {

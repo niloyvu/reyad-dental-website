@@ -76,7 +76,9 @@ export class TestimonialComponent implements OnInit {
 
 
   ngAfterViewInit() {
-    this.swiperTestimonial.nativeElement.swiper.activeIndex = this.index;
+    if (this.swiperTestimonial.nativeElement.swiper) {
+      this.swiperTestimonial.nativeElement.swiper.activeIndex = this.index;
+    } 
   }
 
   slideChange(swiper: any) {

@@ -103,7 +103,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.index = swiper?.detail[0]?.activeIndex;
   }
 
-
   getHomePageContents() {
     this.dataService.getData('home-page-contents')
       .subscribe({
@@ -124,8 +123,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.teamSwiper.nativeElement.swiper.activeIndex = this.index;
-    this.serviceSwiper.nativeElement.swiper.activeIndex = this.index;
+    if (this.teamSwiper.nativeElement.swiper && this.serviceSwiper.nativeElement.swiper) {
+      this.teamSwiper.nativeElement.swiper.activeIndex = this.index;
+    }
   }
 
 }
