@@ -13,7 +13,7 @@ export class VideoDialogComponent {
     private sanitizer: DomSanitizer,
     @Inject(MAT_DIALOG_DATA) public video: any,
   ) {
-    const videoUrl = video.replace('watch?v=','embed/');
+    const videoUrl = video?.replace('watch?v=','embed/');
     this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(videoUrl);
   }
 }
