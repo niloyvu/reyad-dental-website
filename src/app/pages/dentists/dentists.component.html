@@ -1,6 +1,4 @@
-<!-- Breadcrumb Start -->
-<div class="breadcrumb-wrap bg-f br-4"
-    [style.background-image]="'url(' + imageUrl+dentistPageHeaderData?.image + ')'">
+<div class="breadcrumb-wrap bg-f br-4" [style.background-image]="'url(' + imageUrl+dentistPageHeaderData?.image + ')'">
     <img src="assets/img/breadcrumb/br-shape-1.webp" alt="Image" class="br-shape-one bounce sm-none">
     <img src="assets/img/breadcrumb/br-shape-2.webp" alt="Image" class="br-shape-two moveHorizontal sm-none">
     <img src="assets/img/breadcrumb/br-shape-3.webp" alt="Image" class="br-shape-three">
@@ -14,9 +12,7 @@
         </div>
     </div>
 </div>
-<!-- Breadcrumb End -->
 
-<!-- Team Section Start -->
 <div class="team-wrap ptb-100">
     <div class="container">
         <div class="row justify-content-center">
@@ -53,9 +49,7 @@
         </ul> -->
     </div>
 </div>
-<!-- Team Section End -->
 
-<!-- Counter Section start -->
 <div class="counter-wrap style-four pt-100 pb-75">
     <div class="counter-bg w-100">
         <img src="assets/img/counter-shape-3.webp" alt="Image" class="counter-shape">
@@ -76,49 +70,28 @@
         </div>
     </div>
 </div>
-<!-- Counter Section End -->
 
-<!-- Work Process Section Start -->
 <div class="process-wrap ptb-100">
     <div class="container">
         <div class="row gx-5 align-items-center">
             <div class="col-lg-6">
                 <div class="process-content">
                     <div class="content-title style-two">
-                        <span>Our Working Process</span>
-                        <h2>You Will Love Us And Enjoy Specialized Care</h2>
+                        <span>{{dentistWorkingProcess?.title}}</span>
+                        <h2>{{dentistWorkingProcess?.subtitle}}</h2>
                     </div>
                     <div class="feature-item-wrap">
+                        @for (process of dentistWorkingProcess?.processes; track $index) {
                         <div class="feature-item">
                             <div class="feature-icon">
-                                <i class="flaticon-emergency"></i>
+                                <i [class]="process?.icon_class"></i>
                             </div>
                             <div class="feature-text">
-                                <h5>Emergency Care</h5>
-                                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Coectetu dtok amcor elit
-                                    ullamco usce egestas equalin tellus.</p>
+                                <h5>{{process?.title}}</h5>
+                                <p>{{process?.description}}</p>
                             </div>
                         </div>
-                        <div class="feature-item">
-                            <div class="feature-icon">
-                                <i class="flaticon-pills"></i>
-                            </div>
-                            <div class="feature-text">
-                                <h5>Outdoor Checkup</h5>
-                                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Coectetu dtok amcor elit
-                                    ullamco usce egestas equalin tellus.</p>
-                            </div>
-                        </div>
-                        <div class="feature-item">
-                            <div class="feature-icon">
-                                <i class="flaticon-doctor"></i>
-                            </div>
-                            <div class="feature-text">
-                                <h5>Operation Theatre</h5>
-                                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Coectetu dtok amcor elit
-                                    ullamco usce egestas equalin tellus.</p>
-                            </div>
-                        </div>
+                        }
                     </div>
                 </div>
             </div>
@@ -126,12 +99,12 @@
                 <div class="process-img-wrap">
                     <img src="assets/img/about/process-shape.webp" alt="Image" class="process-shape bounce">
                     <div class="promo-box">
-                        <h5>36+</h5>
-                        <span>Established Hospital</span>
+                        <h5>{{dentistWorkingProcess?.established_count}}+</h5>
+                        <span>{{dentistWorkingProcess?.established_text}}</span>
                     </div>
                     <div class="trust-box">
-                        Trusted By
-                        <span>2345</span>
+                        {{dentistWorkingProcess?.trusted_by_text}}
+                        <span>{{dentistWorkingProcess?.trusted_by_count}}</span>
                     </div>
                     <img class="process-img-one" src="assets/img/about/process-img-2.webp" alt="Image">
                     <img class="process-img-two" src="assets/img/about/process-img-1.webp" alt="Image">
@@ -140,4 +113,3 @@
         </div>
     </div>
 </div>
-<!-- Work Process Section End -->

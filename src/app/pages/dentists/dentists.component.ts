@@ -14,6 +14,7 @@ export class DentistsComponent implements OnInit {
 
   dentists: any[] = [];
   counters: any[] = [];
+  dentistWorkingProcess: any;
 
   dentistPageHeaderData: any;
 
@@ -24,6 +25,7 @@ export class DentistsComponent implements OnInit {
     this.getCounters();
     this.getActiveDentists();
     this.getDentistsPageHeaderData();
+    this.getDentistWorkingProcesses();
   }
 
   getActiveDentists() {
@@ -55,6 +57,19 @@ export class DentistsComponent implements OnInit {
       .subscribe({
         next: ({ data }) => {
           this.counters = data;
+        },
+        error: error => {
+          console.error(error);
+        }
+      })
+  }
+
+  getDentistWorkingProcesses() {
+    this.dataService.getData('dentist-working-processes')
+      .subscribe({
+        next: ({ data }) => {
+          console.log("🚀 ~ DentistsComponent ~ getDentistWorkingProcesses ~ data:", data)
+          this.dentistWorkingProcess = data;
         },
         error: error => {
           console.error(error);

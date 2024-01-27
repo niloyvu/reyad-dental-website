@@ -1,6 +1,6 @@
 import { RouterLink } from '@angular/router';
 import { DataService } from '../../services/data.service';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, HostListener, OnInit, inject } from '@angular/core';
 import { environment } from '../../../environments/environment';
 
 
@@ -15,11 +15,19 @@ import { environment } from '../../../environments/environment';
 })
 export class HeaderComponent implements OnInit {
 
+  isSticky: boolean = false;
+
   dataService = inject(DataService);
   imageUrl = environment.IMAGE_URL;
 
   headerData: any = [];
 
+  @HostListener('window:scroll', ['$event'])
+  handleScroll(event: Event) {
+    const height = 150;
+    const scrollTop = (event.target as any).scrollingElement.scrollTop;
+    this.isSticky = scrollTop >= height || this.isSticky;
+  }
   ngOnInit() {
     this.getHeaderSectionData();
   }
@@ -36,6 +44,8 @@ export class HeaderComponent implements OnInit {
       })
   }
 
+  onClickShowSideBarMenu() {
 
+  }
 }
 

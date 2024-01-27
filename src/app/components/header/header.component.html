@@ -1,5 +1,5 @@
 <!-- Start Navbar Area -->
-<div class="navbar-area style-one" id="navbar">
+<div [class.sticky]="isSticky" class="navbar-area style-one" id="navbar">
     <div class="header-top md-none">
         <div class="container">
             <div class="row">
@@ -31,7 +31,7 @@
                     <i class="flaticon-search"></i>
                 </button> -->
                 <div class="option-item">
-                    <a href="book-appointment.html" class="book-appointment">
+                    <a routerLink="/book-appointment" class="book-appointment">
                         <span class=" blink">Appointment</span>
                     </a>
                 </div>
@@ -63,8 +63,8 @@
                     </li>
 
                     <li class="nav-item">
-                        <a routerLink="blog" class="dropdown-toggle nav-link">
-                            Blog
+                        <a routerLink="blogs" class="dropdown-toggle nav-link">
+                            Blogs
                         </a>
                     </li>
                     <li class="nav-item">
@@ -80,13 +80,12 @@
                 </ul>
                 <div class="others-option d-flex align-items-center">
                     <div class="option-item">
-                        <a href="book-appointment.html" class="book-appointment">
+                        <a routerLink="/book-appointment" class="book-appointment">
                             <span class=" blink">Book Appointment</span>
                         </a>
                     </div>
                     <div class="option-item">
-                        <a class="sidebar-toggler" data-bs-toggle="offcanvas" href="#navbarOffcanvas" role="button"
-                            aria-controls="navbarOffcanvas">
+                        <a class="sidebar-toggler"(click)="onClickShowSideBarMenu()">
                             <i class="flaticon-list"></i>
                         </a>
                     </div>
@@ -143,7 +142,7 @@
                 </a>
             </div>
             <div class="accordion-item">
-                <a class="accordion-button without-icon" href="book-appointment.html" class="accordion-link">
+                <a class="accordion-button without-icon" routerLink="/book-appointment" class="accordion-link">
                     Book Appointment
                 </a>
             </div>

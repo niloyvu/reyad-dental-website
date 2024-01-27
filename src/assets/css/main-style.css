@@ -610,7 +610,7 @@ select {
   right: 20px;
   z-index: 99;
   width: 50px;
-  bottom: 20px;
+  /* bottom: 20px; */
   height: 50px;
   font-size: 25px;
   transition: 0.5s;
