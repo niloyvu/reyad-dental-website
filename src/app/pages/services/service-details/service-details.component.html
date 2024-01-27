@@ -1,6 +1,4 @@
-<!-- Breadcrumb Start -->
-<div class="breadcrumb-wrap bg-f br-3"
-    [style.background-image]="'url(' + imageUrl+serviceDetailsHeader?.image + ')'">
+<div class="breadcrumb-wrap bg-f br-3" [style.background-image]="'url(' + imageUrl+serviceDetailsHeader?.image + ')'">
     <img src="assets/img/breadcrumb/br-shape-1.webp" alt="Image" class="br-shape-one bounce sm-none">
     <img src="assets/img/breadcrumb/br-shape-2.webp" alt="Image" class="br-shape-two moveHorizontal sm-none">
     <img src="assets/img/breadcrumb/br-shape-3.webp" alt="Image" class="br-shape-three">
@@ -15,9 +13,7 @@
         </div>
     </div>
 </div>
-<!-- Breadcrumb End -->
 
-<!-- Service Details Start -->
 <div class="service-details-wrap ptb-100">
     <div class="container">
         <div class="row gx-5">
@@ -28,8 +24,8 @@
                         <!-- <img src="/./assets/img/icons/Smile.svg" alt=""> -->
                     </div>
                     <!-- <div class="sidebar-widget"> -->
-                        <!-- <h3 class="sidebar-widget-title">Service Category</h3> -->
-                        <!-- <ul class="category-box list-style">
+                    <!-- <h3 class="sidebar-widget-title">Service Category</h3> -->
+                    <!-- <ul class="category-box list-style">
                                 <li>
                                     <a href="service-style-one.html">
                                         General Dentistry
@@ -61,7 +57,7 @@
                                     </a>
                                 </li>
                             </ul> -->
-                        <!-- <div class="align-items-start">
+                    <!-- <div class="align-items-start">
                                 <div class="nav flex-column nav-pills me-3 category-box list-style" id="v-pills-tab"
                                     role="tablist" aria-orientation="vertical">
                                     <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
@@ -104,14 +100,13 @@
                                 <img [src]="imageUrl+serviceDetails?.image" alt="Image">
                             </div>
                             <div class="single-para" [innerHTML]="serviceDetails?.service_details">
-           
+
                             </div>
                             <div class="single-para">
                                 <h5>{{serviceDetails?.video_title}}</h5>
                                 <div class="single-img mt-30">
                                     <img [src]="imageUrl+serviceDetails?.thumbnail" alt="Image">
-                                    <a class="play-now" (click)="onClickOpenVideoModal()"><i
-                                            class="ri-play-fill"></i>
+                                    <a class="play-now" (click)="onClickOpenVideoModal()"><i class="ri-play-fill"></i>
                                         <span class="ripple"></span>
                                     </a>
                                 </div>
@@ -189,4 +184,3 @@
         </div>
     </div>
 </div>
-<!-- Service Details End -->

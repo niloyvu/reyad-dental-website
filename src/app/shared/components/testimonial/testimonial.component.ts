@@ -17,7 +17,7 @@ export class TestimonialComponent implements OnInit {
   imageUrl = environment.IMAGE_URL;
 
   dataService = inject(DataService);
-  
+
   @ViewChild('testimonialSwiper') swiperTestimonial!: ElementRef<SwiperContainer>;
 
   testimonialSwiperConfig: SwiperOptions = {
@@ -28,6 +28,11 @@ export class TestimonialComponent implements OnInit {
     navigation: {
       nextEl: ".service-card-next",
       prevEl: ".service-card-prev"
+    },
+    pagination: {
+      el: ".testimonial-pagination",
+      dynamicBullets: true,
+      clickable: true
     },
     breakpoints: {
       0: {
@@ -78,7 +83,7 @@ export class TestimonialComponent implements OnInit {
   ngAfterViewInit() {
     if (this.swiperTestimonial.nativeElement.swiper) {
       this.swiperTestimonial.nativeElement.swiper.activeIndex = this.index;
-    } 
+    }
   }
 
   slideChange(swiper: any) {

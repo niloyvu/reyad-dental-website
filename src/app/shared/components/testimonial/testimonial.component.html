@@ -15,7 +15,7 @@
                 <!-- <div class="swiper-wrapper"> -->
 
                     <swiper-container appSwiper #testimonialSwiper [config]="testimonialSwiperConfig"
-                        (slidechange)="slideChange($event)">
+                        (statechange)="slideChange($event)">
                         @for (testimonial of featureTestimonials; track $index) {
                         <swiper-slide>
                             <div class="swiper-slide">
@@ -33,7 +33,7 @@
                                         <span class="quote-icon">
                                             <i class="flaticon-quote"></i>
                                         </span>
-                                        <p>{{testimonial?.review}}</p>
+                                        <p>{{testimonial?.review | truncate: 120}}</p>
                                         <ul class="rating list-style">
                                             <li><i class="ri-star-fill"></i></li>
                                             <li><i class="ri-star-fill"></i></li>

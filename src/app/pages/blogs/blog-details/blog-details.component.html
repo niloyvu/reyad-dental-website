@@ -1,14 +1,14 @@
-<div class="breadcrumb-wrap bg-f br-10">
+<div class="breadcrumb-wrap bg-f br-10" [style.background-image]="'url(' + imageUrl + blogPageHeader?.image +')'">
     <img src="assets/img/breadcrumb/br-shape-1.webp" alt="Image" class="br-shape-one bounce sm-none">
     <img src="assets/img/breadcrumb/br-shape-2.webp" alt="Image" class="br-shape-two moveHorizontal sm-none">
     <img src="assets/img/breadcrumb/br-shape-3.webp" alt="Image" class="br-shape-three">
     <div class="container">
         <div class="breadcrumb-content">
-            <h2>Blog Details</h2>
+            <h2>{{blogPageHeader?.title}}</h2>
             <ul class="breadcrumb-menu list-style">
                 <li><a href="index-2.html">Home</a></li>
-                <li><a href="blog-left-sidebar.html">Blog</a></li>
-                <li>Blog Details</li>
+                <li><a href="blog-left-sidebar.html">Blogs</a></li>
+                <li>{{blogPageHeader?.title}}</li>
             </ul>
         </div>
     </div>
@@ -19,103 +19,18 @@
         <div class="row gx-5">
             <div class="col-xl-8 offset-xl-2">
                 <article>
-                    <h1>Toothbrush Talk: Choosing The Right Brush For Your Teeth</h1>
+                    <h1>{{blog?.title}}</h1>
                     <div class="single-img mt-30">
-                        <img src="assets/img/blog/single-blog-1.webp" alt="Image">
-                        <a href="posts-by-date.html" class="blog-date"><i class="flaticon-calendar"></i>July 2,
-                            2023</a>
+                        <img [src]="imageUrl + blog?.details_page_image" alt="Image">
+                        <a href="posts-by-date.html" class="blog-date"><i class="flaticon-calendar"></i>
+                            {{blog?.created_at | date}}
+                        </a>
                     </div>
                     <ul class="blog-metainfo list-style">
-                        <li><a href="posts-by-category.html">Oral Health</a></li>
-                        <li>No Comment</li>
+                        <li><a href="posts-by-category.html"> {{blog?.category}}</a></li>
+                        <!-- <li>No Comment</li> -->
                     </ul>
-                    <div class="single-para">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt
-                            labore et dolore sitor magna aliqua. Quis ipsum suspendisse ultrices
-                            <strong>gravida</strong>. Risus commodo viverra manas accumsan lacus vel facilisis.
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        </p>
-                        <p>No sea takimata sanctus est Lorem <a href="index-2.html">Ipsum</a> dolor sit amet. Lorem
-                            ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-                            invidunt ut labore consect etur adicing elit.</p>
-                        <blockquote class="wp-block-quote">
-                            <p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut arcu a, dignissim
-                                suscipit non ac eget tellus. In isl mauris nec bibendum at. Nunc, sit quisque
-                                pulvinar aliquam.In nisl mauris nec bibendum at. Nunc, sit quisque pulvinar
-                                aliquamoreet doneca accumsan etiam.”</p>
-                        </blockquote>
-                        <div class="row justify-content-center">
-                            <div class="col-xl-4 col-md-6">
-                                <div class="single-img">
-                                    <img src="assets/img/blog/single-blog-2.webp" alt="Image">
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-md-6">
-                                <div class="single-img">
-                                    <img src="assets/img/blog/single-blog-3.webp" alt="Image">
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-md-6">
-                                <div class="single-img">
-                                    <img src="assets/img/blog/single-blog-4.webp" alt="Image">
-                                </div>
-                            </div>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt
-                            labore et dolore sitor magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus
-                            commodo viverra manas accumsan lacus vel facilisis. Lorem ipsum dolor sit amet,
-                            consectetur adipiscing elit.</p>
-                        <h5>Tips For Choosing A Toothbrush</h5>
-                        <p>Although each procedure varies subtly there are some basic guidelines to treat cavities
-                            and they are followed by all dental professionals.</p>
-                        <ul class="feature-list list-style">
-                            <li>The patient is anesthetized using local anesthesia such as Carbocaine for short
-                                procedures, Lidocaine for medium length sessions, and Marcaine for multiple
-                                fillings. Patients with feelings of anxiety may be offered Nitrous Oxide (laughing
-                                gas) for the duration of the treatment.</li>
-                            <li>The area to be treated is secured by latex sheet that protects the tooth and keeps
-                                it dry during the procedure. It also prevents the debris from entering the oral
-                                region keeping the patient comfortable. For multiple fillings, when the treatment
-                                may require extended period of time</li>
-                            <li>The decay is removed using a high-speed handpiece, slow-speed handpiece, laser or
-                                the combination of all three devices. The prepared surface may be etched.</li>
-                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consequat loem odio
-                                placerat luctus neque a. Odio pretium faucibus tellus sed nunc sollicitudin dictumst
-                                quam.</li>
-                        </ul>
-                        <h5>Expert Recommendations</h5>
-                        <ol>
-                            <li>Lacus sed viverra tellus in hac habitasse platea dictumst.</li>
-                            <li>Gravida neque convallis a <strong>cras</strong> semper auctor neque vitae.</li>
-                            <li>Lacus sed turpis tincidunt id aliquet risus feugiat in.</li>
-                            <li>Risus commodo viverra manas accumsan lacus vel facilisis</li>
-                        </ol>
-                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-                            invidunt ut labore dolore magna aliquyam erat, sed diam voluptua at vero amet dolor sit
-                            consect.Consectetur adipisicing elit. Laboriosam in culpa dolorem. Eos sint aut
-                            suscipit.</p>
-                        <ul class="content-feature-list list-style mt-15">
-                            <li><i class="ri-checkbox-circle-line"></i>
-                                Lorem ipsum dolor, sit amet.
-                            </li>
-                            <li><i class="ri-checkbox-circle-line"></i>
-                                Amet consectetur adipisicing elit Officia.
-                            </li>
-                            <li><i class="ri-checkbox-circle-line"></i>
-                                Aquaerat ipsa quis possimus.
-                            </li>
-                            <li><i class="ri-checkbox-circle-line"></i>
-                                Lorem aquaerat ipsa quis possimus.
-                            </li>
-                            <li><i class="ri-checkbox-circle-line"></i>
-                                Consectetur Amet adipisicing elit Officia.
-                            </li>
-                        </ul>
-                        <p>Lorem ipsum dolor sit amet, consectetur <strong>adipisicing</strong> elit, sed do eiusmod
-                            tempor quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in <a href="index-2.html">sed</a> uia
-                            non numquam eius modi tempora incidunt ut labore dolor.</p>
-                    </div>
+                    <div class="single-para" [innerHTML]="blog?.details"></div>
                 </article>
                 <!-- <div class="post-meta-option">
                     <div class="row gx-0 align-items-center">
