@@ -2,7 +2,7 @@ import { filter } from 'rxjs';
 import { Component, OnInit, inject } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ShopComponent } from './pages/shop/shop.component';
-import { BlogComponent } from './pages/blog/blog.component';
+import { BlogsComponent } from './pages/blogs/blogs.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { FooterComponent } from './components/footer/footer.component';
@@ -17,7 +17,7 @@ import { ContactUsComponent } from './pages/contact-us/contact-us.component';
   imports: [
     RouterOutlet,
     ShopComponent,
-    BlogComponent,
+    BlogsComponent,
     HomeComponent,
     FooterComponent,
     HeaderComponent,
@@ -26,7 +26,6 @@ import { ContactUsComponent } from './pages/contact-us/contact-us.component';
     ServicesComponent,
     ContactUsComponent,
   ],
-
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
