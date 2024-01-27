@@ -1,5 +1,5 @@
 <!-- Start Navbar Area -->
-<div class="navbar-area style-one" id="navbar">
+<div [class.sticky]="isSticky" class="navbar-area style-one" id="navbar">
     <div class="header-top md-none">
         <div class="container">
             <div class="row">
@@ -85,8 +85,7 @@
                         </a>
                     </div>
                     <div class="option-item">
-                        <a class="sidebar-toggler" data-bs-toggle="offcanvas" href="#navbarOffcanvas" role="button"
-                            aria-controls="navbarOffcanvas">
+                        <a class="sidebar-toggler"(click)="onClickShowSideBarMenu()">
                             <i class="flaticon-list"></i>
                         </a>
                     </div>
