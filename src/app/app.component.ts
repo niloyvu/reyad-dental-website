@@ -59,7 +59,4 @@ export class AppComponent implements OnInit {
     }
   }
 
-  toggleTheme() {
-    
-  }
 }

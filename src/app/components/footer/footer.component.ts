@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { environment } from '../../../environments/environment';
 import { SharedModule } from '../../shared/shared.module';
@@ -15,6 +15,18 @@ export class FooterComponent {
   dataService = inject(DataService);
   imageUrl = environment.IMAGE_URL;
   footerData: any = [];
+
+  buttonOpacity: number = 0;
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const scrollPosition = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    if (scrollPosition > 200) {
+      this.buttonOpacity = 1;
+    } else {
+      this.buttonOpacity = 0;
+    }
+  }
 
   ngOnInit() {
     this.getFooterSectionData();
@@ -44,4 +56,11 @@ export class FooterComponent {
         }
       })
   }
+
+  scrollToTop() {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
 }

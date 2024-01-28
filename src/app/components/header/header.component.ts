@@ -47,5 +47,9 @@ export class HeaderComponent implements OnInit {
   onClickShowSideBarMenu() {
 
   }
+
+  toggleTheme() {
+
+  }
 }
 
