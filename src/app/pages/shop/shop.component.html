@@ -2,7 +2,7 @@
     <img src="assets/img/breadcrumb/br-shape-1.webp" alt="Image" class="br-shape-one bounce sm-none">
     <img src="assets/img/breadcrumb/br-shape-2.webp" alt="Image" class="br-shape-two moveHorizontal sm-none">
     <img src="assets/img/breadcrumb/br-shape-3.webp" alt="Image" class="br-shape-three">
-    <div class="container" style="margin-bottom: 300px;">
+    <div class="container">
         <div class="breadcrumb-content">
             <h2>{{shoPageHeader?.title}}</h2>
             <ul class="breadcrumb-menu list-style">
@@ -12,3 +12,43 @@
         </div>
     </div>
 </div>
+
+<div class="container text-center pt-5">
+    <h1>Medical Devices & Equipments </h1>
+</div>
+
+<div class="container text-center">
+    <div class="shell">
+        <div class="container">
+            <div class="row">
+                @for (product of products; track $index) {
+                <div class="col-md-3">
+                    <div class="wsk-cp-product">
+                        <div class="wsk-cp-img">
+                            <img [src]="imageUrl + product?.image" alt="Product" class="img-responsive" />
+                        </div>
+                        <div class="wsk-cp-text">
+                            <div class="category">
+                                <span>{{product?.category}}</span>
+                            </div>
+                            <div class="title-product">
+                                <a [routerLink]="['/product', product?.title | slugGenerator, product?.id]">
+                                    <h3>{{product?.title}}</h3>
+                                </a>
+                            </div>
+                            <div class="card-footer">
+                                <div class="wcf-left"><span class="price">৳ {{product?.price | number}}</span></div>
+                                <div class="wcf-right">
+                                    <a href="#" class="buy-btn" [routerLink]="['/product', product?.title | slugGenerator, product?.id]">
+                                        <i class="ri-shopping-cart-2-fill"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+
+        </div>
+    </div>

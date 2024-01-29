@@ -23,6 +23,10 @@ export class DataService {
     return this.httpClient.get(`${this.apiUrl}/${path}${params}`);
   }
 
+  postData(formValue: any, path: string): Observable<any> {
+    return this.httpClient.post(`${this.apiUrl}/${path}`, formValue);
+  }
+
 }
 
 

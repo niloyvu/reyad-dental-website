@@ -51,24 +51,44 @@
                 <div [innerHTML]="heroFormTextData?.opening_hours"></div>
             </div>
         </div>
-        <form action="#" class="hero-form align-items-center">
-            <img src="assets/img/hero/hero-form-shape.webp" alt="Image" class="hero-form-shape">
+
+        <form [formGroup]="heroForm" (ngSubmit)="onSubmitBookingForm()" class="hero-form align-items-center">
+            <img src="assets/img/hero/hero-form-shape.webp" alt="Image" class="hero-form-shape" />
             <div class="form-group">
-                <label for="email"><i class="flaticon-user"></i>Your Name</label>
-                <input type="text" id="text" placeholder="Enter Your Name">
+                <label for="name"><i class="flaticon-user"></i>Your Name</label>
+                <input type="text" id="name" formControlName="name" placeholder="Enter Your Name" />
+
+                <div *ngIf="name?.invalid && name?.touched" class="invalid-responses">
+                    <p *ngIf="name?.errors?.['required']">Name is required.</p>
+                    <p *ngIf="name?.errors?.['minlength']">Name must be at least 6 characters.</p>
+                    <p *ngIf="name?.errors?.['maxlength']">Name must be at most 11 characters.</p>
+                </div>
+
             </div>
             <div class="form-group">
                 <label for="phone"><i class="flaticon-phone-call"></i>Phone Number</label>
-                <input type="number" id="phone" placeholder="Your Phone">
+                <input type="text" id="phone" formControlName="phone" placeholder="Your Phone" />
+                <div *ngIf="phone?.invalid && phone?.touched" class="invalid-responses">
+                    <p *ngIf="phone?.errors?.['required']">Phone is required.</p>
+                    <p *ngIf="phone?.errors?.['minlength']">Phone number must be 11 digits</p>
+                    <p *ngIf="phone?.errors?.['maxlength']">Phone number 11 digits exceeds</p>
+                    <p *ngIf="phone?.errors?.['pattern']">Invalid phone number.</p>
+                </div>
             </div>
             <div class="form-group">
                 <label for="date"><i class="flaticon-clock"></i>Date</label>
-                <input type="date" id="date">
+                <input type="date" id="date" formControlName="date" />
+                <div *ngIf="date?.invalid && date?.touched" class="invalid-responses">
+                    <p *ngIf="date?.errors?.['required']">Date is required.</p>
+                    <p *ngIf="date?.errors?.['invalidBookingDate']">Booking date can't be past.</p>
+                    <p *ngIf="date?.errors?.['exceedBookingDate']">Booking can't exceed next 10 days.</p>
+                </div>
             </div>
             <div class="form-group">
-                <button class="btn-two border-0">Book Now</button>
+                <button class="btn-two border-0" [disabled]="isSubmitted" type="submit">Book Now</button>
             </div>
         </form>
+
     </div>
 </div>
 
@@ -118,7 +138,8 @@
                                         <i [class]="service?.icon"></i>
                                     </span>
                                     <h3>
-                                        <a [routerLink]="['/service',service?.title | slugGenerator, service?.id]">{{service?.title}}</a>
+                                        <a
+                                            [routerLink]="['/service',service?.title | slugGenerator, service?.id]">{{service?.title}}</a>
                                     </h3>
                                     <p>{{service?.description}}
                                     </p>
@@ -244,18 +265,18 @@
                         <img [src]="imageUrl+blog?.feature_image" alt="Image">
                     </div>
                     <div class="blog-card-info">
-                        <a href="posts-by-date.html" class="blog-date"><i class="flaticon-calendar"></i>
+                        <a class="blog-date"><i class="flaticon-calendar"></i>
                             {{blog?.created_at | date}}
                         </a>
                         <ul class="blog-metainfo list-style">
-                            <li><a href="posts-by-category.html">{{blog?.category}}</a></li>
+                            <li><a>{{blog?.category}}</a></li>
                             <!-- <li>1 Comment</li> -->
                         </ul>
                         <h3>
-                            <a href="blog-details-left-sidebar.html">{{blog?.title}}</a>
+                            <a [routerLink]="['/blog', blog?.title | slugGenerator, blog?.id]">{{blog?.title}}</a>
                         </h3>
                         <div [innerHTML]="blog?.details | truncate: 100"></div>
-                        <a href="blog-details-left-sidebar.html" class="link-one">Read More
+                        <a [routerLink]="['/blog', blog?.title | slugGenerator, blog?.id]" class="link-one">Read More
                             <i class="flaticon-right-arrow"></i>
                         </a>
                     </div>

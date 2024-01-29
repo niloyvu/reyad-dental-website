@@ -10,6 +10,7 @@ import { DentistsComponent } from './pages/dentists/dentists.component';
 import { DentistDetailsComponent } from './pages/dentists/dentist-details/dentist-details.component';
 import { BookAppointmentComponent } from './pages/book-appointment/book-appointment.component';
 import { BlogDetailsComponent } from './pages/blogs/blog-details/blog-details.component';
+import { ProductDetailsComponent } from './pages/shop/product-details/product-details.component';
 
 export const routes: Routes = [
 
@@ -53,6 +54,10 @@ export const routes: Routes = [
     {
         path: 'shop',
         component: ShopComponent,
+    },
+    {
+        path: 'product/:name/:id',
+        component: ProductDetailsComponent,
     },
     {
         path: 'contact-us',

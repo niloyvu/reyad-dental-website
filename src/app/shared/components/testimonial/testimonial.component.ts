@@ -1,8 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
-import { DataService } from '../../../services/data.service';
-import { environment } from '../../../../environments/environment';
-import { SwiperContainer } from 'swiper/element';
 import { SwiperOptions } from 'swiper/types';
+import { SwiperContainer } from 'swiper/element';
+import { DataService } from '../../../services/data.service';
+import { sliderPreviewConfig } from '../../config/slider-config';
+import { environment } from '../../../../environments/environment';
+import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 
 @Component({
   selector: 'app-testimonial',
@@ -34,20 +35,7 @@ export class TestimonialComponent implements OnInit {
       dynamicBullets: true,
       clickable: true
     },
-    breakpoints: {
-      0: {
-        slidesPerView: 1
-      },
-      768: {
-        slidesPerView: 2
-      },
-      992: {
-        slidesPerView: 2
-      },
-      1200: {
-        slidesPerView: 3
-      }
-    }
+    breakpoints: sliderPreviewConfig
   }
   ngOnInit(): void {
     this.getTestimonialSectionData();

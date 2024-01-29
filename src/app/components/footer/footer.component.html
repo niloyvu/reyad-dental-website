@@ -12,10 +12,20 @@
                             <h2 class="text-white">{{newsletterSectionData?.subtitle}}<img
                                     src="assets/img/section-shape-3.webp" alt="Image"></h2>
                         </div>
-                        <form action="#">
-                            <input type="email" [placeholder]="newsletterSectionData?.placeholder">
-                            <button type="submit">{{newsletterSectionData?.button_text}}</button>
+                        <form (ngSubmit)="onSubmit()" #subscribeForm="ngForm" class="newsletter-form">
+                            <input type="email" name="email" [placeholder]="newsletterSectionData?.placeholder"
+                                [(ngModel)]="email" required email #emailField="ngModel">
+                            <button type="submit" [disabled]="subscribeForm.invalid">
+                                {{newsletterSectionData?.button_text}}
+                            </button>
                         </form>
+                        <div *ngIf="emailField.invalid && (emailField.dirty || emailField.touched)"
+                            class="error-message">
+                            <p *ngIf="emailField.errors?.['required']">Email is required.</p>
+                            <p *ngIf="emailField.errors?.['email'] && !emailField.errors?.['required']">
+                                Invalid email format.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -90,7 +100,12 @@
 </footer>
 <!-- Footer End -->
 
-  <!-- Back to Top -->
-  <button type="button" id="backtotop" class="position-fixed text-center border-0 p-0">
+<!-- Back to Top -->
+<button type="button" id="backtotop" class="position-fixed text-center border-0 p-0">
+    <i class="ri-arrow-up-line"></i>
+</button>
+
+<button type="button" id="backtotop" class="position-fixed text-center border-0 p-0" (click)="scrollToTop()"
+    [style.opacity]="buttonOpacity">
     <i class="ri-arrow-up-line"></i>
 </button>
