@@ -51,24 +51,39 @@
                 <div [innerHTML]="heroFormTextData?.opening_hours"></div>
             </div>
         </div>
-        <form action="#" class="hero-form align-items-center">
+        <form (ngSubmit)="submitForm()" #heroForm="ngForm" class="hero-form align-items-center">
             <img src="assets/img/hero/hero-form-shape.webp" alt="Image" class="hero-form-shape">
             <div class="form-group">
-                <label for="email"><i class="flaticon-user"></i>Your Name</label>
-                <input type="text" id="text" placeholder="Enter Your Name">
+                <label for="name"><i class="flaticon-user"></i>Your Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter Your Name" [(ngModel)]="formData.name" required #name="ngModel">
+                <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error-message">
+                    <p *ngIf="name.errors?.['required']">Name is required.</p>
+                </div>
             </div>
             <div class="form-group">
-                <label for="phone"><i class="flaticon-phone-call"></i>Phone Number</label>
-                <input type="number" id="phone" placeholder="Your Phone">
+                <label for="phoneNumber"><i class="flaticon-phone-call"></i>Phone Number</label>
+                <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Your Phone" [(ngModel)]="formData.phoneNumber" 
+                       required minlength="11" maxlength="11" #phoneNumber="ngModel">
+                <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)" class="error-message">
+                    <p *ngIf="phoneNumber.errors?.['required']">Phone number is required.</p>
+                    <p *ngIf="phoneNumber.errors?.['minlength'] || phoneNumber.errors?.['maxlength']">Phone number must be 11 digits long.</p>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="bookingDate"><i class="flaticon-clock"></i>Date</label>
+                <input type="date" id="bookingDate" name="bookingDate" (ngModelChange)="onCheckBookingDate($event)" [(ngModel)]="formData.bookingDate"
+                      required #bookingDate="ngModel">
+                <div *ngIf="bookingDate.invalid && (bookingDate.dirty || bookingDate.touched)" class="error-message">
+                    <p *ngIf="bookingDate.errors?.['required']">Booking date is required.</p>
+                    <p *ngIf="!isFutureDate">Booking date must be in the future.</p>
+                </div>
             </div>
             <div class="form-group">
-                <label for="date"><i class="flaticon-clock"></i>Date</label>
-                <input type="date" id="date">
-            </div>
-            <div class="form-group">
-                <button class="btn-two border-0">Book Now</button>
+                <button type="submit" [disabled]="heroForm.invalid" class="btn-two border-0">Book Now</button>
             </div>
         </form>
+        
     </div>
 </div>
 

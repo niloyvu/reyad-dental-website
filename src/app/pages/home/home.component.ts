@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { SwiperOptions } from 'swiper/types';
 import { SwiperContainer } from 'swiper/element';
 import { DataService } from '../../services/data.service';
@@ -10,7 +11,7 @@ import {
   Component,
   ElementRef,
   ViewChild,
-  AfterViewInit, 
+  AfterViewInit,
   CUSTOM_ELEMENTS_SCHEMA
 } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -18,7 +19,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [SharedModule, MatButtonModule, MatDialogModule],
+  imports: [SharedModule, MatButtonModule, MatDialogModule, FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   schemas: [
@@ -28,6 +29,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 export class HomeComponent implements OnInit, AfterViewInit {
 
   index = 0;
+  formData: any = {};
   featureBlogs: any;
   featureServices: any;
   heroSectionData: any;
@@ -38,6 +40,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   serviceSectionData: any;
 
   homeFeatures: any[] = []
+  isFutureDate: boolean = false;
   imageUrl = environment.IMAGE_URL;
 
   dataService = inject(DataService);
@@ -120,6 +123,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
           console.error(error);
         }
       })
+  }
+
+  onCheckBookingDate(date: string) {
+    const selectedDate = new Date(date);
+    const currentDate = new Date();
+    this.isFutureDate = selectedDate > currentDate;
+  }
+
+  submitForm() {
+    console.log(this.formData);
   }
 
   ngAfterViewInit() {

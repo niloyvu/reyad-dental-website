@@ -1,10 +1,10 @@
 import { filter } from 'rxjs';
-import { Component, HostListener, OnInit, inject } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './pages/home/home.component';
 import { ShopComponent } from './pages/shop/shop.component';
 import { BlogsComponent } from './pages/blogs/blogs.component';
-import { HomeComponent } from './pages/home/home.component';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { Component, HostListener, OnInit, inject } from '@angular/core';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
