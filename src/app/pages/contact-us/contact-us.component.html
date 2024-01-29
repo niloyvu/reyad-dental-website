@@ -1,6 +1,5 @@
 <!-- Breadcrumb Start -->
-<div class="breadcrumb-wrap bg-f br-11"
-    [style.background-image]="'url(' + imageUrl+contactUsPageData?.image + ')'">
+<div class="breadcrumb-wrap bg-f br-11" [style.background-image]="'url(' + imageUrl+contactUsPageData?.image + ')'">
     <img src="assets/img/breadcrumb/br-shape-1.webp" alt="Image" class="br-shape-one bounce sm-none">
     <img src="assets/img/breadcrumb/br-shape-2.webp" alt="Image" class="br-shape-two moveHorizontal sm-none">
     <img src="assets/img/breadcrumb/br-shape-3.webp" alt="Image" class="br-shape-three">
@@ -73,54 +72,78 @@
             </div>
             <div class="col-xl-10 offset-xl-1">
                 <div class="contact-form">
-                    <form class="form-wrap" id="contactForm">
+
+                    <form [formGroup]="contactForm" class="form-wrap" id="contactForm" (ngSubmit)="onSubmit()">
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <textarea name="message" id="message" placeholder="Your Messages.." cols="30"
-                                        rows="10" required data-error="Please enter your message"></textarea>
+                                    <textarea formControlName="message" placeholder="Your Messages.." cols="30"
+                                        rows="10"></textarea>
+                                </div>
+                                <div *ngIf="message?.invalid && message?.touched" class="invalid-responses">
+                                    <p *ngIf="message?.errors?.['required']">Message is required.</p>
+                                    <p *ngIf="message?.errors?.['minlength']">Message must be at least 100 characters.
+                                    </p>
+                                    <p *ngIf="message?.errors?.['maxlength']">Message must be at most 200 characters.
+                                    </p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" name="name" placeholder="Full Name*" id="name" required
-                                        data-error="Please enter your name">
+                                    <input type="text" formControlName="name" placeholder="Full Name*">
+                                </div>
+                                <div *ngIf="name?.invalid && name?.touched" class="invalid-responses">
+                                    <p *ngIf="name?.errors?.['required']">Name is required.</p>
+                                    <p *ngIf="name?.errors?.['minlength']">Name must be at least 6 characters.</p>
+                                    <p *ngIf="name?.errors?.['maxlength']">Name must be at most 30 characters.</p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="email" name="email" id="email" required
-                                        placeholder="Your Email Address*" data-error="Please enter your email">
+                                    <input type="email" formControlName="email" placeholder="Your Email Address*">
+                                </div>
+                                <div *ngIf="email?.invalid && email?.touched" class="invalid-responses">
+                                    <p *ngIf="email?.errors?.['required']">Email is required.</p>
+                                    <p *ngIf="email?.errors?.['email']">Invalid Email.</p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="number" name="phone" id="phone" required placeholder="Phone Number*"
-                                        data-error="Please enter your email">
+                                    <input type="text" formControlName="phone" placeholder="Phone Number*">
+                                </div>
+                                <div *ngIf="phone?.invalid && phone?.touched" class="invalid-responses">
+                                    <p *ngIf="phone?.errors?.['required']">Phone is required.</p>
+                                    <p *ngIf="phone?.errors?.['minlength']">Phone number must be 11 digits</p>
+                                    <p *ngIf="phone?.errors?.['maxlength']">Phone number 11 digits exceeds</p>
+                                    <p *ngIf="phone?.errors?.['pattern']">Invalid phone number.</p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" name="msg_subject" placeholder="Subject*" id="msg_subject"
-                                        required data-error="Please enter your subject">
-                                    <div class="help-block with-errors"></div>
+                                    <input type="text" formControlName="subject" placeholder="Subject*">
+                                </div>
+                                <div *ngIf="subject?.invalid && subject?.touched" class="invalid-responses">
+                                    <p *ngIf="subject?.errors?.['required']">Subject is required.</p>
+                                    <p *ngIf="subject?.errors?.['minlength']">Subject must be at least 20 characters.
+                                    </p>
+                                    <p *ngIf="subject?.errors?.['maxlength']">Subject must be at most 100 characters.
+                                    </p>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="form-check checkbox">
-                                    <input name="gridCheck" value="I agree to the terms and privacy policy."
-                                        class="form-check-input" type="checkbox" id="gridCheck" required>
-                                    <label class="form-check-label" for="gridCheck">
-                                        I agree to the <a routerLink="terms-conditions">Terms &amp; Conditions</a>
-                                        and <a routerLink="privacy-policy">Privacy Policy</a>
+                                    <input formControlName="check" type="checkbox" id="check">
+                                    <label for="check">
+                                        I agree to the <a routerLink="terms-conditions">Terms &amp; Conditions</a> and
+                                        <a routerLink="privacy-policy">Privacy Policy</a>
                                     </label>
-                                    <div class="help-block with-errors gridCheck-error"></div>
+                                </div>
+                                <div *ngIf="check?.invalid && check?.touched" class="invalid-responses">
+                                    <p *ngIf="check?.errors?.['required']">Check is required.</p>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <button type="submit" class="btn-two">Send Message</button>
-                                <div id="msgSubmit" class="h3 text-center hidden"></div>
-                                <div class="clearfix"></div>
+                            <div class="col-md-12 submit-btn">
+                                <button type="submit" [disabled]="isSubmitted" class="btn-two">Send Message</button>
                             </div>
                         </div>
                     </form>

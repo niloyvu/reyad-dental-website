@@ -2,6 +2,12 @@
 @import "../../../assets/css/responsive.css";
 @import "../../../assets/css/swiper.bundle.min.css";
 
-.error-message p {
-    color: #ff0000;
+.invalid-responses p {
+    color: coral;
+}
+
+.btn-two[disabled] {
+    pointer-events: none;
+    background-color: #ccc; 
+    opacity: .8;
 }

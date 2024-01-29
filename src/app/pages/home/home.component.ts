@@ -1,10 +1,14 @@
-import { FormsModule } from '@angular/forms';
 import { SwiperOptions } from 'swiper/types';
 import { SwiperContainer } from 'swiper/element';
 import { DataService } from '../../services/data.service';
 import { SharedModule } from './../../shared/shared.module';
-import { MatButtonModule } from '@angular/material/button';
 import { environment } from '../../../environments/environment';
+import {
+  FormControl,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import {
   OnInit,
   inject,
@@ -14,22 +18,25 @@ import {
   AfterViewInit,
   CUSTOM_ELEMENTS_SCHEMA
 } from '@angular/core';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { sliderPreviewConfig } from '../../shared/config/slider-config';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [SharedModule, MatButtonModule, MatDialogModule, FormsModule],
+  imports: [SharedModule, ReactiveFormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
 })
+
 export class HomeComponent implements OnInit, AfterViewInit {
 
   index = 0;
-  formData: any = {};
+  heroForm!: FormGroup;
+  isSubmitted = false;
   featureBlogs: any;
   featureServices: any;
   heroSectionData: any;
@@ -43,14 +50,62 @@ export class HomeComponent implements OnInit, AfterViewInit {
   isFutureDate: boolean = false;
   imageUrl = environment.IMAGE_URL;
 
+  toastr = inject(ToastrService);
   dataService = inject(DataService);
 
   @ViewChild('teamSwiper') teamSwiper!: ElementRef<SwiperContainer>;
   @ViewChild('serviceSwiper') serviceSwiper!: ElementRef<SwiperContainer>;
 
-  constructor(public dialog: MatDialog) { }
   ngOnInit() {
     this.getHomePageContents();
+
+    this.heroForm = new FormGroup({
+      name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(20)
+      ]),
+      phone: new FormControl('', [
+        Validators.required,
+        Validators.minLength(11),
+        Validators.maxLength(11),
+        Validators.pattern('^[0-9]+$'),
+      ]),
+      date: new FormControl('',
+        [
+          Validators.required,
+          this.bookingDateValidator.bind(this)
+        ]),
+    });
+
+  }
+
+  get name() {
+    return this.heroForm.get('name');
+  }
+
+  get phone() {
+    return this.heroForm.get('phone');
+  }
+
+  get date() {
+    return this.heroForm.get('date');
+  }
+
+  bookingDateValidator(control: any) {
+    const selectedDate = new Date(control.value);
+    const currentDate = new Date();
+    const maxDate = new Date();
+    maxDate.setDate(currentDate.getDate() + 10);
+
+    if (selectedDate < currentDate) {
+      return { 'invalidBookingDate': true };
+    }
+    if (selectedDate > maxDate) {
+      return { 'exceedBookingDate': true };
+    }
+
+    return null;
   }
 
   serviceSwiperConfig: SwiperOptions = {
@@ -62,21 +117,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
       nextEl: ".service-card-next",
       prevEl: ".service-card-prev"
     },
-    breakpoints: {
-      0: {
-        slidesPerView: 1
-      },
-      768: {
-        slidesPerView: 2
-      },
-      992: {
-        slidesPerView: 2
-      },
-      1200: {
-        slidesPerView: 3
-      }
-    }
+    breakpoints: sliderPreviewConfig
   }
+
   teamSwiperConfig: SwiperOptions = {
     spaceBetween: 10,
     grabCursor: true,
@@ -86,20 +129,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       nextEl: ".service-card-next",
       prevEl: ".service-card-prev"
     },
-    breakpoints: {
-      0: {
-        slidesPerView: 1
-      },
-      768: {
-        slidesPerView: 2
-      },
-      992: {
-        slidesPerView: 2
-      },
-      1200: {
-        slidesPerView: 3
-      }
-    }
+    breakpoints: sliderPreviewConfig
   }
 
   slideChange(swiper: any) {
@@ -125,14 +155,31 @@ export class HomeComponent implements OnInit, AfterViewInit {
       })
   }
 
-  onCheckBookingDate(date: string) {
-    const selectedDate = new Date(date);
-    const currentDate = new Date();
-    this.isFutureDate = selectedDate > currentDate;
-  }
+  onSubmitBookingForm() {
+    if (this.heroForm.invalid) {
+      this.heroForm.markAllAsTouched();
+      return;
+    }
 
-  submitForm() {
-    console.log(this.formData);
+    this.isSubmitted = true;
+    this.dataService.postData(this.heroForm.value, 'website/book-appointment').subscribe({
+      next: (response) => {
+        this.isSubmitted = false;
+        if (response.code == 200) {
+          this.heroForm.reset();
+          this.toastr.success(response.message);
+        }
+        else {
+          this.toastr.error('Form Submission Failed!');
+        }
+      },
+      error: error => {
+        console.error(error);
+        this.isSubmitted = false;
+        this.toastr.error('Form Submission Failed!');
+      }
+    });
+
   }
 
   ngAfterViewInit() {
@@ -142,5 +189,4 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
 }
-
 

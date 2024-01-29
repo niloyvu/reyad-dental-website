@@ -51,39 +51,44 @@
                 <div [innerHTML]="heroFormTextData?.opening_hours"></div>
             </div>
         </div>
-        <form (ngSubmit)="submitForm()" #heroForm="ngForm" class="hero-form align-items-center">
-            <img src="assets/img/hero/hero-form-shape.webp" alt="Image" class="hero-form-shape">
+
+        <form [formGroup]="heroForm" (ngSubmit)="onSubmitBookingForm()" class="hero-form align-items-center">
+            <img src="assets/img/hero/hero-form-shape.webp" alt="Image" class="hero-form-shape" />
             <div class="form-group">
                 <label for="name"><i class="flaticon-user"></i>Your Name</label>
-                <input type="text" id="name" name="name" placeholder="Enter Your Name" [(ngModel)]="formData.name" required #name="ngModel">
-                <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error-message">
-                    <p *ngIf="name.errors?.['required']">Name is required.</p>
+                <input type="text" id="name" formControlName="name" placeholder="Enter Your Name" />
+
+                <div *ngIf="name?.invalid && name?.touched" class="invalid-responses">
+                    <p *ngIf="name?.errors?.['required']">Name is required.</p>
+                    <p *ngIf="name?.errors?.['minlength']">Name must be at least 6 characters.</p>
+                    <p *ngIf="name?.errors?.['maxlength']">Name must be at most 11 characters.</p>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label for="phone"><i class="flaticon-phone-call"></i>Phone Number</label>
+                <input type="text" id="phone" formControlName="phone" placeholder="Your Phone" />
+                <div *ngIf="phone?.invalid && phone?.touched" class="invalid-responses">
+                    <p *ngIf="phone?.errors?.['required']">Phone is required.</p>
+                    <p *ngIf="phone?.errors?.['minlength']">Phone number must be 11 digits</p>
+                    <p *ngIf="phone?.errors?.['maxlength']">Phone number 11 digits exceeds</p>
+                    <p *ngIf="phone?.errors?.['pattern']">Invalid phone number.</p>
                 </div>
             </div>
             <div class="form-group">
-                <label for="phoneNumber"><i class="flaticon-phone-call"></i>Phone Number</label>
-                <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Your Phone" [(ngModel)]="formData.phoneNumber" 
-                       required minlength="11" maxlength="11" #phoneNumber="ngModel">
-                <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)" class="error-message">
-                    <p *ngIf="phoneNumber.errors?.['required']">Phone number is required.</p>
-                    <p *ngIf="phoneNumber.errors?.['minlength'] || phoneNumber.errors?.['maxlength']">Phone number must be 11 digits long.</p>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label for="bookingDate"><i class="flaticon-clock"></i>Date</label>
-                <input type="date" id="bookingDate" name="bookingDate" (ngModelChange)="onCheckBookingDate($event)" [(ngModel)]="formData.bookingDate"
-                      required #bookingDate="ngModel">
-                <div *ngIf="bookingDate.invalid && (bookingDate.dirty || bookingDate.touched)" class="error-message">
-                    <p *ngIf="bookingDate.errors?.['required']">Booking date is required.</p>
-                    <p *ngIf="!isFutureDate">Booking date must be in the future.</p>
+                <label for="date"><i class="flaticon-clock"></i>Date</label>
+                <input type="date" id="date" formControlName="date" />
+                <div *ngIf="date?.invalid && date?.touched" class="invalid-responses">
+                    <p *ngIf="date?.errors?.['required']">Date is required.</p>
+                    <p *ngIf="date?.errors?.['invalidBookingDate']">Booking date can't be past.</p>
+                    <p *ngIf="date?.errors?.['exceedBookingDate']">Booking can't exceed next 10 days.</p>
                 </div>
             </div>
             <div class="form-group">
-                <button type="submit" [disabled]="heroForm.invalid" class="btn-two border-0">Book Now</button>
+                <button class="btn-two border-0" [disabled]="isSubmitted" type="submit">Book Now</button>
             </div>
         </form>
-        
+
     </div>
 </div>
 
@@ -133,7 +138,8 @@
                                         <i [class]="service?.icon"></i>
                                     </span>
                                     <h3>
-                                        <a [routerLink]="['/service',service?.title | slugGenerator, service?.id]">{{service?.title}}</a>
+                                        <a
+                                            [routerLink]="['/service',service?.title | slugGenerator, service?.id]">{{service?.title}}</a>
                                     </h3>
                                     <p>{{service?.description}}
                                     </p>

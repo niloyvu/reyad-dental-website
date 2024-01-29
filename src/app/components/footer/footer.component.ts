@@ -1,7 +1,9 @@
-import { Component, HostListener, inject } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { NgForm } from '@angular/forms';
 import { DataService } from '../../services/data.service';
-import { environment } from '../../../environments/environment';
 import { SharedModule } from '../../shared/shared.module';
+import { environment } from '../../../environments/environment';
+import { Component, HostListener, ViewChild, inject } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
@@ -11,8 +13,16 @@ import { SharedModule } from '../../shared/shared.module';
   styleUrl: './footer.component.scss'
 })
 export class FooterComponent {
+
+  isSubmitted = false;
+  email: string = '';
   newsletterSectionData: any;
+
+  toastr = inject(ToastrService);
   dataService = inject(DataService);
+
+  @ViewChild('subscribeForm') subscribeForm!: NgForm;
+
   imageUrl = environment.IMAGE_URL;
   footerData: any = [];
 
@@ -61,6 +71,21 @@ export class FooterComponent {
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+  }
+
+  onSubmit() {
+    this.dataService.postData({ 'email': this.email }, 'website/subscription').subscribe({
+      next: (response) => {
+        this.isSubmitted = false;
+        this.subscribeForm.resetForm();
+        this.toastr.success(response.message);
+      },
+      error: error => {
+        console.error(error);
+        this.isSubmitted = false;
+        this.toastr.error('Subscription Failed!');
+      }
+    });
   }
 
 }
