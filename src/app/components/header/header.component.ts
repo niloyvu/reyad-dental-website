@@ -1,8 +1,7 @@
 import { RouterLink } from '@angular/router';
 import { DataService } from '../../services/data.service';
-import { Component, HostListener, OnInit, inject } from '@angular/core';
 import { environment } from '../../../environments/environment';
-
+import { Component, HostListener, OnInit, inject } from '@angular/core';
 
 @Component({
   selector: 'app-header',
