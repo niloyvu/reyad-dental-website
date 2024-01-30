@@ -85,7 +85,7 @@
                         </a>
                     </div>
                     <div class="option-item">
-                        <a class="sidebar-toggler"(click)="onClickShowSideBarMenu()">
+                        <a class="sidebar-toggler" (click)="onClickShowSideBarMenu()">
                             <i class="flaticon-list"></i>
                         </a>
                     </div>
@@ -96,15 +96,17 @@
 </div>
 <!-- End Navbar Area -->
 
-
+@if (show) {
 <!-- Start Responsive Navbar Area -->
-<div class="responsive-navbar offcanvas offcanvas-end" id="navbarOffcanvas">
+<div class="responsive-navbar offcanvas offcanvas-end show" data-bs-backdrop="static" tabindex="-1"
+    id="navbarOffcanvas">
     <div class="offcanvas-header">
         <a href="index-2.html" class="logo d-inline-block">
             <img class="logo-light" src="assets/img/logo.webp" alt="logo">
-            <img class="logo-dark" src="assets/img/logo-white.webp" alt="logo">
+            <!-- <img class="logo-dark" src="assets/img/logo-white.webp" alt="logo"> -->
         </a>
-        <button type="button" class="close-btn">
+        <button type="button" (click)="onClickShowSideBarMenu()" class="close-btn" data-bs-dismiss="offcanvas"
+            aria-label="Close">
             <i class="ri-close-line"></i>
         </button>
     </div>
@@ -142,7 +144,7 @@
                 </a>
             </div>
             <div class="accordion-item">
-                <a class="accordion-button without-icon" routerLink="/book-appointment" class="accordion-link">
+                <a class="accordion-button without-icon" href="book-appointment.html" class="accordion-link">
                     Book Appointment
                 </a>
             </div>
@@ -156,6 +158,9 @@
                 </li>
                 <li>
                     <i class="flaticon-mail"></i>
+                    <a href="https://templates.Rashed.com/cdn-cgi/l/email-protection#573f323b3b381733383b237934383a"><span
+                            class="__cf_email__"
+                            data-cfemail="0f676a6363604f6b60637b216c6062">[email&#160;protected]</span></a>
                 </li>
                 <li>
                     <i class="flaticon-phone-call"></i>
@@ -178,7 +183,8 @@
         </div>
     </div>
 </div>
-
+<div class="offcanvas-backdrop fade show"></div>
+}
 <!-- <div class="switch-theme-mode">
     <label id="switch" class="switch">
         <input type="checkbox" (change)="toggleTheme()" id="slider">

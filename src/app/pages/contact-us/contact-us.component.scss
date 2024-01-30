@@ -4,12 +4,12 @@
 
 
 .submit-btn {
-    button[disabled] {
-      pointer-events: none;
-      opacity: .5;
-    }
+  button[disabled] {
+    pointer-events: none;
+    opacity: .5;
   }
-  
-  .invalid-responses p {
-    color: #ff0000;
-  }
+}
+
+.invalid-responses p {
+  color: #ff0000;
+}

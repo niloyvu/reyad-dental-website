@@ -25,68 +25,104 @@
                             <span>{{appointmentSectionData?.button_text | lastWord}}.</span><img
                                 src="assets/img/section-shape-2.webp" alt="Image">
                         </h3>
-                        <form action="#">
+                        <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="name">Name*</label>
-                                        <input type="text" id="name" placeholder="Name">
+                                        <input type="text" formControlName="name" id="name" placeholder="Name">
                                         <i class="flaticon-user"></i>
                                     </div>
                                 </div>
+                                <div *ngIf="name?.invalid && name?.touched" class="invalid-responses">
+                                    <p *ngIf="name?.errors?.['required']">Name is required.</p>
+                                    <p *ngIf="name?.errors?.['minlength']">Name must be at least 6 characters.</p>
+                                    <p *ngIf="name?.errors?.['maxlength']">Name must be at most 30 characters.</p>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="app_email">Email*</label>
-                                        <input type="email" id="app_email" placeholder="Email">
+                                        <label for="email">Email*</label>
+                                        <input type="email" formControlName="email"id="email" placeholder="Email">
                                         <i class="flaticon-mail"></i>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="app_phone">Phone</label>
-                                        <input type="number" id="app_phone" placeholder="Name">
-                                        <i class="flaticon-phone-call"></i>
+                                    <div *ngIf="email?.invalid && email?.touched" class="invalid-responses">
+                                        <p *ngIf="email?.errors?.['required']">Email is required.</p>
+                                        <p *ngIf="email?.errors?.['email']">Invalid Email.</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="doc_name">Doctors*</label>
-                                        <select name="doc_name" id="doc_name">
-                                            <option>Doctors</option>
-                                            <option value="1">Ass. Pro. Dr. Asraf Ali Bissash</option>
-                                            <option value="2">Mahito Hiasho</option>
-                                            <option value="3">Jack Sparrow</option>
+                                        <label for="phone">Phone*</label>
+                                        <input type="text" formControlName="phone" id="phone" placeholder="Phone">
+                                        <i class="flaticon-phone-call"></i>
+                                    </div>
+                                    <div *ngIf="phone?.invalid && phone?.touched" class="invalid-responses">
+                                        <p *ngIf="phone?.errors?.['required']">Phone is required.</p>
+                                        <p *ngIf="phone?.errors?.['minlength']">Phone number must be 11 digits</p>
+                                        <p *ngIf="phone?.errors?.['maxlength']">Phone number 11 digits exceeds</p>
+                                        <p *ngIf="phone?.errors?.['pattern']">Invalid phone number.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="dentist_id">Doctors*</label>
+                                        <select name="dentist_id" formControlName="dentist_id" id="dentist_id">
+                                            <option value="0">Doctors</option>
+                                            @for (dentist of dentists; track $index) {
+                                                <option [value]="dentist?.id">{{dentist?.name}}</option>
+                                            }
                                         </select>
+                                    </div>
+                                    <div *ngIf="dentist_id?.invalid && dentist_id?.touched" class="invalid-responses">
+                                        <p *ngIf="dentist_id?.errors?.['required']">Dentist field is required.</p>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="dep_name">Departments*</label>
-                                        <select name="dep_name" id="dep_name">
+                                        <label for="department_id">Departments*</label>
+                                        <select name="department_id" formControlName="department_id" id="department_id">
                                             <option value="0">Department</option>
                                             <option value="1">Dental Department</option>
                                             <option value="2">Surgery Department</option>
                                         </select>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="app_date">Select Date*</label>
-                                        <input type="date" id="app_date">
+                                    <div *ngIf="department_id?.invalid && department_id?.touched" class="invalid-responses">
+                                        <p *ngIf="department_id?.errors?.['required']">Date is required.</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="app_time">Select Time*</label>
-                                        <select name="app_time" id="app_time">
+                                        <label for="date">Select Date*</label>
+                                        <input type="date" formControlName="date" id="date">
+                                    </div>
+                                    <div *ngIf="date?.invalid && date?.touched" class="invalid-responses">
+                                        <p *ngIf="date?.errors?.['required']">Date is required.</p>
+                                        <p *ngIf="date?.errors?.['invalidBookingDate']">Booking date can't be past.</p>
+                                        <p *ngIf="date?.errors?.['exceedBookingDate']">Booking can't exceed next 10 days.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="time">Select Time*</label>
+                                        <select name="time" formControlName="time" id="time">
                                             <option value="0">Select Time</option>
                                             <option value="1">9:00 Am - 10:00 Am</option>
                                             <option value="2">10:00 Am - 11:00 Am</option>
                                             <option value="3">11:00 Am - 12:00 Pm</option>
+                                            <option value="3">12:00 Am - 01:00 Pm</option>
+                                            <option value="3">01:00 Pm - 02:00 Pm</option>
+                                            <option value="3">03:00 Pm - 04:00 Pm</option>
+                                            <option value="3">04:00 Pm - 05:00 Pm</option>
+                                            <option value="3">05:00 Pm - 06:00 Pm</option>
+                                            <option value="3">07:00 Pm - 08:00 Pm</option>
+                                            <option value="3">08:00 Pm - 09:00 Pm</option>
                                         </select>
                                     </div>
+                                    <div *ngIf="time?.invalid && time?.touched" class="invalid-responses">
+                                        <p *ngIf="time?.errors?.['required']">Time is required.</p>
+                                    </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 submit-btn">
                                     <button class="btn-two border-0"
                                         type="submit">{{appointmentSectionData?.button_text}}</button>
                                 </div>

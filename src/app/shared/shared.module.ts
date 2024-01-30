@@ -1,5 +1,5 @@
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { register } from 'swiper/element/bundle';
 import { MatCardModule } from '@angular/material/card';
@@ -41,6 +41,7 @@ register();
     MatButtonModule,
     SlugGeneratorPipe,
     RemoveLastWordPipe,
+    ReactiveFormsModule
   ],
   exports: [
     DatePipe,
@@ -55,6 +56,7 @@ register();
     WhoWeAreComponent,
     SlugGeneratorPipe,
     RemoveLastWordPipe,
+    ReactiveFormsModule,
     WhyChooseUsComponent,
     TestimonialComponent,
     AppointmentSectionComponent

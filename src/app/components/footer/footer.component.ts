@@ -30,7 +30,11 @@ export class FooterComponent {
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    const scrollPosition = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    
+    const scrollPosition = window.scrollY ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop || 0;
+
     if (scrollPosition > 200) {
       this.buttonOpacity = 1;
     } else {

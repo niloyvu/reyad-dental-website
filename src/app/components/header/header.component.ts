@@ -16,6 +16,7 @@ import { environment } from '../../../environments/environment';
 export class HeaderComponent implements OnInit {
 
   isSticky: boolean = false;
+  show: boolean = false;
 
   dataService = inject(DataService);
   imageUrl = environment.IMAGE_URL;
@@ -45,7 +46,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onClickShowSideBarMenu() {
-
+    this.show = !this.show;
   }
 
   toggleTheme() {

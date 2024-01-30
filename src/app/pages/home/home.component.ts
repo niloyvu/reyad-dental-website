@@ -57,8 +57,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('serviceSwiper') serviceSwiper!: ElementRef<SwiperContainer>;
 
   ngOnInit() {
+    this.initializeForm();
     this.getHomePageContents();
+  }
 
+  initializeForm() {
     this.heroForm = new FormGroup({
       name: new FormControl('', [
         Validators.required,
@@ -77,7 +80,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
           this.bookingDateValidator.bind(this)
         ]),
     });
-
   }
 
   get name() {
