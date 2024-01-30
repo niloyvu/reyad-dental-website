@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { SwiperOptions } from 'swiper/types';
 import { SwiperContainer } from 'swiper/element';
 import { DataService } from '../../services/data.service';
@@ -19,7 +20,7 @@ import {
   CUSTOM_ELEMENTS_SCHEMA
 } from '@angular/core';
 import { sliderPreviewConfig } from '../../shared/config/slider-config';
-import { ToastrService } from 'ngx-toastr';
+import { bookingDateValidator } from '../../shared/validators/booking-date';
 
 @Component({
   selector: 'app-home',
@@ -77,7 +78,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       date: new FormControl('',
         [
           Validators.required,
-          this.bookingDateValidator.bind(this)
+          bookingDateValidator.bind(this)
         ]),
     });
   }
@@ -92,22 +93,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   get date() {
     return this.heroForm.get('date');
-  }
-
-  bookingDateValidator(control: any) {
-    const selectedDate = new Date(control.value);
-    const currentDate = new Date();
-    const maxDate = new Date();
-    maxDate.setDate(currentDate.getDate() + 10);
-
-    if (selectedDate < currentDate) {
-      return { 'invalidBookingDate': true };
-    }
-    if (selectedDate > maxDate) {
-      return { 'exceedBookingDate': true };
-    }
-
-    return null;
   }
 
   serviceSwiperConfig: SwiperOptions = {
