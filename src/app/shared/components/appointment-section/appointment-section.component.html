@@ -99,6 +99,7 @@
                                         <p *ngIf="date?.errors?.['required']">Date is required.</p>
                                         <p *ngIf="date?.errors?.['invalidBookingDate']">Booking date can't be past.</p>
                                         <p *ngIf="date?.errors?.['exceedBookingDate']">Booking can't exceed next 10 days.</p>
+                                        <p *ngIf="date?.errors?.['disabledDate']">Off day selected.</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">

@@ -6,6 +6,13 @@ export function bookingDateValidator(control: any) {
 
   currentDate.setHours(0, 0, 0, 0);
 
+  const dayOfWeek = selectedDate.getDay();
+  
+  if (dayOfWeek === 5 || dayOfWeek === 6) { 
+
+    return { 'disabledDate': { value: selectedDate } };
+  }
+
   if (selectedDate < currentDate) {
     return { 'invalidBookingDate': true };
   }

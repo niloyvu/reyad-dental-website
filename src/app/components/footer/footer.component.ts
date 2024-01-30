@@ -1,5 +1,5 @@
-import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { DataService } from '../../services/data.service';
 import { SharedModule } from '../../shared/shared.module';
 import { environment } from '../../../environments/environment';
@@ -16,6 +16,7 @@ export class FooterComponent {
 
   isSubmitted = false;
   email: string = '';
+  headerData: any = [];
   newsletterSectionData: any;
 
   toastr = inject(ToastrService);
@@ -30,7 +31,7 @@ export class FooterComponent {
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    
+
     const scrollPosition = window.scrollY ||
       document.documentElement.scrollTop ||
       document.body.scrollTop || 0;
@@ -44,6 +45,7 @@ export class FooterComponent {
 
   ngOnInit() {
     this.getFooterSectionData();
+    this.getHeaderSectionData();
     this.getNewsletterSectionData();
   }
 
@@ -78,18 +80,31 @@ export class FooterComponent {
   }
 
   onSubmit() {
-    this.dataService.postData({ 'email': this.email }, 'website/subscription').subscribe({
-      next: (response) => {
-        this.isSubmitted = false;
-        this.subscribeForm.resetForm();
-        this.toastr.success(response.message);
-      },
-      error: error => {
-        console.error(error);
-        this.isSubmitted = false;
-        this.toastr.error('Subscription Failed!');
-      }
-    });
+    this.dataService.postData({ 'email': this.email }, 'website/subscription')
+      .subscribe({
+        next: (response) => {
+          this.isSubmitted = false;
+          this.subscribeForm.resetForm();
+          this.toastr.success(response.message);
+        },
+        error: error => {
+          console.error(error);
+          this.isSubmitted = false;
+          this.toastr.error('Subscription Failed!');
+        }
+      });
+  }
+
+  getHeaderSectionData() {
+    this.dataService.getData('navbar-section')
+      .subscribe({
+        next: ({ data }) => {
+          this.headerData = data;
+        },
+        error: error => {
+          console.error(error);
+        }
+      })
   }
 
 }

@@ -1,3 +1,4 @@
+@if (!showCheckout) {
 <div class="breadcrumb-wrap bg-f br-4" [style.background-image]="'url(' + imageUrl+shoPageHeader?.image + ')'">
     <img src="assets/img/breadcrumb/br-shape-1.webp" alt="Image" class="br-shape-one bounce sm-none">
     <img src="assets/img/breadcrumb/br-shape-2.webp" alt="Image" class="br-shape-two moveHorizontal sm-none">
@@ -12,3 +13,41 @@
         </div>
     </div>
 </div>
+
+<div class="ptb-100">
+    <div class="container">
+        <div class="row justify-content-center product-details-card">
+            <div class="col-md-4" style="border-right: 1px solid #ddd">
+                <img [src]="imageUrl + product?.image" height="300" width="300" [alt]="product?.image" />
+            </div>
+            <div class="col-md-8">
+                <h1>{{product?.title}}</h1>
+                <div [innerHTML]="product?.short_description"></div>
+                <div class="mb-2">
+                    Price: <strong>৳ {{product?.price}}</strong>
+                </div>
+
+                <div class="d-flex">
+                    <button mat-flat-button color="primary" (click)="decrement()" type="button">
+                        -
+                    </button>
+                    <input type="number" class="increment-input" readonly required min="1" [max]="max" [value]="current"
+                        (input)="changeCurrent($event)">
+                    <button mat-flat-button color="primary" (click)="increment()" type="button">
+                        +
+                    </button>
+                </div>
+                <button class="mt-2" type="button" color="primary" (click)="orderNow()" mat-raised-button>ORDER
+                    NOW</button>
+            </div>
+        </div>
+        <div class="row">
+                <div [innerHTML]="product?.details"></div>
+            </div>
+    </div>
+</div>
+}
+
+@if (showCheckout) {
+<app-checkout />
+}

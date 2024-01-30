@@ -1,0 +1,120 @@
+<div class="container mt-50 mb-40">
+    <form class="row">
+        <div class="col-lg-5 card">
+            <h2 class="text-center">Shipping Address</h2>
+            <div class="group mb-3">
+                <label for="name">
+                    Full Name<sup class="text-danger">*</sup>
+                </label>
+                <input id="name" type="text" placeholder="Full name" name="name" value="">
+            </div>
+
+            <div class="group mb-3">
+                <label for="phone">
+                    Phone Number
+                    <sup class="text-danger">*</sup>
+                </label>
+                <input id="phone" type="text" placeholder="Phone number" name="phone">
+            </div>
+
+            <div class="group mb-3">
+                <label for="district">
+                    District
+                    <sup class="text-danger">*</sup>
+                </label>
+                <input id="district" type="text" placeholder="Your district" name="district">
+            </div>
+
+            <div class="group mb-3">
+                <label for="thana">
+                    Thana
+                    <sup class="text-danger">*</sup>
+                </label>
+                <input id="thana" type="text" placeholder="Your thana" name="thana">
+            </div>
+
+            <div class="group address-area mb-3">
+                <label for="address">
+                    Address
+                    <sup class="text-danger">*</sup>
+                </label>
+                <textarea class="w-100 address-input" id="address" rows="2" name="address">
+                </textarea>
+            </div>
+        </div>
+
+        <div class="col-lg-6 card">
+            <div class="orders border-custom">
+                <h2 class="text-center mb-3 text-thm">Your Order</h2>
+                <table class="mb-3 w-100">
+                    <thead>
+                        <tr>
+                            <th class="text-left">Product</th>
+                            <th class="text-right" width="100px;">Price</th>
+                            <th class="text-right" width="100px;">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a href="#">XTRA Active R16 Smart Watch</a>
+                            </td>
+                            <td class="text-right">
+                                <span class="amount"><span class="d-md-none d-inline-flex me-2 fw-bold">Price:</span>৳ 2990 x 1</span>
+                            </td>
+                            <td class="text-right">
+                                <span class="amount"><span class="d-md-none d-inline-flex me-2 fw-bold"></span>৳ 2990</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="cart-subtotal">
+                            <th colspan="2" class="card-total">Sub Total</th>
+                            <td colspan="4" class="text-right">
+                                ৳ 2990
+                            </td>
+                        </tr>
+                        <tr class="cart-subtotal">
+                            <th colspan="2" class="card-total">Delivery Charge</th>
+                            <td colspan="4">
+                                ৳ 150
+                            </td>
+                        </tr>
+                        <tr class="order-total">
+                            <th colspan="2" class="card-total">Total</th>
+                            <td colspan="4">
+                                <strong>৳ 2990</strong>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <h2 class="billing-title text-center mb-3 text-thm">Payment Method</h2>
+                <div>
+                    <mat-radio-group aria-label="Select an option">
+                        <mat-radio-button value="1">Cash on delivery</mat-radio-button>
+                        <mat-radio-button value="2" disabled>Online Payment(SSL)</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <p class="terms text-dark text-md fw-normal text-capitalize">
+                    Your personal data will be used to process your order, support your experience throughout
+                    this website, and for other purposes described in our
+                    <a>privacy policy</a>.
+                </p>
+
+                <div class="form-group">
+                    <div class="form-check checkbox">
+                        <input formControlName="check" type="checkbox" id="check">
+                        <label for="check">
+                            I agree to the <a routerLink="terms-conditions">Terms &amp; Conditions</a> and
+                            <a routerLink="privacy-policy">Privacy Policy</a>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="text-center mt-2">
+                    <button mat-raised-button type="button" color="primary" class="text-capitalize p-4">Place Order</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
