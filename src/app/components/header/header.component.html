@@ -22,7 +22,7 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand" routerLink="home">
-                <img class="logo-light" src="assets/img/logo.webp" alt="logo">
+                <img class="logo-light" [src]="imageUrl+headerData?.light_mode_logo" alt="logo">
                 <!-- <img class="logo-dark" src="assets/img/logo-white.webp" alt="logo"> -->
             </a>
             <div class="other-option d-flex align-items-center justify-content-end d-lg-none">
@@ -32,7 +32,7 @@
                 </button> -->
                 <div class="option-item">
                     <a routerLink="/book-appointment" class="book-appointment">
-                        <span class=" blink">Appointment</span>
+                        <span class="blink">Appointment</span>
                     </a>
                 </div>
                 <a class="navbar-toggler" data-bs-toggle="offcanvas" href="#navbarOffcanvas" role="button"
@@ -85,7 +85,7 @@
                         </a>
                     </div>
                     <div class="option-item">
-                        <a class="sidebar-toggler"(click)="onClickShowSideBarMenu()">
+                        <a class="sidebar-toggler" (click)="onClickShowSideBarMenu()">
                             <i class="flaticon-list"></i>
                         </a>
                     </div>
@@ -96,53 +96,55 @@
 </div>
 <!-- End Navbar Area -->
 
-
+@if (show) {
 <!-- Start Responsive Navbar Area -->
-<div class="responsive-navbar offcanvas offcanvas-end" id="navbarOffcanvas">
+<div class="responsive-navbar offcanvas offcanvas-end show" data-bs-backdrop="static" tabindex="-1"
+    id="navbarOffcanvas">
     <div class="offcanvas-header">
         <a href="index-2.html" class="logo d-inline-block">
-            <img class="logo-light" src="assets/img/logo.webp" alt="logo">
-            <img class="logo-dark" src="assets/img/logo-white.webp" alt="logo">
+            <img class="logo-light" [src]="imageUrl+headerData?.light_mode_logo" alt="logo">
+            <!-- <img class="logo-dark" src="assets/img/logo-white.webp" alt="logo"> -->
         </a>
-        <button type="button" class="close-btn">
+        <button type="button" (click)="onClickShowSideBarMenu()" class="close-btn" data-bs-dismiss="offcanvas"
+            aria-label="Close">
             <i class="ri-close-line"></i>
         </button>
     </div>
     <div class="offcanvas-body">
         <div class="accordion" id="navbarAccordion">
             <div class="accordion-item">
-                <a class="accordion-button without-icon" href="index.html">
+                <a class="accordion-button without-icon" routerLink="/">
                     Home
                 </a>
             </div>
             <div class="accordion-item">
-                <a class="accordion-button without-icon" href="about.html">
+                <a class="accordion-button without-icon" routerLink="about-us">
                     About Us
                 </a>
             </div>
             <div class="accordion-item">
-                <a class="accordion-button without-icon" href="dentists.html" class="accordion-link">
+                <a class="accordion-button without-icon" routerLink="dentists" class="accordion-link">
                     All Dentists
                 </a>
             </div>
             <div class="accordion-item">
-                <a class="accordion-button without-icon" href="service-style-two.html" class="accordion-link">
+                <a class="accordion-button without-icon" routerLink="services" class="accordion-link">
                     Service
                 </a>
             </div>
 
             <div class="accordion-item">
-                <a class="accordion-button without-icon" href="blog-no-sidebar.html">
-                    Blog
+                <a class="accordion-button without-icon" routerLink="blogs">
+                    Blogs
                 </a>
             </div>
             <div class="accordion-item">
-                <a class="accordion-button without-icon" href="contact.html">
+                <a class="accordion-button without-icon" routerLink="contact-us">
                     Contact Us
                 </a>
             </div>
             <div class="accordion-item">
-                <a class="accordion-button without-icon" routerLink="/book-appointment" class="accordion-link">
+                <a class="accordion-button without-icon" routerLink="book-appointment" class="accordion-link">
                     Book Appointment
                 </a>
             </div>
@@ -152,10 +154,11 @@
             <ul class="contact-info list-style">
                 <li>
                     <i class="flaticon-pin"></i>
-                    <p>No. 12, Ribon Building, Walse street, Australia</p>
+                    <p>{{headerData?.address}}</p>
                 </li>
                 <li>
                     <i class="flaticon-mail"></i>
+                    <a>{{headerData?.email}}</a>
                 </li>
                 <li>
                     <i class="flaticon-phone-call"></i>
@@ -178,7 +181,8 @@
         </div>
     </div>
 </div>
-
+<div class="offcanvas-backdrop fade show"></div>
+}
 <!-- <div class="switch-theme-mode">
     <label id="switch" class="switch">
         <input type="checkbox" (change)="toggleTheme()" id="slider">

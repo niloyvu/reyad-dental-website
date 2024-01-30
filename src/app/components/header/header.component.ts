@@ -1,8 +1,7 @@
 import { RouterLink } from '@angular/router';
 import { DataService } from '../../services/data.service';
-import { Component, HostListener, OnInit, inject } from '@angular/core';
 import { environment } from '../../../environments/environment';
-
+import { Component, HostListener, OnInit, inject } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -16,6 +15,7 @@ import { environment } from '../../../environments/environment';
 export class HeaderComponent implements OnInit {
 
   isSticky: boolean = false;
+  show: boolean = false;
 
   dataService = inject(DataService);
   imageUrl = environment.IMAGE_URL;
@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onClickShowSideBarMenu() {
-
+    this.show = !this.show;
   }
 
   toggleTheme() {
