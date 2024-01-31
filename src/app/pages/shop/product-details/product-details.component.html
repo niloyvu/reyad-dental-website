@@ -31,23 +31,24 @@
                     <button mat-flat-button color="primary" (click)="decrement()" type="button">
                         -
                     </button>
-                    <input type="number" class="increment-input" readonly required min="1" [max]="max" [value]="current"
-                        (input)="changeCurrent($event)">
+                    <input type="number" class="increment-input" readonly required min="1" [max]="max"
+                        [value]="quantity" (input)="changeCurrent($event)">
                     <button mat-flat-button color="primary" (click)="increment()" type="button">
                         +
                     </button>
                 </div>
-                <button class="mt-2" type="button" color="primary" (click)="orderNow()" mat-raised-button>ORDER
-                    NOW</button>
+                <button class="mt-2" type="button" color="primary" (click)="orderNow()" mat-raised-button>
+                    ORDER NOW
+                </button>
             </div>
         </div>
         <div class="row">
-                <div [innerHTML]="product?.details"></div>
-            </div>
+            <div [innerHTML]="product?.details"></div>
+        </div>
     </div>
 </div>
 }
 
 @if (showCheckout) {
-<app-checkout />
+<app-checkout [quantity]="quantity" [product]="product" (handleProductLink)="this.showCheckout = false" />
 }

@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { SharedModule } from '../../shared/shared.module';
 import { environment } from '../../../environments/environment';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-contact-us',
@@ -23,8 +23,11 @@ export class ContactUsComponent {
   dataService = inject(DataService);
 
   ngOnInit(): void {
+    this.initializeForm();
     this.getContactUsPageContents();
+  }
 
+  initializeForm() {
     this.contactForm = new FormGroup({
       name: new FormControl('', [
         Validators.required,

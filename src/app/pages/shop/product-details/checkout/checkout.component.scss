@@ -26,3 +26,14 @@ tr {
 .card-total {
     text-align: right;
 }
+
+.submit-btn {
+    button[disabled] {
+      pointer-events: none;
+      opacity: .5;
+    }
+  }
+  
+  .invalid-responses p {
+    color: #ff0000;
+  }

@@ -17,7 +17,7 @@ export class ProductDetailsComponent implements OnInit {
 
   product: any;
   max = 10000;
-  current = 1;
+  quantity = 1;
 
   showCheckout = false;
 
@@ -59,25 +59,21 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   increment() {
-    if (this.max <= 0 || this.current >= this.max)
+    if (this.max <= 0 || this.quantity >= this.max)
       return;
-
-    this.current++;
-    // this.changeQty.emit( this.current );
+    this.quantity++;
   }
 
   decrement() {
-    if (this.current > 1) {
-      this.current--;
-      // this.changeQty.emit( this.current );
+    if (this.quantity > 1) {
+      this.quantity--;
     }
   }
   changeCurrent(event: any) {
     if (parseInt(event.currentTarget.value) < this.max && parseInt(event.currentTarget.value) > 0) {
-      this.current = parseInt(event.currentTarget.value);
-      // this.changeQty.emit( this.current );
+      this.quantity = parseInt(event.currentTarget.value);
     } else {
-      event.currentTarget.value = this.current;
+      event.currentTarget.value = this.quantity;
     }
   }
 

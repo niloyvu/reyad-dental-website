@@ -7,6 +7,7 @@ import { LastWordPipe } from './pipes/last-word.pipe';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { CommonModule, DatePipe } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { SwiperDirective } from './directive/swiper.directive';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
@@ -14,9 +15,9 @@ import { SlugGeneratorPipe } from './pipes/slug-generator.pipe';
 import { RemoveLastWordPipe } from './pipes/remove-last-word.pipe';
 import { WhoWeAreComponent } from './components/who-we-are/who-we-are.component';
 import { TestimonialComponent } from './components/testimonial/testimonial.component';
+import { VideoDialogComponent } from './components/video-dialog/video-dialog.component';
 import { WhyChooseUsComponent } from './components/why-choose-us/why-choose-us.component';
 import { AppointmentSectionComponent } from './components/appointment-section/appointment-section.component';
-import { VideoDialogComponent } from './components/video-dialog/video-dialog.component';
 
 register();
 
@@ -37,6 +38,8 @@ register();
     LastWordPipe,
     TruncatePipe,
     MatCardModule,
+    MatRadioModule,
+    MatButtonModule,
     MatDialogModule,
     MatButtonModule,
     SlugGeneratorPipe,
@@ -52,6 +55,8 @@ register();
     CommonModule,
     MatCardModule,
     SwiperDirective,
+    MatRadioModule,
+    MatButtonModule,
     MatDialogModule,
     WhoWeAreComponent,
     SlugGeneratorPipe,

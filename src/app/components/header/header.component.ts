@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit {
     const scrollTop = (event.target as any).scrollingElement.scrollTop;
     this.isSticky = scrollTop >= height || this.isSticky;
   }
+  
   ngOnInit() {
     this.getHeaderSectionData();
   }

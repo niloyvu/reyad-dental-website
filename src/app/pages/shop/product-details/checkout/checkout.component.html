@@ -1,12 +1,17 @@
 <div class="container mt-50 mb-40">
-    <form class="row">
+    <form class="row" [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
         <div class="col-lg-5 card">
             <h2 class="text-center">Shipping Address</h2>
             <div class="group mb-3">
                 <label for="name">
                     Full Name<sup class="text-danger">*</sup>
                 </label>
-                <input id="name" type="text" placeholder="Full name" name="name" value="">
+                <input id="name" formControlName="name" type="text" placeholder="Full name" name="name">
+                <div *ngIf="name?.invalid && name?.touched" class="invalid-responses">
+                    <p *ngIf="name?.errors?.['required']">Name is required.</p>
+                    <p *ngIf="name?.errors?.['minlength']">Name must be at least 6 characters.</p>
+                    <p *ngIf="name?.errors?.['maxlength']">Name must be at most 30 characters.</p>
+                </div>
             </div>
 
             <div class="group mb-3">
@@ -14,7 +19,13 @@
                     Phone Number
                     <sup class="text-danger">*</sup>
                 </label>
-                <input id="phone" type="text" placeholder="Phone number" name="phone">
+                <input id="phone" formControlName="phone" type="text" placeholder="Phone number" name="phone">
+                <div *ngIf="phone?.invalid && phone?.touched" class="invalid-responses">
+                    <p *ngIf="phone?.errors?.['required']">Phone is required.</p>
+                    <p *ngIf="phone?.errors?.['minlength']">Phone number must be 11 digits</p>
+                    <p *ngIf="phone?.errors?.['maxlength']">Phone number 11 digits exceeds</p>
+                    <p *ngIf="phone?.errors?.['pattern']">Invalid phone number.</p>
+                </div>
             </div>
 
             <div class="group mb-3">
@@ -22,7 +33,10 @@
                     District
                     <sup class="text-danger">*</sup>
                 </label>
-                <input id="district" type="text" placeholder="Your district" name="district">
+                <input id="district" formControlName="district" type="text" placeholder="Your district" name="district">
+                <div *ngIf="district?.invalid && district?.touched" class="invalid-responses">
+                    <p *ngIf="district?.errors?.['required']">District is required.</p>
+                </div>
             </div>
 
             <div class="group mb-3">
@@ -30,7 +44,10 @@
                     Thana
                     <sup class="text-danger">*</sup>
                 </label>
-                <input id="thana" type="text" placeholder="Your thana" name="thana">
+                <input id="thana" formControlName="thana" type="text" placeholder="Your thana" name="thana">
+                <div *ngIf="thana?.invalid && thana?.touched" class="invalid-responses">
+                    <p *ngIf="thana?.errors?.['required']">Thana is required.</p>
+                </div>
             </div>
 
             <div class="group address-area mb-3">
@@ -38,8 +55,15 @@
                     Address
                     <sup class="text-danger">*</sup>
                 </label>
-                <textarea class="w-100 address-input" id="address" rows="2" name="address">
+                <textarea class="w-100 address-input" formControlName="address" id="address" rows="2" name="address">
                 </textarea>
+                <div *ngIf="address?.invalid && address?.touched" class="invalid-responses">
+                    <p *ngIf="address?.errors?.['required']">Address is required.</p>
+                    <p *ngIf="address?.errors?.['minlength']">Address must be at least 10 characters.
+                    </p>
+                    <p *ngIf="address?.errors?.['maxlength']">Address must be at most 50 characters.
+                    </p>
+                </div>
             </div>
         </div>
 
@@ -57,13 +81,21 @@
                     <tbody>
                         <tr>
                             <td>
-                                <a href="#">XTRA Active R16 Smart Watch</a>
+                                <a (click)="this.handleProductLink.emit(true)">{{product?.title}}</a>
                             </td>
                             <td class="text-right">
-                                <span class="amount"><span class="d-md-none d-inline-flex me-2 fw-bold">Price:</span>৳ 2990 x 1</span>
+                                <span class="amount">
+                                    <span class="d-md-none d-inline-flex me-2 fw-bold">
+                                        Price:
+                                    </span>
+                                    ৳ {{product?.price}} x {{quantity}}
+                                </span>
                             </td>
                             <td class="text-right">
-                                <span class="amount"><span class="d-md-none d-inline-flex me-2 fw-bold"></span>৳ 2990</span>
+                                <span class="amount">
+                                    <span class="d-md-none d-inline-flex me-2 fw-bold">
+                                    </span>৳ {{product?.price * quantity}}
+                                </span>
                             </td>
                         </tr>
                     </tbody>
@@ -71,48 +103,57 @@
                         <tr class="cart-subtotal">
                             <th colspan="2" class="card-total">Sub Total</th>
                             <td colspan="4" class="text-right">
-                                ৳ 2990
+                                ৳ {{product?.price * quantity}}
                             </td>
                         </tr>
                         <tr class="cart-subtotal">
                             <th colspan="2" class="card-total">Delivery Charge</th>
                             <td colspan="4">
-                                ৳ 150
+                                ৳ {{deliveryCharge}}
                             </td>
                         </tr>
                         <tr class="order-total">
                             <th colspan="2" class="card-total">Total</th>
                             <td colspan="4">
-                                <strong>৳ 2990</strong>
+                                <strong>৳ {{(product?.price * quantity) + deliveryCharge}}</strong>
                             </td>
                         </tr>
                     </tfoot>
                 </table>
                 <h2 class="billing-title text-center mb-3 text-thm">Payment Method</h2>
                 <div>
-                    <mat-radio-group aria-label="Select an option">
-                        <mat-radio-button value="1">Cash on delivery</mat-radio-button>
-                        <mat-radio-button value="2" disabled>Online Payment(SSL)</mat-radio-button>
+                    <mat-radio-group formControlName="paymentMethod">
+                        <mat-radio-button [value]="1">Cash on delivery</mat-radio-button>
+                        <mat-radio-button [value]="2" disabled>Online Payment(SSL)</mat-radio-button>
                     </mat-radio-group>
-                </div>
-                <p class="terms text-dark text-md fw-normal text-capitalize">
-                    Your personal data will be used to process your order, support your experience throughout
-                    this website, and for other purposes described in our
-                    <a>privacy policy</a>.
-                </p>
-
-                <div class="form-group">
-                    <div class="form-check checkbox">
-                        <input formControlName="check" type="checkbox" id="check">
-                        <label for="check">
-                            I agree to the <a routerLink="terms-conditions">Terms &amp; Conditions</a> and
-                            <a routerLink="privacy-policy">Privacy Policy</a>
-                        </label>
+                    <div *ngIf="paymentMethod?.invalid && paymentMethod?.touched" class="invalid-responses">
+                        <p *ngIf="paymentMethod?.errors?.['required']">Payment method is required.</p>
                     </div>
                 </div>
 
-                <div class="text-center mt-2">
-                    <button mat-raised-button type="button" color="primary" class="text-capitalize p-4">Place Order</button>
+                <p class="terms text-dark text-md fw-normal text-capitalize">
+                    Your personal data will be used to process your order, support your experience throughout
+                    this website, and for other purposes described in our
+                    <a routerLink="/privacy-policy">privacy policy</a>.
+                </p>
+
+                <div class="form-group">
+                    <div class="form-check d-flex checkbox">
+                        <input formControlName="check" type="checkbox" id="check">
+                        <label for="check">
+                            I agree to the <a routerLink="/terms-conditions">Terms &amp; Conditions</a> and
+                            <a routerLink="/privacy-policy">Privacy Policy</a>
+                        </label>
+                    </div>
+                    <div *ngIf="check?.invalid && check?.touched" class="invalid-responses">
+                        <p *ngIf="check?.errors?.['required']">Check mark is required.</p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-2 submit-btn">
+                    <button mat-raised-button type="submit" color="primary" class="text-capitalize p-4">
+                        Place Order
+                    </button>
                 </div>
             </div>
         </div>
