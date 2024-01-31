@@ -1,8 +1,8 @@
 import { ToastrService } from 'ngx-toastr';
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { DataService } from '../../../../services/data.service';
 import { SharedModule } from '../../../../shared/shared.module';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 
 @Component({
   selector: 'app-checkout',
@@ -62,7 +62,7 @@ export class CheckoutComponent implements OnInit {
         Validators.maxLength(50),
       ]),
 
-      paymentMethod: new FormControl(1, [
+      payment_method: new FormControl(1, [
         Validators.required
       ]),
 
@@ -103,20 +103,31 @@ export class CheckoutComponent implements OnInit {
   }
 
   get paymentMethod() {
-    return this.checkoutForm.get('paymentMethod');
+    return this.checkoutForm.get('payment_method');
   }
   get check() {
     return this.checkoutForm.get('check');
   }
 
   onSubmit() {
+
     if (this.checkoutForm.invalid) {
       this.checkoutForm.markAllAsTouched();
       return;
     }
 
     this.isSubmitted = true;
-    this.dataService.postData(this.checkoutForm.value, 'website/order-product')
+
+    const postData = {
+      quantity: this.quantity,
+      product_price: this.product.price,
+      product_id: this.product.id,
+      ... this.checkoutForm.value,
+      delivery_charge: this.deliveryCharge,
+      total_amount: (this.quantity * this.product.price) + this.deliveryCharge,
+    };
+
+    this.dataService.postData(postData, 'website/order-product')
       .subscribe({
         next: (response) => {
           this.isSubmitted = false;

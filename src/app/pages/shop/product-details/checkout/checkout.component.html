@@ -36,6 +36,9 @@
                 <input id="district" formControlName="district" type="text" placeholder="Your district" name="district">
                 <div *ngIf="district?.invalid && district?.touched" class="invalid-responses">
                     <p *ngIf="district?.errors?.['required']">District is required.</p>
+                    <p *ngIf="district?.errors?.['minlength']">District must be at least 4 characters.
+                    <p *ngIf="district?.errors?.['maxlength']">District must be at most 15 characters.
+                    </p>
                 </div>
             </div>
 
@@ -47,6 +50,9 @@
                 <input id="thana" formControlName="thana" type="text" placeholder="Your thana" name="thana">
                 <div *ngIf="thana?.invalid && thana?.touched" class="invalid-responses">
                     <p *ngIf="thana?.errors?.['required']">Thana is required.</p>
+                    <p *ngIf="thana?.errors?.['minlength']">Thana must be at least 4 characters.
+                    <p *ngIf="thana?.errors?.['maxlength']">Thana must be at most 15 characters.
+                    </p>
                 </div>
             </div>
 
@@ -121,10 +127,13 @@
                     </tfoot>
                 </table>
                 <h2 class="billing-title text-center mb-3 text-thm">Payment Method</h2>
+                <h3>Delivery Charge </h3>
+                <p>Inside Dhaka: ৳ 60</p>
+                <p>Outside Dhaka: ৳ 150</p>
                 <div>
-                    <mat-radio-group formControlName="paymentMethod">
+                    <mat-radio-group formControlName="payment_method">
                         <mat-radio-button [value]="1">Cash on delivery</mat-radio-button>
-                        <mat-radio-button [value]="2" disabled>Online Payment(SSL)</mat-radio-button>
+                        <!-- <mat-radio-button [value]="2" disabled>Online Payment(SSL)</mat-radio-button> -->
                     </mat-radio-group>
                     <div *ngIf="paymentMethod?.invalid && paymentMethod?.touched" class="invalid-responses">
                         <p *ngIf="paymentMethod?.errors?.['required']">Payment method is required.</p>
