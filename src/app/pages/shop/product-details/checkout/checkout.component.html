@@ -2,74 +2,81 @@
     <form class="row" [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
         <div class="col-lg-5 card">
             <h2 class="text-center">Shipping Address</h2>
-            <div class="group mb-3">
+            <div class="form-group mb-3">
                 <label for="name">
                     Full Name<sup class="text-danger">*</sup>
                 </label>
-                <input id="name" formControlName="name" type="text" placeholder="Full name" name="name">
-                <div *ngIf="name?.invalid && name?.touched" class="invalid-responses">
-                    <p *ngIf="name?.errors?.['required']">Name is required.</p>
-                    <p *ngIf="name?.errors?.['minlength']">Name must be at least 6 characters.</p>
-                    <p *ngIf="name?.errors?.['maxlength']">Name must be at most 30 characters.</p>
-                </div>
+                <input id="name" formControlName="name" type="text" placeholder="Full name">
+                @if(checkoutForm.get('name')?.invalid && checkoutForm.get('name')?.touched){
+                <p>
+                    @if( checkoutForm.get('name')?.errors?.['required']) { Name is required. }
+                    @if( checkoutForm.get('name')?.errors?.['minlength']) { Name must be at least 6 characters. }
+                    @if( checkoutForm.get('name')?.errors?.['maxlength']) { Name must be at most 30 characters. }
+                </p>
+                }
             </div>
 
-            <div class="group mb-3">
+            <div class="form-group mb-3">
                 <label for="phone">
                     Phone Number
                     <sup class="text-danger">*</sup>
                 </label>
-                <input id="phone" formControlName="phone" type="text" placeholder="Phone number" name="phone">
-                <div *ngIf="phone?.invalid && phone?.touched" class="invalid-responses">
-                    <p *ngIf="phone?.errors?.['required']">Phone is required.</p>
-                    <p *ngIf="phone?.errors?.['minlength']">Phone number must be 11 digits</p>
-                    <p *ngIf="phone?.errors?.['maxlength']">Phone number 11 digits exceeds</p>
-                    <p *ngIf="phone?.errors?.['pattern']">Invalid phone number.</p>
-                </div>
+                <input id="phone" formControlName="phone" type="text" placeholder="Phone number">
+                @if(checkoutForm.get('phone')?.invalid && checkoutForm.get('phone')?.touched){
+                <p>
+                    @if( checkoutForm.get('phone')?.errors?.['required']) { Phone is required. }
+                    @if( checkoutForm.get('phone')?.errors?.['minlength']) { Phone number must be 11 digits. }
+                    @if( checkoutForm.get('phone')?.errors?.['maxlength']) { Phone number exceeds 11 digits. }
+                </p>
+                <p>
+                    @if( checkoutForm.get('phone')?.errors?.['pattern']) { Invalid phone number. }
+                </p>
+                }
             </div>
-
-            <div class="group mb-3">
+            <div class="form-group mb-3">
                 <label for="district">
                     District
                     <sup class="text-danger">*</sup>
                 </label>
-                <input id="district" formControlName="district" type="text" placeholder="Your district" name="district">
-                <div *ngIf="district?.invalid && district?.touched" class="invalid-responses">
-                    <p *ngIf="district?.errors?.['required']">District is required.</p>
-                    <p *ngIf="district?.errors?.['minlength']">District must be at least 4 characters.
-                    <p *ngIf="district?.errors?.['maxlength']">District must be at most 15 characters.
-                    </p>
-                </div>
+                <input id="district" formControlName="district" type="text" placeholder="Your district">
+                @if(checkoutForm.get('district')?.invalid && checkoutForm.get('district')?.touched){
+                <p>
+                    @if( checkoutForm.get('district')?.errors?.['required']) { District is required. }
+                    @if( checkoutForm.get('district')?.errors?.['minlength']) { District must be at least 4 characters.}
+                    @if( checkoutForm.get('district')?.errors?.['maxlength']) { District must be at most 15 characters.}
+                </p>
+                }
             </div>
 
-            <div class="group mb-3">
+            <div class="form-group mb-3">
                 <label for="thana">
                     Thana
                     <sup class="text-danger">*</sup>
                 </label>
                 <input id="thana" formControlName="thana" type="text" placeholder="Your thana" name="thana">
-                <div *ngIf="thana?.invalid && thana?.touched" class="invalid-responses">
-                    <p *ngIf="thana?.errors?.['required']">Thana is required.</p>
-                    <p *ngIf="thana?.errors?.['minlength']">Thana must be at least 4 characters.
-                    <p *ngIf="thana?.errors?.['maxlength']">Thana must be at most 15 characters.
-                    </p>
-                </div>
+                @if(checkoutForm.get('thana')?.invalid && checkoutForm.get('thana')?.touched){
+                <p>
+                    @if( checkoutForm.get('thana')?.errors?.['required']) { Thana is required.}
+                    @if( checkoutForm.get('thana')?.errors?.['minlength']) { Thana must be at least 4 characters.}
+                    @if( checkoutForm.get('thana')?.errors?.['maxlength']) { Thana must be at most 15 characters.}
+                </p>
+                }
             </div>
 
-            <div class="group address-area mb-3">
+            <div class="form-group address-area mb-3">
                 <label for="address">
                     Address
                     <sup class="text-danger">*</sup>
                 </label>
                 <textarea class="w-100 address-input" formControlName="address" id="address" rows="2" name="address">
                 </textarea>
-                <div *ngIf="address?.invalid && address?.touched" class="invalid-responses">
-                    <p *ngIf="address?.errors?.['required']">Address is required.</p>
-                    <p *ngIf="address?.errors?.['minlength']">Address must be at least 10 characters.
-                    </p>
-                    <p *ngIf="address?.errors?.['maxlength']">Address must be at most 50 characters.
-                    </p>
-                </div>
+                @if(checkoutForm.get('address')?.invalid && checkoutForm.get('address')?.touched){
+                <p>
+                    @if( checkoutForm.get('address')?.errors?.['required']) { Address is required. }
+                    @if( checkoutForm.get('address')?.errors?.['minlength']) { Address must be at least 10 characters.}
+                    @if( checkoutForm.get('address')?.errors?.['maxlength']) { Address must be at most 50 characters.}
+                </p>
+                }
             </div>
         </div>
 
@@ -87,7 +94,8 @@
                     <tbody>
                         <tr>
                             <td>
-                                <a (click)="this.handleProductLink.emit(true)">{{product?.title}}</a>
+                                <a class="product-link" (click)="this.handleProductLink.emit(true)">{{product?.title}}
+                                </a>
                             </td>
                             <td class="text-right">
                                 <span class="amount">
@@ -107,7 +115,7 @@
                     </tbody>
                     <tfoot>
                         <tr class="cart-subtotal">
-                            <th colspan="2" class="card-total">Sub Total</th>
+                            <th colspan="2" class="text-right">Sub Total</th>
                             <td colspan="4" class="text-right">
                                 ৳ {{product?.price * quantity}}
                             </td>
@@ -115,13 +123,15 @@
                         <tr class="cart-subtotal">
                             <th colspan="2" class="card-total">Delivery Charge</th>
                             <td colspan="4">
-                                ৳ {{deliveryCharge}}
+                                ৳ {{this.checkoutForm.get('delivery_charge')?.value}}
                             </td>
                         </tr>
                         <tr class="order-total">
                             <th colspan="2" class="card-total">Total</th>
                             <td colspan="4">
-                                <strong>৳ {{(product?.price * quantity) + deliveryCharge}}</strong>
+                                <strong>
+                                    ৳ {{(product?.price * quantity) + this.checkoutForm.get('delivery_charge')?.value}}
+                                </strong>
                             </td>
                         </tr>
                     </tfoot>
@@ -135,9 +145,11 @@
                         <mat-radio-button [value]="1">Cash on delivery</mat-radio-button>
                         <!-- <mat-radio-button [value]="2" disabled>Online Payment(SSL)</mat-radio-button> -->
                     </mat-radio-group>
-                    <div *ngIf="paymentMethod?.invalid && paymentMethod?.touched" class="invalid-responses">
-                        <p *ngIf="paymentMethod?.errors?.['required']">Payment method is required.</p>
-                    </div>
+                    @if(checkoutForm.get('payment_method')?.invalid && checkoutForm.get('payment_method')?.touched){
+                    <p>
+                        @if( checkoutForm.get('payment_method')?.errors?.['required']) { Payment method is required. }
+                    </p>
+                    }
                 </div>
 
                 <p class="terms text-dark text-md fw-normal text-capitalize">
@@ -154,9 +166,13 @@
                             <a routerLink="/privacy-policy">Privacy Policy</a>
                         </label>
                     </div>
-                    <div *ngIf="check?.invalid && check?.touched" class="invalid-responses">
-                        <p *ngIf="check?.errors?.['required']">Check mark is required.</p>
-                    </div>
+
+                    @if(checkoutForm.get('check')?.invalid && checkoutForm.get('check')?.touched){
+                    <p>
+                        @if( checkoutForm.get('check')?.errors?.['required']) { Check mark is required. }
+                    </p>
+                    }
+
                 </div>
 
                 <div class="text-center mt-2 submit-btn">

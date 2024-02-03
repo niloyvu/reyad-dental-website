@@ -1,9 +1,8 @@
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from '../../../../services/data.service';
 import { SharedModule } from '../../../../shared/shared.module';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-
 @Component({
   selector: 'app-checkout',
   standalone: true,
@@ -15,7 +14,6 @@ import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular
 export class CheckoutComponent implements OnInit {
 
   isSubmitted: boolean = false;
-  deliveryCharge: number = 60;
   checkoutForm!: FormGroup;
 
   @Input() product: any;
@@ -23,6 +21,7 @@ export class CheckoutComponent implements OnInit {
   @Output() handleProductLink = new EventEmitter();
 
   toastr = inject(ToastrService);
+  formBuilder = inject(FormBuilder);
   dataService = inject(DataService);
 
   ngOnInit(): void {
@@ -30,109 +29,46 @@ export class CheckoutComponent implements OnInit {
   }
 
   initializeForm() {
-    this.checkoutForm = new FormGroup({
-      name: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(30)
-      ]),
-
-      phone: new FormControl('', [
-        Validators.required,
-        Validators.minLength(11),
-        Validators.maxLength(11),
-        Validators.pattern('^[0-9]+$'),
-      ]),
-
-      district: new FormControl('', [
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(15),
-      ]),
-
-      thana: new FormControl('', [
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(15),
-      ]),
-
-      address: new FormControl('', [
-        Validators.required,
-        Validators.minLength(10),
-        Validators.maxLength(50),
-      ]),
-
-      payment_method: new FormControl(1, [
-        Validators.required
-      ]),
-
-      check: new FormControl(false,
-        [
-          Validators.requiredTrue
-        ]),
+    this.checkoutForm = this.formBuilder.group({
+      total_amount: [null],
+      delivery_charge: [60],
+      quantity: [this.quantity],
+      product_id: [this.product.id],
+      product_price: [this.product.price],
+      name: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]],
+      phone: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern('^[0-9]+$')]],
+      district: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
+      thana: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
+      address: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(50)]],
+      payment_method: [1, [Validators.required]],
+      check: [false, [Validators.requiredTrue]],
     });
 
-    this.district?.valueChanges.subscribe((value) => {
-      const district = value.toLowerCase();
-      if (district === 'dhaka') {
-        this.deliveryCharge = 60;
-      } else {
-        this.deliveryCharge = 150;
-      }
+    this.subscribeToDistrictChanges();
+  }
+
+  subscribeToDistrictChanges() {
+    this.checkoutForm.get('district')?.valueChanges.subscribe((value) => {
+      const deliveryCharge = (value.toLowerCase() === 'dhaka') ? 60 : 150;
+      this.checkoutForm.get('delivery_charge')?.setValue(deliveryCharge);
+      this.checkoutForm.get('total_amount')?.setValue(this.product.price * this.quantity + deliveryCharge);
     });
-  }
-
-  get name() {
-    return this.checkoutForm.get('name');
-  }
-
-  get phone() {
-    return this.checkoutForm.get('phone');
-  }
-
-  get district() {
-    return this.checkoutForm.get('district');
-  }
-
-  get thana() {
-    return this.checkoutForm.get('thana');
-  }
-
-  get address() {
-    return this.checkoutForm.get('address');
-  }
-
-  get paymentMethod() {
-    return this.checkoutForm.get('payment_method');
-  }
-  get check() {
-    return this.checkoutForm.get('check');
   }
 
   onSubmit() {
-
     if (this.checkoutForm.invalid) {
       this.checkoutForm.markAllAsTouched();
       return;
     }
-
     this.isSubmitted = true;
-
-    const postData = {
-      quantity: this.quantity,
-      product_price: this.product.price,
-      product_id: this.product.id,
-      ... this.checkoutForm.value,
-      delivery_charge: this.deliveryCharge,
-      total_amount: (this.quantity * this.product.price) + this.deliveryCharge,
-    };
-
-    this.dataService.postData(postData, 'website/order-product')
+    this.dataService
+      .postData(this.checkoutForm.value, 'website/order-product')
       .subscribe({
         next: (response) => {
           this.isSubmitted = false;
           if (response.code == 200) {
             this.checkoutForm.reset();
+            this.handleProductLink.emit(true);
             this.toastr.success(response.message);
           } else {
             this.toastr.error('Form Submission Failed!');
