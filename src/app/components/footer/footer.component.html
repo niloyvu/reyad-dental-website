@@ -7,25 +7,27 @@
                 <div class="col-xl-7 offset-xl-5 col-lg-8 offset-lg-4">
                     <div class="newsletter-content">
                         <div class="content-title style-one">
-                            <span><img src="assets/img/section-shape.svg"
-                                    alt="Image">{{newsletterSectionData?.title}}</span>
-                            <h2 class="text-white">{{newsletterSectionData?.subtitle}}<img
-                                    src="assets/img/section-shape-3.webp" alt="Image"></h2>
+                            <span>
+                                <img src="assets/img/section-shape.svg" alt="Image">
+                                {{newsletterSectionData?.title}}
+                            </span>
+                            <h2 class="text-white">{{newsletterSectionData?.subtitle}}
+                                <img src="assets/img/section-shape-3.webp" alt="Image" />
+                            </h2>
                         </div>
                         <form (ngSubmit)="onSubmit()" #subscribeForm="ngForm" class="newsletter-form">
                             <input type="email" name="email" [placeholder]="newsletterSectionData?.placeholder"
-                                [(ngModel)]="email" required email #emailField="ngModel">
+                                [(ngModel)]="email" required email #emailField="ngModel" />
                             <button type="submit" [disabled]="subscribeForm.invalid">
                                 {{newsletterSectionData?.button_text}}
                             </button>
                         </form>
-                        <div *ngIf="emailField.invalid && (emailField.dirty || emailField.touched)"
-                            class="error-message">
-                            <p *ngIf="emailField.errors?.['required']">Email is required.</p>
-                            <p *ngIf="emailField.errors?.['email'] && !emailField.errors?.['required']">
-                                Invalid email format.
-                            </p>
-                        </div>
+                        @if (emailField.invalid && (emailField.dirty || emailField.touched)) {
+                        <p *ngIf="emailField.errors?.['required']">Email is required.</p>
+                        <p *ngIf="emailField.errors?.['email'] && !emailField.errors?.['required']">
+                            Invalid email format.
+                        </p>
+                        }
                     </div>
                 </div>
             </div>
@@ -44,7 +46,7 @@
                     <div class="footer-widget">
                         <a href="index-2.html" class="footer-logo">
                             <img class="logo-light" [src]="imageUrl+headerData?.light_mode_logo" alt="logo">
-                            <!-- <img class="logo-dark" [src]="imageUrl+headerData?.dark_mode_logo" alt="logo"> -->
+                            <img class="logo-dark" [src]="imageUrl+headerData?.dark_mode_logo" alt="logo">
                         </a>
                         <p class="comp-desc">{{footerData?.description}}</p>
                         <div class="contact-info">

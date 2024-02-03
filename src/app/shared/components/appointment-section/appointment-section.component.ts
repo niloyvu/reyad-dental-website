@@ -3,9 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, inject } from '@angular/core';
 import { DataService } from '../../../services/data.service';
 import { environment } from '../../../../environments/environment';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { VideoDialogComponent } from '../video-dialog/video-dialog.component';
 import { bookingDateValidator } from '../../validators/booking-date';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { VideoDialogComponent } from '../video-dialog/video-dialog.component';
 
 @Component({
   selector: 'app-appointment-section',
@@ -28,6 +28,7 @@ export class AppointmentSectionComponent implements OnInit {
   dialog = inject(MatDialog);
   toastr = inject(ToastrService);
   imageUrl = environment.IMAGE_URL;
+  formBuilder = inject(FormBuilder);
   dataService = inject(DataService);
 
   ngOnInit(): void {
@@ -38,65 +39,15 @@ export class AppointmentSectionComponent implements OnInit {
   }
 
   initializeForm() {
-    this.appointmentForm = new FormGroup({
-      name: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(30)
-      ]),
-      email: new FormControl('',
-        [
-          Validators.email,
-          Validators.required
-        ]),
-      phone: new FormControl('', [
-        Validators.required,
-        Validators.minLength(11),
-        Validators.maxLength(11),
-        Validators.pattern('^[0-9]+$'),
-      ]),
-      dentist_id: new FormControl(0, [
-        Validators.required
-      ]),
-      department_id: new FormControl(0, [
-        Validators.required
-      ]),
-      date: new FormControl('', [
-        Validators.required,
-        bookingDateValidator.bind(this)
-      ]),
-      time: new FormControl(1, [
-        Validators.required
-      ])
+    this.appointmentForm = this.formBuilder.group({
+      name: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(30)]],
+      email: [null, [Validators.email, Validators.required]],
+      dentist_id: [0, [Validators.required]],
+      department_id: [0, [Validators.required]],
+      date: [null, [Validators.required, bookingDateValidator.bind(this)]],
+      phone: [null, [Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern('^[0-9]+$'),]],
+      time: [1, [Validators.required]]
     });
-  }
-
-  get name() {
-    return this.appointmentForm.get('name');
-  }
-
-  get email() {
-    return this.appointmentForm.get('email');
-  }
-
-  get phone() {
-    return this.appointmentForm.get('phone');
-  }
-
-  get dentist_id() {
-    return this.appointmentForm.get('dentist_id');
-  }
-
-  get department_id() {
-    return this.appointmentForm.get('department_id');
-  }
-
-  get date() {
-    return this.appointmentForm.get('date');
-  }
-
-  get time() {
-    return this.appointmentForm.get('time');
   }
 
   onSubmit() {
@@ -106,7 +57,7 @@ export class AppointmentSectionComponent implements OnInit {
     }
 
     this.isSubmitted = true;
-    this.dataService.postData(this.appointmentForm.value, 'website/book-appointment')
+    this.dataService.postData(this.appointmentForm.value, 'website/web-book-appointment')
       .subscribe({
         next: (response) => {
           this.isSubmitted = false;

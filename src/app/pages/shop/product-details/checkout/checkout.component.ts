@@ -35,11 +35,11 @@ export class CheckoutComponent implements OnInit {
       quantity: [this.quantity],
       product_id: [this.product.id],
       product_price: [this.product.price],
-      name: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]],
-      phone: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern('^[0-9]+$')]],
-      district: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
-      thana: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
-      address: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(50)]],
+      name: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(30)]],
+      phone: [null, [Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern('^[0-9]+$')]],
+      district: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
+      thana: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
+      address: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(50)]],
       payment_method: [1, [Validators.required]],
       check: [false, [Validators.requiredTrue]],
     });
@@ -49,7 +49,7 @@ export class CheckoutComponent implements OnInit {
 
   subscribeToDistrictChanges() {
     this.checkoutForm.get('district')?.valueChanges.subscribe((value) => {
-      const deliveryCharge = (value.toLowerCase() === 'dhaka') ? 60 : 150;
+      const deliveryCharge = (value?.toLowerCase() === 'dhaka') ? 60 : 150;
       this.checkoutForm.get('delivery_charge')?.setValue(deliveryCharge);
       this.checkoutForm.get('total_amount')?.setValue(this.product.price * this.quantity + deliveryCharge);
     });

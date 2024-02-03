@@ -5,9 +5,9 @@ import { DataService } from '../../services/data.service';
 import { SharedModule } from './../../shared/shared.module';
 import { environment } from '../../../environments/environment';
 import {
-  FormControl,
   FormGroup,
   Validators,
+  FormBuilder,
   ReactiveFormsModule,
 } from '@angular/forms';
 import {
@@ -52,6 +52,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   imageUrl = environment.IMAGE_URL;
 
   toastr = inject(ToastrService);
+  formBuilder = inject(FormBuilder);
   dataService = inject(DataService);
 
   @ViewChild('teamSwiper') teamSwiper!: ElementRef<SwiperContainer>;
@@ -63,36 +64,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   initializeForm() {
-    this.heroForm = new FormGroup({
-      name: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(20)
-      ]),
-      phone: new FormControl('', [
-        Validators.required,
-        Validators.minLength(11),
-        Validators.maxLength(11),
-        Validators.pattern('^[0-9]+$'),
-      ]),
-      date: new FormControl('',
-        [
-          Validators.required,
-          bookingDateValidator.bind(this)
-        ]),
+    this.heroForm = this.formBuilder.group({
+      name: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+      phone: [null, [Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern('^[0-9]+$')]],
+      date: [null, [Validators.required, bookingDateValidator.bind(this)]],
     });
-  }
-
-  get name() {
-    return this.heroForm.get('name');
-  }
-
-  get phone() {
-    return this.heroForm.get('phone');
-  }
-
-  get date() {
-    return this.heroForm.get('date');
   }
 
   serviceSwiperConfig: SwiperOptions = {
@@ -149,7 +125,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }
 
     this.isSubmitted = true;
-    this.dataService.postData(this.heroForm.value, 'website/book-appointment').subscribe({
+    this.dataService.postData(this.heroForm.value, 'website/web-book-appointment').subscribe({
       next: (response) => {
         this.isSubmitted = false;
         if (response.code == 200) {

@@ -58,32 +58,41 @@
                 <label for="name"><i class="flaticon-user"></i>Your Name</label>
                 <input type="text" id="name" formControlName="name" placeholder="Enter Your Name" />
 
-                <div *ngIf="name?.invalid && name?.touched" class="invalid-responses">
-                    <p *ngIf="name?.errors?.['required']">Name is required.</p>
-                    <p *ngIf="name?.errors?.['minlength']">Name must be at least 6 characters.</p>
-                    <p *ngIf="name?.errors?.['maxlength']">Name must be at most 11 characters.</p>
-                </div>
+                @if(heroForm.get('name')?.invalid && heroForm.get('name')?.touched){
+                <p>
+                    @if( heroForm.get('name')?.errors?.['required']) { Name is required. }
+                    @if( heroForm.get('name')?.errors?.['minlength']) { Name must be at least 6 characters. }
+                    @if( heroForm.get('name')?.errors?.['maxlength']) { Name must be at most 30 characters. }
+                </p>
+                }
 
             </div>
             <div class="form-group">
                 <label for="phone"><i class="flaticon-phone-call"></i>Phone Number</label>
                 <input type="text" id="phone" formControlName="phone" placeholder="Your Phone" />
-                <div *ngIf="phone?.invalid && phone?.touched" class="invalid-responses">
-                    <p *ngIf="phone?.errors?.['required']">Phone is required.</p>
-                    <p *ngIf="phone?.errors?.['minlength']">Phone number must be 11 digits</p>
-                    <p *ngIf="phone?.errors?.['maxlength']">Phone number 11 digits exceeds</p>
-                    <p *ngIf="phone?.errors?.['pattern']">Invalid phone number.</p>
-                </div>
+                @if(heroForm.get('phone')?.invalid && heroForm.get('phone')?.touched){
+                <p>
+                    @if( heroForm.get('phone')?.errors?.['required']) { Phone is required. }
+                    @if( heroForm.get('phone')?.errors?.['minlength']) { Phone number must be 11 digits. }
+                    @if( heroForm.get('phone')?.errors?.['maxlength']) { Phone number exceeds 11 digits. }
+                </p>
+                <p>
+                    @if( heroForm.get('phone')?.errors?.['pattern']) { Invalid phone number.
+                    }
+                </p>
+                }
             </div>
             <div class="form-group">
                 <label for="date"><i class="flaticon-clock"></i>Date</label>
                 <input type="date" id="date" formControlName="date" />
-                <div *ngIf="date?.invalid && date?.touched" class="invalid-responses">
-                    <p *ngIf="date?.errors?.['required']">Date is required.</p>
-                    <p *ngIf="date?.errors?.['invalidBookingDate']">Booking date can't be past.</p>
-                    <p *ngIf="date?.errors?.['exceedBookingDate']">Booking can't exceed next 10 days.</p>
-                    <p *ngIf="date?.errors?.['disabledDate']">Off day selected.</p>
-                </div>
+                @if(heroForm.get('date')?.invalid && heroForm.get('date')?.touched){
+                <p>
+                    @if( heroForm.get('date')?.errors?.['required']) { Date is required. }
+                    @if( heroForm.get('date')?.errors?.['invalidBookingDate']) { Booking date can't be past. }
+                    @if( heroForm.get('date')?.errors?.['exceedBookingDate']) { Booking can't exceed next 10 days.}
+                    @if( heroForm.get('date')?.errors?.['disabledDate']) { Off day selected.}
+                </p>
+                }
             </div>
             <div class="form-group">
                 <button class="btn-two border-0" [disabled]="isSubmitted" type="submit">Book Now</button>

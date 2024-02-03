@@ -68,7 +68,6 @@ export class DentistsComponent implements OnInit {
     this.dataService.getData('dentist-working-processes')
       .subscribe({
         next: ({ data }) => {
-          console.log("🚀 ~ DentistsComponent ~ getDentistWorkingProcesses ~ data:", data)
           this.dentistWorkingProcess = data;
         },
         error: error => {

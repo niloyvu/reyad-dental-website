@@ -77,60 +77,79 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <textarea formControlName="message" placeholder="Your Messages.." 
-                                        cols="30"
-                                        rows="10">
-                                    </textarea>
-                                </div>
-                                <div *ngIf="message?.invalid && message?.touched" class="invalid-responses">
-                                    <p *ngIf="message?.errors?.['required']">Message is required.</p>
-                                    <p *ngIf="message?.errors?.['minlength']">Message must be at least 100 characters.
+                                    <textarea formControlName="message" placeholder="Your Messages.." cols="30"
+                                        rows="10"></textarea>
+                                    @if(contactForm.get('message')?.invalid && contactForm.get('message')?.touched){
+                                    <p>
+                                        @if( contactForm.get('message')?.errors?.['required']) { Message is required. }
+                                        @if( contactForm.get('message')?.errors?.['minlength']) { Message must be at
+                                        least 100 characters.}
+                                        @if( contactForm.get('message')?.errors?.['maxlength']) { Message must be at
+                                        most 200 characters.}
                                     </p>
-                                    <p *ngIf="message?.errors?.['maxlength']">Message must be at most 200 characters.
-                                    </p>
+                                    }
                                 </div>
+
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <input type="text" formControlName="name" placeholder="Full Name*">
+                                    @if(contactForm.get('name')?.invalid && contactForm.get('name')?.touched){
+                                    <p>
+                                        @if( contactForm.get('name')?.errors?.['required']) { Name is required. }
+                                        @if( contactForm.get('name')?.errors?.['minlength']) { Name must be at least 6
+                                        characters.}
+                                        @if( contactForm.get('name')?.errors?.['maxlength']) { Name must be at most 30
+                                        characters.}
+                                    </p>
+                                    }
                                 </div>
-                                <div *ngIf="name?.invalid && name?.touched" class="invalid-responses">
-                                    <p *ngIf="name?.errors?.['required']">Name is required.</p>
-                                    <p *ngIf="name?.errors?.['minlength']">Name must be at least 6 characters.</p>
-                                    <p *ngIf="name?.errors?.['maxlength']">Name must be at most 30 characters.</p>
-                                </div>
+
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <input type="email" formControlName="email" placeholder="Your Email Address*">
+                                    @if(contactForm.get('email')?.invalid && contactForm.get('email')?.touched){
+                                    <p>
+                                        @if( contactForm.get('email')?.errors?.['required']) { Email is required. }
+                                        @if( contactForm.get('email')?.errors?.['email']) { Invalid Email.}
+                                    </p>
+                                    }
                                 </div>
-                                <div *ngIf="email?.invalid && email?.touched" class="invalid-responses">
-                                    <p *ngIf="email?.errors?.['required']">Email is required.</p>
-                                    <p *ngIf="email?.errors?.['email']">Invalid Email.</p>
-                                </div>
+
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <input type="text" formControlName="phone" placeholder="Phone Number*">
+                                    @if(contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched){
+                                    <p>
+                                        @if( contactForm.get('phone')?.errors?.['required']) { Phone is required. }
+                                        @if( contactForm.get('phone')?.errors?.['minlength']) { Phone number must be 11
+                                        digits. }
+                                        @if( contactForm.get('phone')?.errors?.['maxlength']) { Phone number exceeds 11
+                                        digits. }
+                                    </p>
+                                    <p>
+                                        @if( contactForm.get('phone')?.errors?.['pattern']) { Invalid phone number. }
+                                    </p>
+                                    }
                                 </div>
-                                <div *ngIf="phone?.invalid && phone?.touched" class="invalid-responses">
-                                    <p *ngIf="phone?.errors?.['required']">Phone is required.</p>
-                                    <p *ngIf="phone?.errors?.['minlength']">Phone number must be 11 digits</p>
-                                    <p *ngIf="phone?.errors?.['maxlength']">Phone number 11 digits exceeds</p>
-                                    <p *ngIf="phone?.errors?.['pattern']">Invalid phone number.</p>
-                                </div>
+
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <input type="text" formControlName="subject" placeholder="Subject*">
-                                </div>
-                                <div *ngIf="subject?.invalid && subject?.touched" class="invalid-responses">
-                                    <p *ngIf="subject?.errors?.['required']">Subject is required.</p>
-                                    <p *ngIf="subject?.errors?.['minlength']">Subject must be at least 20 characters.
+                                    @if(contactForm.get('subject')?.invalid && contactForm.get('subject')?.touched){
+                                    <p>
+                                        @if( contactForm.get('subject')?.errors?.['required']) { Subject is required. }
+                                        @if( contactForm.get('subject')?.errors?.['minlength']) { Subject must be at
+                                        least 20 characters.}
+                                        @if( contactForm.get('subject')?.errors?.['maxlength']) { Subject must be at
+                                        most 100 characters.}
                                     </p>
-                                    <p *ngIf="subject?.errors?.['maxlength']">Subject must be at most 100 characters.
-                                    </p>
+                                    }
                                 </div>
+
                             </div>
                             <div class="form-group">
                                 <div class="form-check checkbox">
@@ -140,9 +159,12 @@
                                         <a routerLink="privacy-policy">Privacy Policy</a>
                                     </label>
                                 </div>
-                                <div *ngIf="check?.invalid && check?.touched" class="invalid-responses">
-                                    <p *ngIf="check?.errors?.['required']">Check is required.</p>
-                                </div>
+
+                                @if(contactForm.get('check')?.invalid && contactForm.get('check')?.touched){
+                                <p>
+                                    @if( contactForm.get('check')?.errors?.['required']) { Check is required. }
+                                </p>
+                                }
                             </div>
                             <div class="col-md-12 submit-btn">
                                 <button type="submit" [disabled]="isSubmitted" class="btn-two">Send Message</button>

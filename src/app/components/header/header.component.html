@@ -19,11 +19,12 @@
             </div>
         </div>
     </div>
+    
     <div class="container">
         <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand" routerLink="home">
                 <img class="logo-light" [src]="imageUrl+headerData?.light_mode_logo" alt="logo">
-                <!-- <img class="logo-dark" [src]="imageUrl+headerData?.dark_mode_logo" alt="logo"> -->
+                <img class="logo-dark" [src]="imageUrl+headerData?.dark_mode_logo" alt="logo">
             </a>
             <div class="other-option d-flex align-items-center justify-content-end d-lg-none">
                 <!-- <button type="button" class="search-btn d-lg-none" data-bs-toggle="modal"
@@ -35,9 +36,9 @@
                         <span class="blink">Appointment</span>
                     </a>
                 </div>
-                <a class="navbar-toggler" data-bs-toggle="offcanvas" href="#navbarOffcanvas" role="button"
+                <a class="navbar-toggler" data-bs-toggle="offcanvas" role="button"
                     aria-controls="navbarOffcanvas">
-                    <span class="burger-menu">
+                    <span class="burger-menu" (click)="toggleSidebarMenu()">
                         <span class="top-bar"></span>
                         <span class="middle-bar"></span>
                         <span class="bottom-bar"></span>
@@ -85,7 +86,7 @@
                         </a>
                     </div>
                     <div class="option-item">
-                        <a class="sidebar-toggler" (click)="onClickShowSideBarMenu()">
+                        <a class="sidebar-toggler" (click)="toggleSidebarMenu()">
                             <i class="flaticon-list"></i>
                         </a>
                     </div>
@@ -96,16 +97,16 @@
 </div>
 <!-- End Navbar Area -->
 
-@if (show) {
+
 <!-- Start Responsive Navbar Area -->
-<div class="responsive-navbar offcanvas offcanvas-end show" data-bs-backdrop="static" tabindex="-1"
+<div class="responsive-navbar offcanvas offcanvas-end" [class.show]="show" data-bs-backdrop="static" tabindex="-1"
     id="navbarOffcanvas">
     <div class="offcanvas-header">
         <a href="index-2.html" class="logo d-inline-block">
             <img class="logo-light" [src]="imageUrl+headerData?.light_mode_logo" alt="logo">
             <!-- <img class="logo-dark" [src]="imageUrl+headerData?.dark_mode_logo" alt="logo"> -->
         </a>
-        <button type="button" (click)="onClickShowSideBarMenu()" class="close-btn" data-bs-dismiss="offcanvas"
+        <button type="button" (click)="toggleSidebarMenu()" class="close-btn" data-bs-dismiss="offcanvas"
             aria-label="Close">
             <i class="ri-close-line"></i>
         </button>
@@ -113,38 +114,41 @@
     <div class="offcanvas-body">
         <div class="accordion" id="navbarAccordion">
             <div class="accordion-item">
-                <a class="accordion-button without-icon" routerLink="/">
+                <a class="accordion-button without-icon" (click)="toggleSidebarMenu()" routerLink="/">
                     Home
                 </a>
             </div>
             <div class="accordion-item">
-                <a class="accordion-button without-icon" routerLink="about-us">
+                <a class="accordion-button without-icon" (click)="toggleSidebarMenu()" routerLink="about-us">
                     About Us
                 </a>
             </div>
             <div class="accordion-item">
-                <a class="accordion-button without-icon" routerLink="dentists" class="accordion-link">
+                <a class="accordion-button without-icon" (click)="toggleSidebarMenu()" routerLink="dentists"
+                    class="accordion-link">
                     All Dentists
                 </a>
             </div>
             <div class="accordion-item">
-                <a class="accordion-button without-icon" routerLink="services" class="accordion-link">
+                <a class="accordion-button without-icon" (click)="toggleSidebarMenu()" routerLink="services"
+                    class="accordion-link">
                     Service
                 </a>
             </div>
 
             <div class="accordion-item">
-                <a class="accordion-button without-icon" routerLink="blogs">
+                <a class="accordion-button without-icon" (click)="toggleSidebarMenu()" routerLink="blogs">
                     Blogs
                 </a>
             </div>
             <div class="accordion-item">
-                <a class="accordion-button without-icon" routerLink="contact-us">
+                <a class="accordion-button without-icon" (click)="toggleSidebarMenu()" routerLink="contact-us">
                     Contact Us
                 </a>
             </div>
             <div class="accordion-item">
-                <a class="accordion-button without-icon" routerLink="book-appointment" class="accordion-link">
+                <a class="accordion-button without-icon" (click)="toggleSidebarMenu()" routerLink="book-appointment"
+                    class="accordion-link">
                     Book Appointment
                 </a>
             </div>
@@ -181,8 +185,10 @@
         </div>
     </div>
 </div>
+@if(show) {
 <div class="offcanvas-backdrop fade show"></div>
 }
+
 <!-- <div class="switch-theme-mode">
     <label id="switch" class="switch">
         <input type="checkbox" (change)="toggleTheme()" id="slider">

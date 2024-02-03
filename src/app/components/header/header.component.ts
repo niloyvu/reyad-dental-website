@@ -2,7 +2,7 @@ import { RouterLink } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { environment } from '../../../environments/environment';
 import { Component, HostListener, OnInit, inject } from '@angular/core';
-
+import { trigger, state, style, animate, transition } from '@angular/animations';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -10,10 +10,23 @@ import { Component, HostListener, OnInit, inject } from '@angular/core';
     RouterLink,
   ],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
+  animations: [
+    trigger('slideInOut', [
+      state('in', style({
+        transform: 'translate3d(0, 0, 0)'
+      })),
+      state('out', style({
+        transform: 'translate3d(-100%, 0, 0)'
+      })),
+      transition('in => out', animate('400ms ease-in-out')),
+      transition('out => in', animate('400ms ease-in-out'))
+    ])
+  ]
 })
 export class HeaderComponent implements OnInit {
 
+  public menuState = 'out';
   isSticky: boolean = false;
   show: boolean = false;
 
@@ -45,12 +58,22 @@ export class HeaderComponent implements OnInit {
       })
   }
 
-  onClickShowSideBarMenu() {
+  toggleSidebarMenu() {
+    console.log('toggle sidebar menu');
     this.show = !this.show;
+    this.menuState = this.menuState === 'out' ? 'in' : 'out';
   }
 
-  toggleTheme() {
 
+  toggleTheme() {
+    const htmlElement = document.querySelector('html');
+    if (htmlElement?.classList.contains('theme-light')) {
+      htmlElement?.classList.remove('theme-light');
+      htmlElement?.classList.add('theme-dark');
+    } else {
+      htmlElement?.classList.remove('theme-dark');
+      htmlElement?.classList.add('theme-light');
+    }
   }
 }
 
