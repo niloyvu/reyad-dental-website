@@ -40,8 +40,7 @@
               "src/assets/css/remixicon.css",
               "src/assets/css/flaticon.css"
             ],
-            "scripts": [
-            ],
+            "scripts": [],
             "server": "src/main.server.ts",
             "prerender": true,
             "ssr": {

@@ -31,8 +31,8 @@
                     <button mat-flat-button color="primary" (click)="decrement()" type="button">
                         -
                     </button>
-                    <input type="number" class="increment-input" readonly required min="1" [max]="max"
-                        [value]="quantity" (input)="changeCurrent($event)">
+                    <input type="number" class="increment-input" readonly required min="1" [max]="maxQuantity"
+                        [value]="quantity">
                     <button mat-flat-button color="primary" (click)="increment()" type="button">
                         +
                     </button>

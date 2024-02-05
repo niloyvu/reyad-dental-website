@@ -1,9 +1,10 @@
+import { Subject, takeUntil } from 'rxjs';
 import { SwiperOptions } from 'swiper/types';
 import { SwiperContainer } from 'swiper/element';
 import { DataService } from '../../../services/data.service';
 import { sliderPreviewConfig } from '../../config/slider-config';
 import { environment } from '../../../../environments/environment';
-import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 
 @Component({
   selector: 'app-testimonial',
@@ -11,13 +12,15 @@ import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core'
   templateUrl: './testimonial.component.html',
   styleUrl: './testimonial.component.scss'
 })
-export class TestimonialComponent implements OnInit {
+export class TestimonialComponent implements OnInit, OnDestroy {
+  
   index = 0;
-  testimonialSectionData: any;
   featureTestimonials: any;
-  imageUrl = environment.IMAGE_URL;
+  testimonialSectionData: any;
 
-  dataService = inject(DataService);
+  imageUrl = environment.IMAGE_URL;
+  private dataService = inject(DataService);
+  private unsubscribe$ = new Subject<void>();
 
   @ViewChild('testimonialSwiper') swiperTestimonial!: ElementRef<SwiperContainer>;
 
@@ -37,13 +40,16 @@ export class TestimonialComponent implements OnInit {
     },
     breakpoints: sliderPreviewConfig
   }
+
   ngOnInit(): void {
     this.getTestimonialSectionData();
     this.getFeatureTestimonialsSectionData();
   }
 
   getTestimonialSectionData() {
-    this.dataService.getData('testimonial-section')
+    this.dataService
+      .getData('testimonial-section')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.testimonialSectionData = data;
@@ -55,10 +61,11 @@ export class TestimonialComponent implements OnInit {
   }
 
   getFeatureTestimonialsSectionData() {
-    this.dataService.getData('feature-testimonials')
+    this.dataService
+      .getData('feature-testimonials')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
-
           this.featureTestimonials = data;
         },
         error: error => {
@@ -76,5 +83,10 @@ export class TestimonialComponent implements OnInit {
 
   slideChange(swiper: any) {
     this.index = swiper?.detail[0]?.activeIndex;
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

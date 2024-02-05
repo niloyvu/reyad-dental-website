@@ -1,9 +1,10 @@
 import { NgForm } from '@angular/forms';
+import { Subject, takeUntil } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from '../../services/data.service';
 import { SharedModule } from '../../shared/shared.module';
 import { environment } from '../../../environments/environment';
-import { Component, HostListener, ViewChild, inject } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
@@ -12,26 +13,25 @@ import { Component, HostListener, ViewChild, inject } from '@angular/core';
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss'
 })
-export class FooterComponent {
+export class FooterComponent implements OnInit, OnDestroy {
 
-  isSubmitted = false;
   email: string = '';
+  isSubmitted = false;
   headerData: any = [];
-  newsletterSectionData: any;
-
-  toastr = inject(ToastrService);
-  dataService = inject(DataService);
-
-  @ViewChild('subscribeForm') subscribeForm!: NgForm;
-
-  imageUrl = environment.IMAGE_URL;
   footerData: any = [];
 
   buttonOpacity: number = 0;
+  newsletterSectionData: any;
+  imageUrl = environment.IMAGE_URL;
+
+  private toastr = inject(ToastrService);
+  private dataService = inject(DataService);
+  private unsubscribe$ = new Subject<void>();
+
+  @ViewChild('subscribeForm') subscribeForm!: NgForm;
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
-
     const scrollPosition = window.scrollY ||
       document.documentElement.scrollTop ||
       document.body.scrollTop || 0;
@@ -50,7 +50,9 @@ export class FooterComponent {
   }
 
   getFooterSectionData() {
-    this.dataService.getData('footer-section')
+    this.dataService
+      .getData('footer-section')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.footerData = data;
@@ -62,7 +64,9 @@ export class FooterComponent {
   }
 
   getNewsletterSectionData() {
-    this.dataService.getData('newsletter-section')
+    this.dataService
+      .getData('newsletter-section')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.newsletterSectionData = data;
@@ -80,7 +84,9 @@ export class FooterComponent {
   }
 
   onSubmit() {
-    this.dataService.postData({ 'email': this.email }, 'website/subscription')
+    this.dataService
+      .postData({ 'email': this.email }, 'website/subscription')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: (response) => {
           this.isSubmitted = false;
@@ -96,7 +102,9 @@ export class FooterComponent {
   }
 
   getHeaderSectionData() {
-    this.dataService.getData('navbar-section')
+    this.dataService
+      .getData('navbar-section')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.headerData = data;
@@ -105,6 +113,11 @@ export class FooterComponent {
           console.error(error);
         }
       })
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }

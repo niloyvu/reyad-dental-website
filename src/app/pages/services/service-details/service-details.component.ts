@@ -1,9 +1,10 @@
-import { ActivatedRoute } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { DataService } from '../../../services/data.service';
 import { environment } from '../../../../environments/environment';
-import { MatDialog } from '@angular/material/dialog';
 import { VideoDialogComponent } from '../../../shared/components/video-dialog/video-dialog.component';
 
 @Component({
@@ -13,16 +14,18 @@ import { VideoDialogComponent } from '../../../shared/components/video-dialog/vi
   templateUrl: './service-details.component.html',
   styleUrl: './service-details.component.scss'
 })
-export class ServiceDetailsComponent implements OnInit {
+export class ServiceDetailsComponent implements OnInit, OnDestroy {
 
   serviceDetails: any;
   dialogOpen: boolean = false;
   serviceDetailsHeader: any;
   imageUrl = environment.IMAGE_URL;
 
-  dialog = inject(MatDialog);
-  dataService = inject(DataService);
-  activatedRoute = inject(ActivatedRoute);
+  private dialog = inject(MatDialog);
+  private dataService = inject(DataService);
+  private activatedRoute = inject(ActivatedRoute);
+
+  private unsubscribe$ = new Subject<void>();
 
   ngOnInit(): void {
     this.getServiceDetailsById(
@@ -32,7 +35,9 @@ export class ServiceDetailsComponent implements OnInit {
   }
 
   getServiceDetailsById(serviceId: string) {
-    this.dataService.getDataById('service-details', serviceId)
+    this.dataService
+      .getDataById('service-details', serviceId)
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.serviceDetails = data;
@@ -44,7 +49,9 @@ export class ServiceDetailsComponent implements OnInit {
   }
 
   getServiceDetailsHeaderData() {
-    this.dataService.getData('service-details-header')
+    this.dataService
+      .getData('service-details-header')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.serviceDetailsHeader = data;
@@ -57,13 +64,20 @@ export class ServiceDetailsComponent implements OnInit {
 
   onClickOpenVideoModal() {
     if (!this.dialogOpen) {
-      const dialogRef = this.dialog.open(VideoDialogComponent, {
-        data: this.serviceDetails?.video_link,
-        disableClose: true
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        this.dialogOpen = false;
-      });
+      const dialogRef = this.dialog
+        .open(VideoDialogComponent, {
+          data: this.serviceDetails?.video_link,
+          disableClose: true
+        });
+      dialogRef.afterClosed()
+        .subscribe(result => {
+          this.dialogOpen = false;
+        });
     }
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

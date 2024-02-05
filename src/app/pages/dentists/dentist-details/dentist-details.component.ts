@@ -1,6 +1,7 @@
+import { Subject, takeUntil } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { DataService } from '../../../services/data.service';
 import { environment } from '../../../../environments/environment';
 
@@ -12,17 +13,18 @@ import { environment } from '../../../../environments/environment';
   templateUrl: './dentist-details.component.html',
   styleUrl: './dentist-details.component.scss'
 })
-export class DentistDetailsComponent implements OnInit {
+export class DentistDetailsComponent implements OnInit, OnDestroy {
 
   dentist: any;
   counters: any[] = [];
 
   dentistPageHeaderData: any;
-
-  dataService = inject(DataService);
-  activatedRoute = inject(ActivatedRoute);
-
   imageUrl = environment.IMAGE_URL;
+
+  private unsubscribe$ = new Subject<void>();
+
+  private dataService = inject(DataService);
+  private activatedRoute = inject(ActivatedRoute);
 
   ngOnInit() {
     this.getDentistsPageHeaderData();
@@ -32,10 +34,11 @@ export class DentistDetailsComponent implements OnInit {
   }
 
   getServiceDetailsById(serviceId: string) {
-    this.dataService.getDataById('dentist-details', serviceId)
+    this.dataService
+      .getDataById('dentist-details', serviceId)
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
-          console.log("🚀 ~ DentistDetailsComponent ~ getServiceDetailsById ~ data:", data)
           this.dentist = data;
         },
         error: error => {
@@ -45,7 +48,9 @@ export class DentistDetailsComponent implements OnInit {
   }
 
   getDentistsPageHeaderData() {
-    this.dataService.getDataByQueryParams('dentist-page-header','?page_type=2')
+    this.dataService
+      .getDataByQueryParams('dentist-page-header', '?page_type=2')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.dentistPageHeaderData = data;
@@ -55,4 +60,10 @@ export class DentistDetailsComponent implements OnInit {
         }
       })
   }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
 }

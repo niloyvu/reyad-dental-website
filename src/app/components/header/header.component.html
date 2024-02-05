@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="container">
         <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand" routerLink="home">
@@ -36,8 +36,7 @@
                         <span class="blink">Appointment</span>
                     </a>
                 </div>
-                <a class="navbar-toggler" data-bs-toggle="offcanvas" role="button"
-                    aria-controls="navbarOffcanvas">
+                <a class="navbar-toggler" data-bs-toggle="offcanvas" role="button" aria-controls="navbarOffcanvas">
                     <span class="burger-menu" (click)="toggleSidebarMenu()">
                         <span class="top-bar"></span>
                         <span class="middle-bar"></span>
@@ -166,7 +165,7 @@
                 </li>
                 <li>
                     <i class="flaticon-phone-call"></i>
-                    <a href="tel:968547856254">+8801726187603</a>
+                    <a [href]="'tel:'+headerData?.phone">{{headerData?.phone}}</a>
                 </li>
             </ul>
             <ul class="social-profile list-style">
@@ -180,7 +179,7 @@
             <div class="contact-item">
                 <i class="flaticon-emergency-call"></i>
                 <span>Phone Number</span>
-                <a href="tel:968547856254">+8801726187603</a>
+                <a [href]="'tel:'+headerData?.phone">{{headerData?.phone}}</a>
             </div>
         </div>
     </div>

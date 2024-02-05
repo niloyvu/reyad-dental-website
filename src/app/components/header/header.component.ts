@@ -1,8 +1,8 @@
+import { Subscription } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { environment } from '../../../environments/environment';
-import { Component, HostListener, OnInit, inject } from '@angular/core';
-import { trigger, state, style, animate, transition } from '@angular/animations';
+import { Component, HostListener, OnDestroy, OnInit, inject } from '@angular/core';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -11,29 +11,18 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
-  animations: [
-    trigger('slideInOut', [
-      state('in', style({
-        transform: 'translate3d(0, 0, 0)'
-      })),
-      state('out', style({
-        transform: 'translate3d(-100%, 0, 0)'
-      })),
-      transition('in => out', animate('400ms ease-in-out')),
-      transition('out => in', animate('400ms ease-in-out'))
-    ])
-  ]
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
-  public menuState = 'out';
-  isSticky: boolean = false;
+  menuState = 'out';
+  headerData: any = [];
   show: boolean = false;
+  isSticky: boolean = false;
 
-  dataService = inject(DataService);
   imageUrl = environment.IMAGE_URL;
 
-  headerData: any = [];
+  private dataService = inject(DataService);
+  private subscription$!: Subscription;
 
   @HostListener('window:scroll', ['$event'])
   handleScroll(event: Event) {
@@ -41,13 +30,14 @@ export class HeaderComponent implements OnInit {
     const scrollTop = (event.target as any).scrollingElement.scrollTop;
     this.isSticky = scrollTop >= height || this.isSticky;
   }
-  
+
   ngOnInit() {
     this.getHeaderSectionData();
   }
 
   getHeaderSectionData() {
-    this.dataService.getData('navbar-section')
+    this.dataService
+      .getData('navbar-section')
       .subscribe({
         next: ({ data }) => {
           this.headerData = data;
@@ -59,7 +49,6 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleSidebarMenu() {
-    console.log('toggle sidebar menu');
     this.show = !this.show;
     this.menuState = this.menuState === 'out' ? 'in' : 'out';
   }
@@ -73,6 +62,12 @@ export class HeaderComponent implements OnInit {
     } else {
       htmlElement?.classList.remove('theme-dark');
       htmlElement?.classList.add('theme-light');
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription$) {
+      this.subscription$.unsubscribe();
     }
   }
 }

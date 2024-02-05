@@ -7,6 +7,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class SlugGeneratorPipe implements PipeTransform {
 
   transform(value: string): string {
+    
     if (!value) return '';
   
     const slug = value.toLowerCase().replace(/\s+/g, '-');

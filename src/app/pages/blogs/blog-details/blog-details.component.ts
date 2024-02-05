@@ -1,6 +1,7 @@
+import { Subject, takeUntil } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { DataService } from '../../../services/data.service';
 import { environment } from '../../../../environments/environment';
 
@@ -11,14 +12,17 @@ import { environment } from '../../../../environments/environment';
   templateUrl: './blog-details.component.html',
   styleUrl: './blog-details.component.scss'
 })
-export class BlogDetailsComponent implements OnInit {
+export class BlogDetailsComponent implements OnInit, OnDestroy {
 
-  blogPageHeader: any;
   blog: any;
+  blogPageHeader: any;
 
   imageUrl = environment.IMAGE_URL;
-  dataService = inject(DataService);
-  activatedRoute = inject(ActivatedRoute);
+  
+  private unsubscribe$ = new Subject<void>();
+  
+  private dataService = inject(DataService);
+  private activatedRoute = inject(ActivatedRoute);
 
   ngOnInit(): void {
     this.getBlogDetailsById(
@@ -28,7 +32,9 @@ export class BlogDetailsComponent implements OnInit {
   }
 
   getBlogDetailsById(blogId: string) {
-    this.dataService.getDataById('blog-details', blogId)
+    this.dataService
+      .getDataById('blog-details', blogId)
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.blog = data;
@@ -40,7 +46,9 @@ export class BlogDetailsComponent implements OnInit {
   }
 
   getBlogPageHeader() {
-    this.dataService.getDataByQueryParams('blog-page-header', '?page_type=2')
+    this.dataService
+      .getDataByQueryParams('blog-page-header', '?page_type=2')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.blogPageHeader = data;
@@ -49,6 +57,11 @@ export class BlogDetailsComponent implements OnInit {
           console.error(error);
         }
       })
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }

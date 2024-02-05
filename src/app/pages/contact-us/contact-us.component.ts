@@ -1,8 +1,9 @@
+import { Subject, takeUntil } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { Component, inject } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { SharedModule } from '../../shared/shared.module';
 import { environment } from '../../../environments/environment';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -12,16 +13,18 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   templateUrl: './contact-us.component.html',
   styleUrl: './contact-us.component.scss'
 })
-export class ContactUsComponent {
+export class ContactUsComponent implements OnInit, OnDestroy {
 
   isSubmitted = false;
   contactForm!: FormGroup;
   contactUsPageData: any;
   imageUrl = environment.IMAGE_URL;
 
-  toastr = inject(ToastrService);
-  formBuilder = inject(FormBuilder);
-  dataService = inject(DataService);
+  private toastr = inject(ToastrService);
+  private formBuilder = inject(FormBuilder);
+  private dataService = inject(DataService);
+
+  private unsubscribe$ = new Subject<void>();
 
   ngOnInit(): void {
     this.initializeForm();
@@ -41,7 +44,9 @@ export class ContactUsComponent {
   }
 
   getContactUsPageContents() {
-    this.dataService.getData('contact-us')
+    this.dataService
+      .getData('contact-us')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.contactUsPageData = data;
@@ -61,6 +66,7 @@ export class ContactUsComponent {
     this.isSubmitted = true;
     this.dataService
       .postData(this.contactForm.value, 'website/web-contact-us')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: (response) => {
           this.isSubmitted = false;
@@ -80,4 +86,8 @@ export class ContactUsComponent {
 
   }
 
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 }

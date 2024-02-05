@@ -1,3 +1,4 @@
+import { Subject, takeUntil } from 'rxjs';
 import { Component, OnInit, inject } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { SharedModule } from '../../shared/shared.module';
@@ -17,9 +18,10 @@ export class DentistsComponent implements OnInit {
   dentistWorkingProcess: any;
 
   dentistPageHeaderData: any;
-
-  dataService = inject(DataService);
   imageUrl = environment.IMAGE_URL;
+
+  private dataService = inject(DataService);
+  private unsubscribe$ = new Subject<void>();
 
   ngOnInit() {
     this.getCounters();
@@ -29,7 +31,9 @@ export class DentistsComponent implements OnInit {
   }
 
   getActiveDentists() {
-    this.dataService.getData('active-dentists')
+    this.dataService
+      .getData('active-dentists')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.dentists = data;
@@ -41,7 +45,9 @@ export class DentistsComponent implements OnInit {
   }
 
   getDentistsPageHeaderData() {
-    this.dataService.getDataByQueryParams('dentist-page-header','?page_type=1')
+    this.dataService
+      .getDataByQueryParams('dentist-page-header', '?page_type=1')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.dentistPageHeaderData = data;
@@ -53,7 +59,9 @@ export class DentistsComponent implements OnInit {
   }
 
   getCounters() {
-    this.dataService.getData('counters')
+    this.dataService
+      .getData('counters')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.counters = data;
@@ -65,7 +73,9 @@ export class DentistsComponent implements OnInit {
   }
 
   getDentistWorkingProcesses() {
-    this.dataService.getData('dentist-working-processes')
+    this.dataService
+      .getData('dentist-working-processes')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.dentistWorkingProcess = data;
@@ -74,6 +84,11 @@ export class DentistsComponent implements OnInit {
           console.error(error);
         }
       })
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }

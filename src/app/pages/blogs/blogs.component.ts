@@ -1,14 +1,15 @@
+import { Subject, takeUntil } from 'rxjs';
 import { Component, OnInit, inject } from '@angular/core';
 import { DataService } from '../../services/data.service';
-import { SharedModule } from '../../shared/shared.module'; 
-import { environment } from '../../../environments/environment';        
+import { SharedModule } from '../../shared/shared.module';
+import { environment } from '../../../environments/environment';
 
 @Component({
-    selector: 'app-blogs',
-    standalone: true,
-    templateUrl: './blogs.component.html',
-    styleUrl: './blogs.component.scss',
-    imports: [SharedModule]
+  selector: 'app-blogs',
+  standalone: true,
+  templateUrl: './blogs.component.html',
+  styleUrl: './blogs.component.scss',
+  imports: [SharedModule]
 })
 export class BlogsComponent implements OnInit {
 
@@ -16,7 +17,9 @@ export class BlogsComponent implements OnInit {
   activeBlogs: any[] = [];
 
   imageUrl = environment.IMAGE_URL;
-  dataService = inject(DataService);
+
+  private dataService = inject(DataService);
+  private unsubscribe$ = new Subject<void>();
 
   ngOnInit(): void {
     this.getActiveBlogs();
@@ -24,7 +27,9 @@ export class BlogsComponent implements OnInit {
   }
 
   getActiveBlogs() {
-    this.dataService.getData('active-blogs')
+    this.dataService
+      .getData('active-blogs')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.activeBlogs = data;
@@ -36,7 +41,9 @@ export class BlogsComponent implements OnInit {
   }
 
   getBlogPageHeader() {
-    this.dataService.getDataByQueryParams('blog-page-header','?page_type=1')
+    this.dataService
+      .getDataByQueryParams('blog-page-header', '?page_type=1')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.blogPageHeader = data;
@@ -45,5 +52,10 @@ export class BlogsComponent implements OnInit {
           console.error(error);
         }
       })
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

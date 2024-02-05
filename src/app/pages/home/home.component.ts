@@ -1,3 +1,4 @@
+import { Subject, takeUntil } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { SwiperOptions } from 'swiper/types';
 import { SwiperContainer } from 'swiper/element';
@@ -17,7 +18,8 @@ import {
   ElementRef,
   ViewChild,
   AfterViewInit,
-  CUSTOM_ELEMENTS_SCHEMA
+  CUSTOM_ELEMENTS_SCHEMA,
+  OnDestroy
 } from '@angular/core';
 import { sliderPreviewConfig } from '../../shared/config/slider-config';
 import { bookingDateValidator } from '../../shared/validators/booking-date';
@@ -33,7 +35,7 @@ import { bookingDateValidator } from '../../shared/validators/booking-date';
   ],
 })
 
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   index = 0;
   heroForm!: FormGroup;
@@ -51,9 +53,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
   isFutureDate: boolean = false;
   imageUrl = environment.IMAGE_URL;
 
-  toastr = inject(ToastrService);
-  formBuilder = inject(FormBuilder);
-  dataService = inject(DataService);
+  private toastr = inject(ToastrService);
+  private formBuilder = inject(FormBuilder);
+  private dataService = inject(DataService);
+
+  private unsubscribe$ = new Subject<void>();
+
 
   @ViewChild('teamSwiper') teamSwiper!: ElementRef<SwiperContainer>;
   @ViewChild('serviceSwiper') serviceSwiper!: ElementRef<SwiperContainer>;
@@ -100,7 +105,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   getHomePageContents() {
-    this.dataService.getData('home-page-contents')
+    this.dataService
+      .getData('home-page-contents')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.featureBlogs = data.featureBlogs;
@@ -125,23 +132,26 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }
 
     this.isSubmitted = true;
-    this.dataService.postData(this.heroForm.value, 'website/web-book-appointment').subscribe({
-      next: (response) => {
-        this.isSubmitted = false;
-        if (response.code == 200) {
-          this.heroForm.reset();
-          this.toastr.success(response.message);
-        }
-        else {
+    this.dataService
+      .postData(this.heroForm.value, 'website/web-book-appointment')
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (response) => {
+          this.isSubmitted = false;
+          if (response.code == 200) {
+            this.heroForm.reset();
+            this.toastr.success(response.message);
+          }
+          else {
+            this.toastr.error('Form Submission Failed!');
+          }
+        },
+        error: error => {
+          console.error(error);
+          this.isSubmitted = false;
           this.toastr.error('Form Submission Failed!');
         }
-      },
-      error: error => {
-        console.error(error);
-        this.isSubmitted = false;
-        this.toastr.error('Form Submission Failed!');
-      }
-    });
+      });
 
   }
 
@@ -149,6 +159,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
     if (this.teamSwiper.nativeElement.swiper && this.serviceSwiper.nativeElement.swiper) {
       this.teamSwiper.nativeElement.swiper.activeIndex = this.index;
     }
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }

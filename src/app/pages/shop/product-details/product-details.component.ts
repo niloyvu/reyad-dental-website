@@ -1,9 +1,10 @@
+import { Subject, takeUntil } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { DataService } from '../../../services/data.service';
-import { environment } from '../../../../environments/environment';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { environment } from '../../../../environments/environment';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 
 @Component({
   selector: 'app-product-details',
@@ -13,19 +14,19 @@ import { CheckoutComponent } from './checkout/checkout.component';
   styleUrl: './product-details.component.scss'
 })
 
-export class ProductDetailsComponent implements OnInit {
+export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   product: any;
-  max = 10000;
   quantity = 1;
+  maxQuantity = 100;
 
   showCheckout = false;
-
   shoPageHeader: any;
-  dataService = inject(DataService);
   imageUrl = environment.IMAGE_URL;
 
-  activatedRoute = inject(ActivatedRoute);
+  private dataService = inject(DataService);
+  private unsubscribe$ = new Subject<void>();
+  private activatedRoute = inject(ActivatedRoute);
 
   ngOnInit(): void {
     this.getProductDetailsById(
@@ -35,7 +36,9 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   getShopDetailsPageHeaderData() {
-    this.dataService.getDataByQueryParams('shop-page-header', '?page_type=2')
+    this.dataService
+      .getDataByQueryParams('shop-page-header', '?page_type=2')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.shoPageHeader = data;
@@ -47,7 +50,9 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   getProductDetailsById(productId: string) {
-    this.dataService.getDataById('product-details', productId)
+    this.dataService
+      .getDataById('product-details', productId)
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.product = data;
@@ -59,9 +64,9 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   increment() {
-    if (this.max <= 0 || this.quantity >= this.max)
-      return;
-    this.quantity++;
+    if (this.quantity < this.maxQuantity) {
+      this.quantity++;
+    }
   }
 
   decrement() {
@@ -69,15 +74,14 @@ export class ProductDetailsComponent implements OnInit {
       this.quantity--;
     }
   }
-  changeCurrent(event: any) {
-    if (parseInt(event.currentTarget.value) < this.max && parseInt(event.currentTarget.value) > 0) {
-      this.quantity = parseInt(event.currentTarget.value);
-    } else {
-      event.currentTarget.value = this.quantity;
-    }
-  }
 
   orderNow() {
     this.showCheckout = true;
   }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
 }

@@ -1,7 +1,8 @@
+import { Subject, takeUntil } from 'rxjs';
 import { DataService } from '../../services/data.service';
 import { SharedModule } from '../../shared/shared.module';
-import { Component, OnInit, inject } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 
 @Component({
   selector: 'app-services',
@@ -10,20 +11,24 @@ import { environment } from '../../../environments/environment';
   templateUrl: './services.component.html',
   styleUrl: './services.component.scss'
 })
-export class ServicesComponent implements OnInit {
+export class ServicesComponent implements OnInit, OnDestroy {
 
   services: any[] = [];
   serviceHeaderData: any;
   imageUrl = environment.IMAGE_URL;
-  dataService = inject(DataService);
+
+  private dataService = inject(DataService);
+  private unsubscribe$ = new Subject<void>();
 
   ngOnInit(): void {
-      this.getServices();
-      this.getServiceHeaderData();
+    this.getServices();
+    this.getServiceHeaderData();
   }
 
   getServices() {
-    this.dataService.getData('active-services')
+    this.dataService
+      .getData('active-services')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.services = data;
@@ -35,7 +40,9 @@ export class ServicesComponent implements OnInit {
   }
 
   getServiceHeaderData() {
-    this.dataService.getData('service-header')
+    this.dataService
+      .getData('service-header')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.serviceHeaderData = data;
@@ -44,5 +51,10 @@ export class ServicesComponent implements OnInit {
           console.error(error);
         }
       })
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

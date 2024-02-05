@@ -2,11 +2,30 @@
     Dark Theme  CSS
 -------------------------------*/
 :root {
+  --bodyFont: "Archivo", sans-serif;
+  --secondaryFont: "Manrope", sans-serif;
+  --primaryColor: #3267FF;
+  --secondaryColor: #FE5912;
+  --optionalColor: #F1F8FF;
+  --titleColor: #000A2D;
+  --paraColor: #555555;
+  --bgColor: #F7F7F7;
+  --bgColorTwo: #F6F1EC;
+  --grayColor: #FAF7F7;
+  --ashColor: #FAF7F7;
+  --whiteColor: #ffffff;
+  --offwhiteColor: #CCCCCC;
+  --footerColor: #000A2D;
+  --yellowColor: #FFCB36;
+  --fontSize: 16px;
+  --transition: all ease .5s;
+  --transitionTwo: all ease .9s;
   --aztechColor: #00161B;
   --codColor: #111;
   --mildColor: #333;
   --darkColor: #000;
 }
+
 
 .switch-theme-mode {
   position: fixed;

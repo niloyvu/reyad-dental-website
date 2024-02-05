@@ -1,6 +1,7 @@
+import { Subject, takeUntil } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { DataService } from '../../../services/data.service';
 import { environment } from '../../../../environments/environment';
 import { bookingDateValidator } from '../../validators/booking-date';
@@ -12,7 +13,8 @@ import { VideoDialogComponent } from '../video-dialog/video-dialog.component';
   templateUrl: './appointment-section.component.html',
   styleUrl: './appointment-section.component.scss',
 })
-export class AppointmentSectionComponent implements OnInit {
+
+export class AppointmentSectionComponent implements OnInit, OnDestroy {
 
   appointmentForm!: FormGroup;
   isSubmitted = false;
@@ -24,12 +26,14 @@ export class AppointmentSectionComponent implements OnInit {
   dialogOpen: boolean = false;
 
   sliderValue: number = 50;
-
-  dialog = inject(MatDialog);
-  toastr = inject(ToastrService);
   imageUrl = environment.IMAGE_URL;
-  formBuilder = inject(FormBuilder);
-  dataService = inject(DataService);
+
+  private dialog = inject(MatDialog);
+  private toastr = inject(ToastrService);
+  private formBuilder = inject(FormBuilder);
+  private dataService = inject(DataService);
+
+  private unsubscribe$ = new Subject<void>();
 
   ngOnInit(): void {
     this.initializeForm();
@@ -57,7 +61,12 @@ export class AppointmentSectionComponent implements OnInit {
     }
 
     this.isSubmitted = true;
-    this.dataService.postData(this.appointmentForm.value, 'website/web-book-appointment')
+    this.dataService
+      .postData(
+        this.appointmentForm.value,
+        'website/web-book-appointment'
+      )
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: (response) => {
           this.isSubmitted = false;
@@ -78,7 +87,9 @@ export class AppointmentSectionComponent implements OnInit {
   }
 
   getAppointmentSectionData() {
-    this.dataService.getData('appointment-section')
+    this.dataService
+      .getData('appointment-section')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.appointmentSectionData = data;
@@ -89,7 +100,9 @@ export class AppointmentSectionComponent implements OnInit {
       })
   }
   getCounterSection() {
-    this.dataService.getData('counters')
+    this.dataService
+      .getData('counters')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.counters = data;
@@ -121,7 +134,9 @@ export class AppointmentSectionComponent implements OnInit {
   }
 
   getActiveDentists() {
-    this.dataService.getData('active-dentists')
+    this.dataService
+      .getData('active-dentists')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.dentists = data;
@@ -130,5 +145,10 @@ export class AppointmentSectionComponent implements OnInit {
           console.error(error);
         }
       })
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

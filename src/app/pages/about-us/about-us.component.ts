@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { DataService } from '../../services/data.service';
 import { SharedModule } from '../../shared/shared.module';
 import { environment } from '../../../environments/environment';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 
 @Component({
   selector: 'app-about-us',
@@ -10,7 +11,9 @@ import { environment } from '../../../environments/environment';
   templateUrl: './about-us.component.html',
   styleUrl: './about-us.component.scss'
 })
-export class AboutUsComponent {
+
+export class AboutUsComponent implements OnInit, OnDestroy {
+
   aboutUsPageData: any;
   serviceSectionText: any;
   teamSectionText: any;
@@ -18,7 +21,9 @@ export class AboutUsComponent {
   featureDentists: any[] = [];
 
   imageUrl = environment.IMAGE_URL;
-  dataService = inject(DataService);
+
+  private dataService = inject(DataService);
+  private unsubscribe$ = new Subject<void>()
 
   ngOnInit(): void {
     this.getFeatureServices();
@@ -29,7 +34,9 @@ export class AboutUsComponent {
   }
 
   getAboutUsPageContents() {
-    this.dataService.getData('about-us')
+    this.dataService
+      .getData('about-us')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.aboutUsPageData = data;
@@ -41,7 +48,9 @@ export class AboutUsComponent {
   }
 
   getFeatureServices() {
-    this.dataService.getData('feature-services')
+    this.dataService
+      .getData('feature-services')
+      .pipe((takeUntil(this.unsubscribe$)))
       .subscribe({
         next: ({ data }) => {
           this.featureServices = data.slice(0, 4);
@@ -53,7 +62,9 @@ export class AboutUsComponent {
   }
 
   getServiceSectionText() {
-    this.dataService.getData('service-section')
+    this.dataService
+      .getData('service-section')
+      .pipe((takeUntil(this.unsubscribe$)))
       .subscribe({
         next: ({ data }) => {
           this.serviceSectionText = data;
@@ -65,7 +76,9 @@ export class AboutUsComponent {
   }
 
   getTeamSectionText() {
-    this.dataService.getData('team-section')
+    this.dataService
+      .getData('team-section')
+      .pipe((takeUntil(this.unsubscribe$)))
       .subscribe({
         next: ({ data }) => {
           this.teamSectionText = data;
@@ -77,7 +90,9 @@ export class AboutUsComponent {
   }
 
   getFeatureDentists() {
-    this.dataService.getData('feature-dentists')
+    this.dataService
+      .getData('feature-dentists')
+      .pipe((takeUntil(this.unsubscribe$)))
       .subscribe({
         next: ({ data }) => {
           this.featureDentists = data.slice(0, 4);
@@ -86,6 +101,11 @@ export class AboutUsComponent {
           console.error(error);
         },
       });
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }

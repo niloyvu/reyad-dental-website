@@ -1,3 +1,4 @@
+import { Subject, takeUntil } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from '../../../../services/data.service';
 import { SharedModule } from '../../../../shared/shared.module';
@@ -20,9 +21,11 @@ export class CheckoutComponent implements OnInit {
   @Input() quantity: number = 0;
   @Output() handleProductLink = new EventEmitter();
 
-  toastr = inject(ToastrService);
-  formBuilder = inject(FormBuilder);
-  dataService = inject(DataService);
+  private toastr = inject(ToastrService);
+  private formBuilder = inject(FormBuilder);
+  private dataService = inject(DataService);
+
+  private unsubscribe$ = new Subject<void>();
 
   ngOnInit(): void {
     this.initializeForm();
@@ -48,11 +51,14 @@ export class CheckoutComponent implements OnInit {
   }
 
   subscribeToDistrictChanges() {
-    this.checkoutForm.get('district')?.valueChanges.subscribe((value) => {
-      const deliveryCharge = (value?.toLowerCase() === 'dhaka') ? 60 : 150;
-      this.checkoutForm.get('delivery_charge')?.setValue(deliveryCharge);
-      this.checkoutForm.get('total_amount')?.setValue(this.product.price * this.quantity + deliveryCharge);
-    });
+    this.checkoutForm
+      .get('district')?.valueChanges
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((value) => {
+        const deliveryCharge = (value?.toLowerCase() === 'dhaka') ? 60 : 150;
+        this.checkoutForm.get('delivery_charge')?.setValue(deliveryCharge);
+        this.checkoutForm.get('total_amount')?.setValue(this.product.price * this.quantity + deliveryCharge);
+      });
   }
 
   onSubmit() {
@@ -60,9 +66,11 @@ export class CheckoutComponent implements OnInit {
       this.checkoutForm.markAllAsTouched();
       return;
     }
+
     this.isSubmitted = true;
     this.dataService
       .postData(this.checkoutForm.value, 'website/order-product')
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: (response) => {
           this.isSubmitted = false;
@@ -81,6 +89,11 @@ export class CheckoutComponent implements OnInit {
         }
       });
 
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }

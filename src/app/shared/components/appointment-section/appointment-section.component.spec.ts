@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AppointmentSectionComponent } from './appointment-section.component';
+import { AppointmentSectionComponent } from './AppointmentSectionComponent';
 
 describe('AppointmentSectionComponent', () => {
   let component: AppointmentSectionComponent;
