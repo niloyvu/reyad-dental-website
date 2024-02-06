@@ -13,42 +13,59 @@
     </div>
 </div>
 
-<div class="container text-center pt-5">
-    <h1>Medical Devices & Equipments </h1>
-</div>
-
-<div class="container text-center">
-    <div class="shell">
-        <div class="container">
-            <div class="row">
-                @for (product of products; track $index) {
-                <div class="col-md-3">
-                    <div class="wsk-cp-product">
-                        <div class="wsk-cp-img">
-                            <img [src]="imageUrl + product?.image" alt="Product" class="img-responsive" />
-                        </div>
-                        <div class="wsk-cp-text">
-                            <div class="category">
-                                <span>{{product?.category}}</span>
-                            </div>
-                            <div class="title-product">
-                                <a [routerLink]="['/product', product?.title | slugGenerator, product?.id]">
-                                    <h3>{{product?.title}}</h3>
-                                </a>
-                            </div>
-                            <div class="card-footer">
-                                <div class="wcf-left"><span class="price">৳ {{product?.price | number}}</span></div>
-                                <div class="wcf-right">
-                                    <a href="#" class="buy-btn" [routerLink]="['/product', product?.title | slugGenerator, product?.id]">
-                                        <i class="ri-shopping-cart-2-fill"></i>
-                                    </a>
-                                </div>
-                            </div>
+<div class="container text-center pb-5">
+    <div class="pt-5 pb-4">
+        <h1>Medical Devices & Equipments </h1>
+    </div>
+    <div class="row">
+        @for (product of products; track $index) {
+        <div class="col-md-3">
+            <div class="wsk-cp-product">
+                <div class="wsk-cp-img">
+                    <img [src]="imageUrl + product?.image" alt="Product" class="img-responsive" />
+                </div>
+                <div class="wsk-cp-text">
+                    <div class="category">
+                        <span>{{product?.category}}</span>
+                    </div>
+                    <div class="title-product">
+                        <a [routerLink]="['/product', product?.title | slugGenerator, product?.id]">
+                            <h3>{{product?.title}}</h3>
+                        </a>
+                    </div>
+                    <div class="card-footer">
+                        <div class="wcf-left"><span class="price">৳ {{product?.price | number}}</span></div>
+                        <div class="wcf-right">
+                            <a href="#" class="buy-btn"
+                                [routerLink]="['/product', product?.title | slugGenerator, product?.id]">
+                                <i class="ri-shopping-cart-2-fill"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
-                }
             </div>
-
         </div>
+        } @empty {
+        <h1 class="text-center"> There are no products! </h1>
+        }
     </div>
+
+    @if(totalItems > perPageProducts) {
+    <ul class="page-nav list-style text-center mt-40">
+        @if (currentPage > 1) {
+        <li><a (click)="getActiveProducts(currentPage - 1)">
+                <img src="assets/img/left-arrow-2.svg" alt="Image">
+            </a>
+        </li>
+        }
+        <li><a [class.active]="currentPage === 1" (click)="getActiveProducts(1)">01</a></li>
+        <li><a [class.active]="currentPage === 2" (click)="getActiveProducts(2)">02</a></li>
+        <li><a [class.active]="currentPage === 3" (click)="getActiveProducts(3)">03</a></li>
+        @if (currentPage < 3) { <li><a (click)="getActiveProducts(currentPage + 1)">
+                <img src="assets/img/right-arrow-2.svg" alt="Image">
+            </a>
+            </li>
+            }
+    </ul>
+    }
+</div>

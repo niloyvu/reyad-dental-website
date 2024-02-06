@@ -99,6 +99,7 @@ export class AppointmentSectionComponent implements OnInit, OnDestroy {
         }
       })
   }
+
   getCounterSection() {
     this.dataService
       .getData('counters')
@@ -135,7 +136,7 @@ export class AppointmentSectionComponent implements OnInit, OnDestroy {
 
   getActiveDentists() {
     this.dataService
-      .getData('active-dentists')
+      .getData('dentists-list')
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {

@@ -13,15 +13,19 @@ import { Component, OnInit, inject, OnDestroy } from '@angular/core';
 })
 export class ShopComponent implements OnInit, OnDestroy {
 
-  shoPageHeader: any;
   products: any;
+  shoPageHeader: any;
+
+  totalItems: number = 0;
+  currentPage: number = 1;
+  perPageProducts: number = 8;
 
   imageUrl = environment.IMAGE_URL;
   private dataService = inject(DataService);
   private unsubscribe$ = new Subject<void>();
 
   ngOnInit(): void {
-    this.getActiveProducts();
+    this.getActiveProducts(this.currentPage);
     this.getShopPageHeaderData();
   }
 
@@ -39,13 +43,17 @@ export class ShopComponent implements OnInit, OnDestroy {
       })
   }
 
-  getActiveProducts() {
+  getActiveProducts(pageNumber: number) {
+    this.currentPage = pageNumber;
     this.dataService
-      .getData('active-products')
+      .getDataByQueryParams(
+        'active-products', `?page=${pageNumber}&per_page=${this.perPageProducts}`
+      )
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
-          this.products = data;
+          this.products = data.data;
+          this.totalItems = data.total;
         },
         error: error => {
           console.error(error);

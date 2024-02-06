@@ -14,6 +14,11 @@ import { environment } from '../../../environments/environment';
 export class BlogsComponent implements OnInit {
 
   blogPageHeader: any;
+
+  totalItems: number = 0;
+  currentPage: number = 1;
+  perPageBlogs: number = 6;
+
   activeBlogs: any[] = [];
 
   imageUrl = environment.IMAGE_URL;
@@ -22,17 +27,21 @@ export class BlogsComponent implements OnInit {
   private unsubscribe$ = new Subject<void>();
 
   ngOnInit(): void {
-    this.getActiveBlogs();
+    this.getActiveBlogs(this.currentPage);
     this.getBlogPageHeader();
   }
 
-  getActiveBlogs() {
+  getActiveBlogs(pageNumber: number) {
+    this.currentPage = pageNumber;
     this.dataService
-      .getData('active-blogs')
+      .getDataByQueryParams(
+        'active-blogs', `?page=${pageNumber}&per_page=${this.perPageBlogs}`
+      )
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
-          this.activeBlogs = data;
+          this.activeBlogs = data.data;
+          this.totalItems = data.total;
         },
         error: error => {
           console.error(error);

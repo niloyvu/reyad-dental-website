@@ -50,7 +50,7 @@ export class AboutUsComponent implements OnInit, OnDestroy {
   getFeatureServices() {
     this.dataService
       .getData('feature-services')
-      .pipe((takeUntil(this.unsubscribe$)))
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.featureServices = data.slice(0, 4);
@@ -64,7 +64,7 @@ export class AboutUsComponent implements OnInit, OnDestroy {
   getServiceSectionText() {
     this.dataService
       .getData('service-section')
-      .pipe((takeUntil(this.unsubscribe$)))
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.serviceSectionText = data;
@@ -78,7 +78,7 @@ export class AboutUsComponent implements OnInit, OnDestroy {
   getTeamSectionText() {
     this.dataService
       .getData('team-section')
-      .pipe((takeUntil(this.unsubscribe$)))
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.teamSectionText = data;
@@ -92,7 +92,7 @@ export class AboutUsComponent implements OnInit, OnDestroy {
   getFeatureDentists() {
     this.dataService
       .getData('feature-dentists')
-      .pipe((takeUntil(this.unsubscribe$)))
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
           this.featureDentists = data.slice(0, 4);

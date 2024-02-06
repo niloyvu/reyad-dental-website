@@ -8,23 +8,23 @@ import { environment } from '../../environments/environment';
 })
 export class DataService {
 
-  httpClient = inject(HttpClient);
+  http = inject(HttpClient);
   apiUrl = environment.API_URL;
 
   getData(path: string): Observable<any> {
-    return this.httpClient.get(`${this.apiUrl}/${path}`);
+    return this.http.get(`${this.apiUrl}/${path}`);
   }
 
   getDataById(path: string, id: string): Observable<any> {
-    return this.httpClient.get(`${this.apiUrl}/${path}?id=${id}`);
+    return this.http.get(`${this.apiUrl}/${path}?id=${id}`);
   }
 
   getDataByQueryParams(path: string, params: string): Observable<any> {
-    return this.httpClient.get(`${this.apiUrl}/${path}${params}`);
+    return this.http.get(`${this.apiUrl}/${path}${params}`);
   }
 
   postData(formValue: any, path: string): Observable<any> {
-    return this.httpClient.post(`${this.apiUrl}/${path}`, formValue);
+    return this.http.post(`${this.apiUrl}/${path}`, formValue);
   }
 
 }

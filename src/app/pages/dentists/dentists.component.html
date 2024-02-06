@@ -38,15 +38,29 @@
                     </div>
                 </div>
             </div>
+            } @empty {
+            <h1 class="text-center"> There are no doctors! </h1>
             }
+
         </div>
-        <!-- <ul class="page-nav list-style text-center mt-40">
-            <li><a href="dentists.html"><img src="assets/img/left-arrow-2.svg" alt="Image"></a></li>
-            <li><a class="active" href="dentists.html">01</a></li>
-            <li><a href="dentists.html">02</a></li>
-            <li><a href="dentists.html">03</a></li>
-            <li><a href="dentists.html"><img src="assets/img/right-arrow-2.svg" alt="Image"></a></li>
-        </ul> -->
+        @if(totalItems > perPageDoctors) {
+        <ul class="page-nav list-style text-center mt-40">
+            @if (currentPage > 1) {
+            <li><a (click)="getActiveDentists(currentPage - 1)">
+                    <img src="assets/img/left-arrow-2.svg" alt="Image">
+                </a>
+            </li>
+            }
+            <li><a [class.active]="currentPage === 1" (click)="getActiveDentists(1)">01</a></li>
+            <li><a [class.active]="currentPage === 2" (click)="getActiveDentists(2)">02</a></li>
+            <li><a [class.active]="currentPage === 3" (click)="getActiveDentists(3)">03</a></li>
+            @if (currentPage < 3) { <li><a (click)="getActiveDentists(currentPage + 1)">
+                    <img src="assets/img/right-arrow-2.svg" alt="Image">
+                </a>
+                </li>
+                }
+        </ul>
+        }
     </div>
 </div>
 

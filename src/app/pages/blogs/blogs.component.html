@@ -32,21 +32,35 @@
                             <!-- <li>No Comment</li> -->
                         </ul>
                         <h3><a [routerLink]="['/blog', blog?.title | slugGenerator, blog?.id]">
-                            {{blog?.title}}
-                        </a></h3>
+                                {{blog?.title}}
+                            </a></h3>
                         <div [innerHTML]="blog?.details | truncate:100"></div>
-                        <a [routerLink]="['/blog', blog?.title | slugGenerator, blog?.id]" class="link-one">Read More...</a>
+                        <a [routerLink]="['/blog', blog?.title | slugGenerator, blog?.id]" class="link-one">Read
+                            More...</a>
                     </div>
                 </div>
             </div>
+            } @empty {
+            <h1 class="text-center"> There are no blogs! </h1>
             }
         </div>
-        <!-- <ul class="page-nav list-style text-center mt-10">
-                <li><a href="blog-left-sidebar.html"><img src="assets/img/left-arrow-2.svg" alt="Image"></a></li>
-                <li><a class="active" href="blog-left-sidebar.html">01</a></li>
-                <li><a href="blog-left-sidebar.html">02</a></li>
-                <li><a href="blog-left-sidebar.html">03</a></li>
-                <li><a href="blog-left-sidebar.html"><img src="assets/img/right-arrow-2.svg" alt="Image"></a></li>
-            </ul> -->
+        
+        @if(totalItems > perPageBlogs) {
+        <ul class="page-nav list-style text-center mt-40">
+            @if (currentPage > 1) {
+            <li><a (click)="getActiveBlogs(currentPage - 1)">
+                    <img src="assets/img/left-arrow-2.svg" alt="Image">
+                </a>
+            </li>
+            }
+            <li><a [class.active]="currentPage === 1" (click)="getActiveBlogs(1)">01</a></li>
+            <li><a [class.active]="currentPage === 2" (click)="getActiveBlogs(2)">02</a></li>
+            <li><a [class.active]="currentPage === 3" (click)="getActiveBlogs(3)">03</a></li>
+            @if (currentPage < 3) { <li><a (click)="getActiveBlogs(currentPage + 1)">
+                    <img src="assets/img/right-arrow-2.svg" alt="Image">
+                </a>
+                </li>
+                }
+        </ul>
+        }
     </div>
-</div>

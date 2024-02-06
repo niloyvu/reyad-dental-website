@@ -15,6 +15,11 @@ export class DentistsComponent implements OnInit {
 
   dentists: any[] = [];
   counters: any[] = [];
+
+  totalItems: number = 0;
+  currentPage: number = 1;
+  perPageDoctors: number = 8;
+
   dentistWorkingProcess: any;
 
   dentistPageHeaderData: any;
@@ -25,18 +30,22 @@ export class DentistsComponent implements OnInit {
 
   ngOnInit() {
     this.getCounters();
-    this.getActiveDentists();
+    this.getActiveDentists(this.currentPage);
     this.getDentistsPageHeaderData();
     this.getDentistWorkingProcesses();
   }
 
-  getActiveDentists() {
+  getActiveDentists(pageNumber: number) {
+    this.currentPage = pageNumber;
     this.dataService
-      .getData('active-dentists')
+      .getDataByQueryParams(
+        'active-dentists', `?page=${pageNumber}&per_page=${this.perPageDoctors}`
+      )
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
-          this.dentists = data;
+          this.dentists = data.data;
+          this.totalItems = data.total;
         },
         error: error => {
           console.error(error);

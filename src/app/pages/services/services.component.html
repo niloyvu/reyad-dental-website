@@ -39,14 +39,27 @@
                 </div>
 
             </div>
+            } @empty {
+            <h1 class="text-center"> There are no services! </h1>
             }
 
-            <!-- <ul class="page-nav list-style text-left mt-40">
-                <li><a href="#"><img src="assets/img/left-arrow-2.svg" alt="Image"></a></li>
-                <li><a class="active" href="#">01</a></li>
-                <li><a href="#">02</a></li>
-                <li><a href="#">03</a></li>
-                <li><a href="#"><img src="assets/img/right-arrow-2.svg" alt="Image"></a></li>
-            </ul> -->
+            @if(totalItems > perPageServices) {
+            <ul class="page-nav list-style text-center mt-40">
+                @if (currentPage > 1) {
+                <li><a (click)="activeServices(currentPage - 1)">
+                        <img src="assets/img/left-arrow-2.svg" alt="Image">
+                    </a>
+                </li>
+                }
+                <li><a [class.active]="currentPage === 1" (click)="activeServices(1)">01</a></li>
+                <li><a [class.active]="currentPage === 2" (click)="activeServices(2)">02</a></li>
+                <li><a [class.active]="currentPage === 3" (click)="activeServices(3)">03</a></li>
+                @if (currentPage < 3) { <li><a (click)="activeServices(currentPage + 1)">
+                        <img src="assets/img/right-arrow-2.svg" alt="Image">
+                    </a>
+                    </li>
+                    }
+            </ul>
+            }
         </div>
     </div>

@@ -15,23 +15,32 @@ export class ServicesComponent implements OnInit, OnDestroy {
 
   services: any[] = [];
   serviceHeaderData: any;
+  
+  perPageServices: number = 6;
+  currentPage: number = 1;
+  totalItems: number = 0;
+
   imageUrl = environment.IMAGE_URL;
 
   private dataService = inject(DataService);
   private unsubscribe$ = new Subject<void>();
 
   ngOnInit(): void {
-    this.getServices();
+    this.activeServices(this.currentPage);
     this.getServiceHeaderData();
   }
 
-  getServices() {
+  activeServices(pageNumber: number) {
+    this.currentPage = pageNumber;
     this.dataService
-      .getData('active-services')
+      .getDataByQueryParams(
+        'active-services', `?page=${pageNumber}&per_page=${this.perPageServices}`
+      )
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
-          this.services = data;
+          this.services = data.data;
+          this.totalItems = data.total;
         },
         error: error => {
           console.error(error);
