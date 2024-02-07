@@ -5,29 +5,16 @@ import { SwiperContainer } from 'swiper/element';
 import { DataService } from '../../services/data.service';
 import { SharedModule } from './../../shared/shared.module';
 import { environment } from '../../../environments/environment';
-import {
-  FormGroup,
-  Validators,
-  FormBuilder,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import {
-  OnInit,
-  inject,
-  Component,
-  ElementRef,
-  ViewChild,
-  AfterViewInit,
-  CUSTOM_ELEMENTS_SCHEMA,
-  OnDestroy
-} from '@angular/core';
 import { sliderPreviewConfig } from '../../shared/config/slider-config';
 import { bookingDateValidator } from '../../shared/validators/booking-date';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { OnInit, inject, Component, ElementRef, ViewChild, AfterViewInit, CUSTOM_ELEMENTS_SCHEMA, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [SharedModule, ReactiveFormsModule],
+  imports: [SharedModule, MatProgressSpinnerModule, ReactiveFormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   schemas: [
@@ -43,6 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   featureBlogs: any;
   featureServices: any;
   heroSectionData: any;
+
   featureDentists: any;
   teamSectionData: any;
   blogSectionData: any;
@@ -58,7 +46,6 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   private dataService = inject(DataService);
 
   private unsubscribe$ = new Subject<void>();
-
 
   @ViewChild('teamSwiper') teamSwiper!: ElementRef<SwiperContainer>;
   @ViewChild('serviceSwiper') serviceSwiper!: ElementRef<SwiperContainer>;
@@ -152,11 +139,10 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
           this.toastr.error('Form Submission Failed!');
         }
       });
-
   }
 
   ngAfterViewInit() {
-    if (this.teamSwiper.nativeElement.swiper && this.serviceSwiper.nativeElement.swiper) {
+    if (this.teamSwiper?.nativeElement?.swiper && this.serviceSwiper?.nativeElement?.swiper) {
       this.teamSwiper.nativeElement.swiper.activeIndex = this.index;
     }
   }

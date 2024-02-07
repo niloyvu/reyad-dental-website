@@ -2,12 +2,14 @@ import { Subscription } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { environment } from '../../../environments/environment';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Component, HostListener, OnDestroy, OnInit, inject } from '@angular/core';
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
     RouterLink,
+    MatProgressBarModule
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',

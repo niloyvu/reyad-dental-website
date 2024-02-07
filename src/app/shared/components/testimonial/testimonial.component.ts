@@ -8,7 +8,6 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@an
 
 @Component({
   selector: 'app-testimonial',
-  standalone: false,
   templateUrl: './testimonial.component.html',
   styleUrl: './testimonial.component.scss'
 })

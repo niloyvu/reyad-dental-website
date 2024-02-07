@@ -3,11 +3,12 @@ import { DataService } from '../../services/data.service';
 import { SharedModule } from '../../shared/shared.module';
 import { environment } from '../../../environments/environment';
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-about-us',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule, MatProgressBarModule],
   templateUrl: './about-us.component.html',
   styleUrl: './about-us.component.scss'
 })

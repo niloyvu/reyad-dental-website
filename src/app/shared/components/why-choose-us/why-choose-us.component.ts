@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-why-choose-us',
-  standalone: false,
   templateUrl: './why-choose-us.component.html',
   styleUrl: './why-choose-us.component.scss'
 })

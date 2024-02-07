@@ -18,23 +18,28 @@
     <div class="row">
         <div class="col-xxl-8 offset-xxl-2 col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
             <div class="section-title style-one text-center mb-40">
-                <span><img src="assets/img/section-shape.svg" alt="Image">{{bookAppointmentPageContents?.specialty_title}}</span>
-                <h2>{{bookAppointmentPageContents?.subtitle | removeLastWord}} <span>{{bookAppointmentPageContents?.subtitle | lastWord}}</span><img
-                        src="assets/img/section-shape-2.webp" alt="Image"></h2>
+                <span><img src="assets/img/section-shape.svg"
+                        alt="Image">{{bookAppointmentPageContents?.specialty_title}}</span>
+                <h2>{{bookAppointmentPageContents?.subtitle | removeLastWord}}
+                    <span>{{bookAppointmentPageContents?.subtitle | lastWord}}</span><img
+                        src="assets/img/section-shape-2.webp" alt="Image">
+                </h2>
             </div>
         </div>
     </div>
     <div class="row justify-content-center feature-card-wrap">
         @for (specialty of bookAppointmentPageContents?.specialties; track $index) {
-            <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6">
-                <div class="feature-card">
-                    <span><i [class]="specialty?.icon_name"></i></span>
-                    <h3>{{specialty?.title}}</h3>
-                    <p>{{specialty?.description}}</p>
-                </div>
+        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6">
+            <div class="feature-card">
+                <span><i [class]="specialty?.icon_name"></i></span>
+                <h3>{{specialty?.title}}</h3>
+                <p>{{specialty?.description}}</p>
             </div>
+        </div>
         }
     </div>
 </div>
 
+@defer {
 <app-appointment-section />
+}

@@ -1,3 +1,4 @@
+
 <div class="hero-wrap style-one">
     <img src="assets/img/hero/hero-shape-1.webp" alt="Image" class="hero-shape-one">
     <img src="assets/img/hero/hero-shape-2.webp" alt="Image" class="hero-shape-two">
@@ -115,9 +116,10 @@
         }
     </div>
 </div>
-
+@defer {
 <app-who-we-are />
-
+}
+@defer {
 <div class="service-wrap style-three bg_optional ptb-100">
     <div class="container">
         <img src="assets/img/services/service-shape-1.webp" alt="Image" class="service-shape moveHorizontal sm-none">
@@ -166,9 +168,9 @@
                 <div class="testimonial-pagination"></div>
             </div>
             <!-- <div class="testimonial-slider-btn slider-btn">
-                <div class="service-card-prev prev-btn"><img src="assets/img/left-arrow.svg" alt="Image"></div>
-                <div class="service-card-next next-btn"><img src="assets/img/right-arrow.svg" alt="Image"></div>
-            </div> -->
+                        <div class="service-card-prev prev-btn"><img src="assets/img/left-arrow.svg" alt="Image"></div>
+                        <div class="service-card-next next-btn"><img src="assets/img/right-arrow.svg" alt="Image"></div>
+                    </div> -->
         </div>
         <p class="section-subtitle mt-20 d-block w-100 text-center">{{serviceSectionData?.front_link_text}}
             <a routerLink="/services" class="link-one">{{serviceSectionData?.link_text}}</a>
@@ -176,10 +178,17 @@
 
     </div>
 </div>
+}
 
+@defer {
 <app-why-choose-us />
-<app-appointment-section />
+}
 
+@defer {
+<app-appointment-section />
+}
+
+@defer {
 <div class="cta-team-wrap">
     <div class="team-wrap">
         <div class="container">
@@ -191,9 +200,9 @@
                     </div>
                 </div>
                 <!-- <div class="team-slider-btn slider-btn">
-                    <div class="team-prev prev-btn"><img src="assets/img/left-arrow.svg" alt="Image"></div>
-                    <div class="team-next next-btn"><img src="assets/img/right-arrow.svg" alt="Image"></div>
-                </div> -->
+                        <div class="team-prev prev-btn"><img src="assets/img/left-arrow.svg" alt="Image"></div>
+                        <div class="team-next next-btn"><img src="assets/img/right-arrow.svg" alt="Image"></div>
+                    </div> -->
             </div>
             <div class="team-card-wrap">
                 <img src="assets/img/services/service-shape-3.webp" alt="Image" class="team-shape bounce">
@@ -253,9 +262,13 @@
         </div>
     </div>
 </div>
+}
 
+@defer {
 <app-testimonial />
+}
 
+@defer {
 <div class="blog-wrap style-one pt-100 pb-75 bg_optional">
     <div class="container">
         <img src="assets/img/blog/blog-shape-1.webp" alt="Image" class="blog-shape bounce sm-none">
@@ -296,3 +309,4 @@
         </div>
     </div>
 </div>
+}

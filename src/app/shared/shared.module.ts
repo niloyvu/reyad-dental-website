@@ -13,6 +13,8 @@ import { SwiperDirective } from './directive/swiper.directive';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { SlugGeneratorPipe } from './pipes/slug-generator.pipe';
 import { RemoveLastWordPipe } from './pipes/remove-last-word.pipe';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { WhoWeAreComponent } from './components/who-we-are/who-we-are.component';
 import { TestimonialComponent } from './components/testimonial/testimonial.component';
 import { VideoDialogComponent } from './components/video-dialog/video-dialog.component';
@@ -44,7 +46,9 @@ register();
     MatButtonModule,
     SlugGeneratorPipe,
     RemoveLastWordPipe,
-    ReactiveFormsModule
+    MatProgressSpinner,
+    ReactiveFormsModule,
+    MatProgressBarModule,
   ],
   exports: [
     DatePipe,
@@ -61,7 +65,9 @@ register();
     WhoWeAreComponent,
     SlugGeneratorPipe,
     RemoveLastWordPipe,
+    MatProgressSpinner,
     ReactiveFormsModule,
+    MatProgressBarModule,
     WhyChooseUsComponent,
     TestimonialComponent,
     AppointmentSectionComponent

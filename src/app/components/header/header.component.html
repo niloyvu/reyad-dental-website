@@ -1,5 +1,6 @@
 <!-- Start Navbar Area -->
 <div [class.sticky]="isSticky" class="navbar-area style-one" id="navbar">
+    @defer{
     <div class="header-top md-none">
         <div class="container">
             <div class="row">
@@ -19,7 +20,9 @@
             </div>
         </div>
     </div>
-
+    } @placeholder (minimum 1000ms) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    }
     <div class="container">
         <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand" routerLink="home">
@@ -98,6 +101,7 @@
 
 
 <!-- Start Responsive Navbar Area -->
+@defer{
 <div class="responsive-navbar offcanvas offcanvas-end" [class.show]="show" data-bs-backdrop="static" tabindex="-1"
     id="navbarOffcanvas">
     <div class="offcanvas-header">
@@ -184,6 +188,8 @@
         </div>
     </div>
 </div>
+}
+
 @if(show) {
 <div class="offcanvas-backdrop fade show"></div>
 }

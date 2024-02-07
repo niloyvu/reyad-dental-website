@@ -5,7 +5,6 @@ import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 
 @Component({
   selector: 'app-who-we-are',
-  standalone: false,
   templateUrl: './who-we-are.component.html',
   styleUrl: './who-we-are.component.scss'
 })
