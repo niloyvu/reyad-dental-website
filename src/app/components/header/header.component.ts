@@ -1,4 +1,4 @@
-import { Subscription } from 'rxjs';
+import { Subscription, filter, map } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { environment } from '../../../environments/environment';
@@ -17,7 +17,12 @@ import { Component, HostListener, OnDestroy, OnInit, inject } from '@angular/cor
 export class HeaderComponent implements OnInit, OnDestroy {
 
   menuState = 'out';
+
   headerData: any = [];
+  navigationLinks: any = [];
+
+  menuButton: any;
+
   show: boolean = false;
   isSticky: boolean = false;
 
@@ -34,6 +39,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.getNavigationLinks();
     this.getHeaderSectionData();
   }
 
@@ -43,6 +49,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe({
         next: ({ data }) => {
           this.headerData = data;
+        },
+        error: error => {
+          console.error(error);
+        }
+      })
+  }
+
+  getNavigationLinks() {
+    this.dataService
+      .getData('navigation-links')
+      .subscribe({
+        next: ({ data }) => {
+          this.navigationLinks = data;
+          this.menuButton = this.navigationLinks.find((link: any) => link.is_button === 1);
         },
         error: error => {
           console.error(error);

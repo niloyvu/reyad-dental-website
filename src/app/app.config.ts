@@ -1,6 +1,6 @@
 import { routes } from './app.routes';
 import { provideToastr } from 'ngx-toastr';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withViewTransitions } from '@angular/router';
 import { ApplicationConfig } from '@angular/core';
 import { provideClientHydration } from '@angular/platform-browser';
 import { loggingInterceptor } from './interceptors/logging.interceptor';
@@ -11,7 +11,9 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideToastr(),
     provideAnimations(),
-    provideRouter(routes),
+    provideRouter(routes,
+      withViewTransitions()
+    ),
     provideClientHydration(),
     provideHttpClient(
       withInterceptors([

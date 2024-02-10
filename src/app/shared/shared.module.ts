@@ -1,17 +1,17 @@
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { register } from 'swiper/element/bundle';
-import { MatCardModule } from '@angular/material/card';
-import { LastWordPipe } from './pipes/last-word.pipe';
 import { TruncatePipe } from './pipes/truncate.pipe';
+import { LastWordPipe } from './pipes/last-word.pipe';
+import { MatCardModule } from '@angular/material/card';
 import { CommonModule, DatePipe } from '@angular/common';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { SwiperDirective } from './directive/swiper.directive';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { SlugGeneratorPipe } from './pipes/slug-generator.pipe';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RemoveLastWordPipe } from './pipes/remove-last-word.pipe';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';

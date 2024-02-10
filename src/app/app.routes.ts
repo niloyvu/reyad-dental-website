@@ -1,16 +1,16 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import { BlogsComponent } from './pages/blogs/blogs.component';
 import { ShopComponent } from './pages/shop/shop.component';
+import { BlogsComponent } from './pages/blogs/blogs.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { ServicesComponent } from './pages/services/services.component';
-import { ContactUsComponent } from './pages/contact-us/contact-us.component';
-import { ServiceDetailsComponent } from './pages/services/service-details/service-details.component';
 import { DentistsComponent } from './pages/dentists/dentists.component';
-import { DentistDetailsComponent } from './pages/dentists/dentist-details/dentist-details.component';
-import { BookAppointmentComponent } from './pages/book-appointment/book-appointment.component';
+import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 import { BlogDetailsComponent } from './pages/blogs/blog-details/blog-details.component';
+import { BookAppointmentComponent } from './pages/book-appointment/book-appointment.component';
 import { ProductDetailsComponent } from './pages/shop/product-details/product-details.component';
+import { DentistDetailsComponent } from './pages/dentists/dentist-details/dentist-details.component';
+import { ServiceDetailsComponent } from './pages/services/service-details/service-details.component';
 
 export const routes: Routes = [
 
