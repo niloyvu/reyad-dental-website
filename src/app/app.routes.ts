@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { ShopComponent } from './pages/shop/shop.component';
 import { BlogsComponent } from './pages/blogs/blogs.component';
+import { GalleryComponent } from './pages/gallery/gallery.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { ServicesComponent } from './pages/services/services.component';
 import { DentistsComponent } from './pages/dentists/dentists.component';
@@ -62,6 +63,10 @@ export const routes: Routes = [
     {
         path: 'contact-us',
         component: ContactUsComponent,
+    },
+    {
+        path: 'gallery',
+        component: GalleryComponent,
     },
     {
         path: 'book-appointment',

@@ -46,7 +46,7 @@
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto">
                     @for (link of navigationLinks; track $index) {
-                    @if(link.is_button == 0) {
+                    @if(link?.is_button == 0 && link?.status == 1) {
                     <li class="nav-item">
                         <a [routerLink]="link?.path" class="dropdown-toggle nav-link">
                             {{link?.name}}
