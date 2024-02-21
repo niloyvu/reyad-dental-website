@@ -8,7 +8,7 @@ import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/
 import { InMemoryScrollingFeature, InMemoryScrollingOptions, provideRouter, withInMemoryScrolling, withViewTransitions } from '@angular/router';
 
 const scrollConfig: InMemoryScrollingOptions = {
-  scrollPositionRestoration: 'top',
+  scrollPositionRestoration: 'enabled',
   anchorScrolling: 'enabled',
 };
 

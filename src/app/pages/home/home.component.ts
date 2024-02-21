@@ -68,10 +68,6 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     grabCursor: true,
     loop: false,
     speed: 1200,
-    navigation: {
-      nextEl: ".service-card-next",
-      prevEl: ".service-card-prev"
-    },
     breakpoints: sliderPreviewConfig
   }
 
@@ -80,10 +76,6 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     grabCursor: true,
     loop: false,
     speed: 1200,
-    navigation: {
-      nextEl: ".service-card-next",
-      prevEl: ".service-card-prev"
-    },
     breakpoints: sliderPreviewConfig
   }
 
@@ -97,7 +89,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: ({ data }) => {
-          this.featureBlogs = data.featureBlogs;
+          this.featureBlogs = data.featureBlogs.slice(0,3);
           this.heroSectionData = data.heroSection;
           this.teamSectionData = data.teamSection;
           this.blogSectionData = data.blogSection;
