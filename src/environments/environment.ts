@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
-  API_URL: 'http://localhost/hospital-backend-main/public/api',
-  IMAGE_URL: 'http://localhost/hospital-backend-main/public/uploads/'
+    API_URL: 'https://backend.drreyaddental.com/public/api',
+    IMAGE_URL: 'https://backend.drreyaddental.com/public/uploads/',
 };
 
 
